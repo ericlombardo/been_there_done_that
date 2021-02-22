@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_02_22_184541) do
+ActiveRecord::Schema.define(version: 2021_02_22_194331) do
 
   create_table "activities", force: :cascade do |t|
     t.string "name"
@@ -38,6 +38,15 @@ ActiveRecord::Schema.define(version: 2021_02_22_184541) do
     t.text "notes"
     t.text "misc"
     t.integer "user_id"
+  end
+
+  create_table "states", force: :cascade do |t|
+    t.string "name"
+    t.string "capital"
+    t.string "motto"
+    t.string "land_area"
+    t.string "state_forests"
+    t.string "state_parks_and_rec_areas"
   end
 
   create_table "users", force: :cascade do |t|
