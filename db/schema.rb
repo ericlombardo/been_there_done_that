@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_02_22_194331) do
+ActiveRecord::Schema.define(version: 2021_02_22_200425) do
 
   create_table "activities", force: :cascade do |t|
     t.string "name"
@@ -38,6 +38,16 @@ ActiveRecord::Schema.define(version: 2021_02_22_194331) do
     t.text "notes"
     t.text "misc"
     t.integer "user_id"
+  end
+
+  create_table "state_activities", force: :cascade do |t|
+    t.integer "state_id"
+    t.integer "activity_id"
+  end
+
+  create_table "state_adventures", force: :cascade do |t|
+    t.integer "state_id"
+    t.integer "adventure_id"
   end
 
   create_table "states", force: :cascade do |t|
