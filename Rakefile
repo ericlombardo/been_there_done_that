@@ -5,7 +5,7 @@ require_relative './config/environment'
 require 'sinatra/activerecord/rake'
 
 desc 'enter into Pry'
-task :c do
+task :c => :env do
   Pry.start
 end
 
