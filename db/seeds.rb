@@ -1,18 +1,53 @@
-i = 0
-10.times do 
-  user = User.create(username: "#{i}", password: "#{i}")
-  3.times do
-    adventure = Adventure.new(title: "epic trip #{i}")
-    state = State.new(name: "#{i}")
-    activity = Activity.new(name: "#{i}")
+states = [  # land area in sq miles
+    {name: "Alabama", capital: "Montgomery", land_area: "50,744", state_forests: "21", state_parks: "22"},
+    {name: "Alaska", capital: "Juneau", land_area: "570,641", state_forests: "", state_parks: "100+"},
+    {name: "Arizona", capital: "Phoenix", land_area: "113,595", state_forests: "", state_parks: "28"},
+    {name: "Arkansas", capital: "Little Rock", land_area: "52,068", state_forests: "", state_parks: "51"},
+    {name: "California", capital: "Sacramento", land_area: "155,959", state_forests: "", state_parks: "278"},
+    {name: "Colorado", capital: "Denver", land_area: "103,717", state_forests: "1", state_parks: "44"},
+    {name: "Connecticut", capital: "Hartford", land_area: "4,844", state_forests: "94", state_parks: "94"},
+    {name: "Delaware", capital: "Dover", land_area: "1,954", state_forests: "3", state_parks: "14"},
+    {name: "Florida", capital: "Tallahassee", land_area: "53,927", state_forests: "31", state_parks: "159"},
+    {name: "Georgia", capital: "Atlanta", land_area: "57,906", state_forests: "6", state_parks: "64"},
+    {name: "Hawaii", capital: "Honolulu", land_area: "6,423", state_forests: "19", state_parks: "52"},
+    {name: "Idaho", capital: "Boise", land_area: "82,747", state_forests: "", state_parks: "30"},
+    {name: "Illinois", capital: "Springfield", land_area: "55,584", state_forests: "", state_parks: ""},
+    {name: "Indiana", capital: "Indianapolis", land_area: "35,867", state_forests: "", state_parks: "23"},
+    {name: "Iowa", capital: "Des Moines", land_area: "55,869", state_forests: "10", state_parks: "84"},
+    {name: "Kansas", capital: "Topeka", land_area: "81,815", state_forests: "", state_parks: "24"},
+    {name: "Kentucky", capital: "Frankfort", land_area: "39,728", state_forests: "5", state_parks: "52"},
+    {name: "Louisiana", capital: "Baton Rouge", land_area: "43,156", state_forests: "1", state_parks: "35"},
+    {name: "Maine", capital: "Augusta", land_area: "30,862", state_forests: "1", state_parks: "30+"},
+    {name: "Maryland", capital: "Annapolis", land_area: "9,774", state_forests: "7", state_parks: "40"},
+    {name: "Massachusetts", capital: "Boston", land_area: "7,840", state_forests: "", state_parks: ""},
+    {name: "Michigan", capital: "Lansing", land_area: "56,804", state_forests: "", state_parks: "97"},
+    {name: "Minnesota", capital: "St. Paul", land_area: "79,610", state_forests: "58", state_parks: "72"},
+    {name: "Mississippi", capital: "Jackson", land_area: "46,907", state_forests: "", state_parks: "24"},
+    {name: "Missouri", capital: "Jefferson City", land_area: "68,886", state_forests: "", state_parks: "81"},
+    {name: "Montana", capital: "Helena", land_area: "145,552", state_forests: "7", state_parks: "50"},
+    {name: "Nebraska", capital: "Lincoln", land_area: "77,358", state_forests: "", state_parks: "87"},
+    {name: "Nevada", capital: "Carson City", land_area: "110,577", state_forests: "", state_parks: "24"},
+    {name: "New Hampshire", capital: "Concord", land_area: "9,349", state_forests: "", state_parks: "72"}, 
+    {name: "New Jersey", capital: "Trenton", land_area: "8,722.58", state_forests: "11", state_parks: "42"}, 
+    {name: "New Mexico", capital: "Santa Fe", land_area: "121,589", state_forests: "", state_parks: "31"}, 
+    {name: "New York", capital: "Albany", land_area: "54,555", state_forests: "", state_parks: "176"},  
+    {name: "North Carolina", capital: "Raleigh", land_area: "53,819", state_forests: "", state_parks: "29"},  
+    {name: "North Dakota", capital: "Bismarck", land_area: "70,698", state_forests: "", state_parks: "17"}, 
+    {name: "Ohio", capital: "Columbus", land_area: "44,825", state_forests: "20", state_parks: "74"},
+    {name: "Oklahoma", capital: "Oklahoma City", land_area: "69,897", state_forests: "", state_parks: "50"}, 
+    {name: "Oregon", capital: "Salem", land_area: "98,381", state_forests: "", state_parks: "231"}, 
+    {name: "Pennsylvania", capital: "Harrisburg", land_area: "46,055", state_forests: "", state_parks: "116"}, 
+    {name: "Rhode Island", capital: "Providence", land_area: "1,214", state_forests: "", state_parks: "14"},  
+    {name: "South Carolina", capital: "Columbia", land_area: "30,109", state_forests: "4", state_parks: "47"}, 
+    {name: "South Dakota", capital: "Pierre", land_area: "78,116", state_forests: "", state_parks: "12"},  
+    {name: "Tennessee", capital: "Nashville", land_area: "41,217", state_forests: "15", state_parks: "54"}, 
+    {name: "Texas", capital: "Austin", land_area: "268,581", state_forests: "5", state_parks: "115"},  
+    {name: "Utah", capital: "Salt Lake City", land_area: "84,899", state_forests: "40", state_parks: "40"}, 
+    {name: "Vermont", capital: "Montpelier", land_area: "9,616", state_forests: "", state_parks: "52"}, 
+    {name: "Virginia", capital: "Richmond", land_area: "42,774.2", state_forests: "16", state_parks: "34"}, 
+    {name: "Washington", capital: "Olympia", land_area: "71,362", state_forests: "", state_parks: "120"}, 
+    {name: "West Virginia", capital: "Charleston", land_area: "24,230", state_forests: "9", state_parks: "37"}, 
+    {name: "Wisconsin", capital: "Madison", land_area: "65,498.37", state_forests: "95", state_parks: "95"}, 
+    {name: "Wyoming", capital: "Cheyenne", land_area: "97,914", state_forests: "", state_parks: "24"}]
 
-
-    adventure.states << state
-    adventure.activities << activity
-
-    adventure.save 
-    state.save
-    activity.save
-  end
-  i += 1
-end
+states.each do {|params| State.create(params)}

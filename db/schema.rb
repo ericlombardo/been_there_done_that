@@ -53,10 +53,9 @@ ActiveRecord::Schema.define(version: 2021_02_22_200425) do
   create_table "states", force: :cascade do |t|
     t.string "name"
     t.string "capital"
-    t.string "motto"
     t.string "land_area"
     t.string "state_forests"
-    t.string "state_parks_and_rec_areas"
+    t.string "state_parks"
   end
 
   create_table "users", force: :cascade do |t|

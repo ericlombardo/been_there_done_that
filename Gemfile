@@ -14,6 +14,7 @@ gem 'tux'
 gem 'dotenv'
 gem 'httparty'
 gem 'nokogiri'
+gem 'open-uri'
 
 group :development do
 end
