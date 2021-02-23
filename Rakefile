@@ -14,11 +14,7 @@ task :env do
   require_relative './config/environment'
 end
 
-desc 'reload files'
-task :reload! do
-  load_all "./config" if Dir.exists?("./config")
-  load_all "./app" if Dir.exists?("./app")
-  load_all "./lib" if Dir.exists?("./lib")
-  load_all "./*.rb" if Dir.entries(".").include?(/\.rb/)
-  puts "bingo"
+desc 'execute state_info_scraper'
+task :scrape => :env do
+  StateInfoScraper.new.scrape("https://www.infoplease.com/us/states")
 end

@@ -6,12 +6,9 @@ Bundler.require(:default, ENV['SINATRA_ENV'])
 configure :development do   # found on a learn lesson
   set :database, 'sqlite3:db/development.sqlite'
 end
-configure :test do
-  set :database, 'sqlite3:db/test.sqlite'
-end
 
 Dotenv.load
-
+require_all 'lib'
 
 ActiveRecord::Base.establish_connection(
   :adapter => "sqlite3",

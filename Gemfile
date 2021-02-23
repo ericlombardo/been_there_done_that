@@ -12,6 +12,11 @@ gem 'pry'
 gem 'bcrypt'
 gem 'tux'
 gem 'dotenv'
+gem 'httparty'
+gem 'nokogiri'
+
+group :development do
+end
 
 group :test do
   gem 'rspec'
