@@ -3,7 +3,7 @@ class CreateAdventures < ActiveRecord::Migration[5.2]
     create_table :adventures do |t|
       t.string :title
       t.integer :rating
-      t.boolean :go_again?
+      t.boolean :go_again
       t.string :start_date
       t.string :end_date
       t.float :miles_covered
@@ -14,7 +14,6 @@ class CreateAdventures < ActiveRecord::Migration[5.2]
       t.string :transportation
       t.string :food
       t.text :notes
-      t.text :misc
 
       t.integer :user_id
     end

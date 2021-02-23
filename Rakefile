@@ -14,7 +14,3 @@ task :env do
   require_relative './config/environment'
 end
 
-desc 'execute state_info_scraper'
-task :scrape => :env do
-  StateInfoScraper.new.scrape_and_create_states
-end

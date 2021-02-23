@@ -12,9 +12,7 @@ gem 'pry'
 gem 'bcrypt'
 gem 'tux'
 gem 'dotenv'
-gem 'httparty'
-gem 'nokogiri'
-gem 'open-uri'
+gem 'faker'
 
 group :development do
 end

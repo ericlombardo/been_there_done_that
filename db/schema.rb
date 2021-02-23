@@ -25,7 +25,7 @@ ActiveRecord::Schema.define(version: 2021_02_22_200425) do
   create_table "adventures", force: :cascade do |t|
     t.string "title"
     t.integer "rating"
-    t.boolean "go_again?"
+    t.boolean "go_again"
     t.string "start_date"
     t.string "end_date"
     t.float "miles_covered"
@@ -36,7 +36,6 @@ ActiveRecord::Schema.define(version: 2021_02_22_200425) do
     t.string "transportation"
     t.string "food"
     t.text "notes"
-    t.text "misc"
     t.integer "user_id"
   end
 
