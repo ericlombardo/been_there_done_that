@@ -3,12 +3,24 @@ class User < ActiveRecord::Base
   has_many :adventures
   has_many :activities, through: :adventures
   has_many :states, through: :adventures
-  validates_associated :adventures, :activities, :states
-  validates :username, presence: { message: "must be present to proceed"}, if: :username_nil?
-  validates_uniqueness_of :username, { message: "%{value} is already taken. Try another to proceed"}
-  validates :email, presence: { message: "must be present to proceed"}
 
-  def username_nil?
-    !!username.nil?
+  validates_associated :adventures, :activities, :states  # validates associations
+
+  validates :username, :email, presence: true # confirm has email
+  validates :password, length: { minimum: 7 }, unless: :no_password # confirm has password
+  validates :username, uniqueness: { message: "%{value} is already taken. Try a different username"}, unless: :no_username  # confirm unique password
+  validates :email, format: { with: /.{1,}@[^.]{1,}/, message: "is not valid"}, unless: :no_email  # confirm email format (got regex from sigparser.com)
+
+
+  def no_password
+    !password
+  end
+
+  def no_username
+    !username
+  end
+
+  def no_email
+    !email
   end
 end

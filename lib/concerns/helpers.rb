@@ -4,7 +4,7 @@ module Helpers
       !!session[:user_id]
     end
 
-    def user_id
+    def session_id
       session[:user_id]
     end
   end

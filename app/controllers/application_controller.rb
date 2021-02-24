@@ -16,15 +16,22 @@ class ApplicationController < Sinatra::Base
   end
 
   get "/login" do  # if logged in => go to user profile else => show login form
-    logged_in? ? (redirect to "/users/#{user_id}") : (erb :login)
+    logged_in? ? (redirect to "/users/#{session_id}") : (erb :login)
   end
 
   get "/signup" do
-    logged_in? ? (redirect to "/users/#{user_id}") : (erb :signup)
+    logged_in? ? (redirect to "/users/#{session_id}") : (erb :signup)
   end
 
-  post "/signup" do
-    binding.pry
+  post "/signup" do # take input from params, new user, validate, sign them in, send them to profile
+
+    if User.new(params).valid? # if valid create user, assign session id, redirect to profile
+      user = User.create(params)
+      session[:user_id] = user.id 
+      redirect to "/users/#{session_id}"
+    else
+      'bingo'
+    end
   end
 
 
