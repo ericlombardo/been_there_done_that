@@ -10,6 +10,7 @@ class ApplicationController < Sinatra::Base
   end
 
   get "/" do
+    "<h1>Bingo</h1>"
   end
 
 end
