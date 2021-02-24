@@ -62,24 +62,24 @@ memories = [ # List of adventure memories
 companions = [ # List of adventure companions
   Faker::Name.name, Faker::Name.name, Faker::Name.name, Faker::Name.name, Faker::Name.name, Faker::Name.name, Faker::Name.name, Faker::Name.name, Faker::Name.name, Faker::Name.name]
 foods = [ # List of adventure foods
-  Faker::Food.vegetables, Faker::Food.vegetables, Faker::Food.vegetables, Faker::Food.fruits, Faker::Food.fruits, Faker::Food.fruits, Faker::Food.fruits, Faker::Food.dish, Faker::Food.dish, Faker::Food.dish, Faker::Food.dish, Faker::Food.dish, Faker::Food.dish, Faker::Food.dish, Faker::Food.dish, Faker::Food.dish, Faker::Food.dish, Faker::Food.dish, Faker::Food.dish, Faker::Food.dish, Faker::Food.dish, Faker::Food.dish, Faker::Food.dish, Faker::Food.dish, Faker::Food.dish, Faker::Food.dish]
+	Faker::Food.vegetables, Faker::Food.vegetables, Faker::Food.vegetables, Faker::Food.fruits, Faker::Food.fruits, Faker::Food.fruits, Faker::Food.fruits, Faker::Food.dish, Faker::Food.dish, Faker::Food.dish, Faker::Food.dish, Faker::Food.dish, Faker::Food.dish, Faker::Food.dish, Faker::Food.dish, Faker::Food.dish, Faker::Food.dish, Faker::Food.dish, Faker::Food.dish, Faker::Food.dish, Faker::Food.dish, Faker::Food.dish, Faker::Food.dish, Faker::Food.dish, Faker::Food.dish, Faker::Food.dish]
 notes = [
-  "A tree cannot be straight if it has a crooked trunk. Here we're limited by the time we have. This is your creation - and it's just as unique and special as you are. Automatically, all of these beautiful, beautiful things will happen. When things happen - enjoy them. They're little gifts. That's a crooked tree. We'll send him to Washington.", "Just relax and let it flow. That easy. See there how easy that is. When you do it your way you can go anywhere you choose. If you do too much it's going to lose its effectiveness", "This is unplanned it really just happens. We don't have to be concerned about it. We just have to let it fall where it will. No pressure. Just relax and watch it happen."
+	"A tree cannot be straight if it has a crooked trunk. Here we're limited by the time we have. This is your creation - and it's just as unique and special as you are. Automatically, all of these beautiful, beautiful things will happen. When things happen - enjoy them. They're little gifts. That's a crooked tree. We'll send him to Washington.", "Just relax and let it flow. That easy. See there how easy that is. When you do it your way you can go anywhere you choose. If you do too much it's going to lose its effectiveness", "This is unplanned it really just happens. We don't have to be concerned about it. We just have to let it fall where it will. No pressure. Just relax and watch it happen."
 ]
-
+	
 # Create States
 states.each {|params| State.create(params)}
 
 # Create Activities
 activities.each {|activity| Activity.create(name: activity)}
 
+# binding.pry
 # Create User
 10.times do
-  user = User.new
-  user.username = Faker::Name.name
-  user.email = Faker::Internet.free_email(name: user.username)
-  user.password = Faker::Alphanumeric.alphanumeric(number: 4)
-  user.save
+  username = Faker::Name.unique.name
+  email = Faker::Internet.free_email(name: username)
+  password = Faker::Alphanumeric.alphanumeric(number: 4)
+  user = User.create(username: username, email: email, password: password)
 
   # Create Adventures
   rand(1..4).times do
@@ -97,7 +97,7 @@ activities.each {|activity| Activity.create(name: activity)}
     adventure.transportation = Faker::Vehicle.make
     adventure.food = foods.sample(rand(3..6))
     adventure.notes = notes.sample
-    adventure.user_id = user.id
+		adventure.user_id = user.id
 
     # Create adventure states and activities
     ad_states = State.all.sample(rand(1..3))
