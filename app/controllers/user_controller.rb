@@ -10,3 +10,14 @@ class UserController < ApplicationController
     end
   end
 
+  get "/users/:id" do
+    binding.pry
+    @user = User.find(params[:id])
+    erb :"users/show"
+  end
+
+  delete "/users/:id" do
+    find_user.destroy
+    redirect "/login"
+  end
+end

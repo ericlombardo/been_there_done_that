@@ -1,0 +1,9 @@
+<h1>Homebase for <%=@user.username %></h1>
+
+<form method="POST" action="/logout">
+  <input type="submit" id="logout_button" value="Logout">
+</form>
+<form method="POST" action="/users/<%=@user.id %>">
+  <input id="hidden" type="hidden" name="_method" value="DELETE">
+  <input type="submit" value="Delete Profile">
+</form>

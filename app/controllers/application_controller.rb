@@ -30,7 +30,8 @@ class ApplicationController < Sinatra::Base
 
   post "/signup" do # validates input, logs in and shows profile page if valid, reloads if not
     user = User.new(params)
-    if user.save # if valid create user, assign session id, redirect to profile
+    if user
+      user.save # if valid create user, assign session id, redirect to profile
       session[:user_id] = user.id 
       # add message saying successfully logged in
       redirect to "/users/#{session_id}"
@@ -49,6 +50,17 @@ class ApplicationController < Sinatra::Base
     else
       # add message saying no match. retry or click link to signup
       redirect "/login" 
+    end
+  end
+
+  post "/logout" do # clears session and redirects to login || redirects to login
+    if logged_in?
+      session.clear
+      # mes. successfully logged out, until next time
+      redirect "/login"
+    else
+      # mes. must be logged in to logout
+      redirect "/login"
     end
   end
 end
