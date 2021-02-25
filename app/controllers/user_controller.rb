@@ -10,7 +10,3 @@ class UserController < ApplicationController
     end
   end
 
-  get "/users/:id" do
-    "bingo"
-  end
-end

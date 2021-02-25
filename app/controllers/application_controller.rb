@@ -16,7 +16,7 @@ class ApplicationController < Sinatra::Base
     redirect '/login'
   end
 
-  get "/login" do  # if logged in => go to user profile else => show login form
+  get "/login" do  # show login form, if signed in show profile page
     if logged_in?
       redirect to "/users/#{session_id}"
     else
@@ -24,17 +24,31 @@ class ApplicationController < Sinatra::Base
     end
   end
 
-  get "/signup" do
+  get "/signup" do  # shows signup form, if signed in show profile page
     logged_in? ? (redirect to "/users/#{session_id}") : (erb :signup)
   end
 
-  post "/signup" do # take input from params, new user, validate, sign them in, send them to profile
+  post "/signup" do # validates input, logs in and shows profile page if valid, reloads if not
     user = User.new(params)
     if user.save # if valid create user, assign session id, redirect to profile
       session[:user_id] = user.id 
+      # add message saying successfully logged in
       redirect to "/users/#{session_id}"
     else
+      # add message showing errros
       redirect "/signup"
+    end
+  end
+
+  post "/login" do  # validates pre-existing user, shows profile page or reloads login
+    user = User.find_by(username: params[:username])
+    if user && user.authenticate(params[:password])
+      session[:user_id] = user.id
+      # add message saying successfully logged in
+      redirect "/users/#{session_id}"
+    else
+      # add message saying no match. retry or click link to signup
+      redirect "/login" 
     end
   end
 end
