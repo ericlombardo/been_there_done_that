@@ -1,7 +1,7 @@
 class UserController < ApplicationController
 
-  get '/users' do
-    # show all users
+  get '/users' do  # show all users
+    binding.pry
     if logged_in?
       @users = User.all
       erb :"users/index"
@@ -11,13 +11,21 @@ class UserController < ApplicationController
   end
 
   get "/users/:id" do
-    binding.pry
-    @user = User.find(params[:id])
-    erb :"users/show"
+    if logged_in?
+      @user = User.find(params[:id])
+      erb :"users/show"
+    else
+      redirect "/login"
+    end
   end
 
   delete "/users/:id" do
-    find_user.destroy
-    redirect "/login"
+    if logged_in?
+      find_user.destroy
+      session.clear
+      redirect "/login"
+    else
+      redirect "/login"
+    end
   end
 end

@@ -1,8 +1,12 @@
-<h1>Homebase for <%=@user.username %></h1>
+<h1>Welcome back <%=@user.username %></h1>
 
+create for with button for 
+  see other users 
+  create adventure
+  my adventures
 <form method="POST" action="/logout">
   <input type="submit" id="logout_button" value="Logout">
-</form>
+</form><br>
 <form method="POST" action="/users/<%=@user.id %>">
   <input id="hidden" type="hidden" name="_method" value="DELETE">
   <input type="submit" value="Delete Profile">
