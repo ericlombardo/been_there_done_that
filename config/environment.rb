@@ -8,13 +8,13 @@ configure :development do   # found on a learn lesson
 end
 
 Dotenv.load
-require_all 'lib'
 
 ActiveRecord::Base.establish_connection(
   :adapter => "sqlite3",
   :database => "db/#{ENV['SINATRA_ENV']}.sqlite"
 )
 
- # check if getting rid of this breaks anything should do the same as line 12
+require_all 'lib'
 require './app/controllers/application_controller' 
+require './app/controllers/user_controller'
 require_all 'app'

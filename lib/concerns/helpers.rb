@@ -10,7 +10,6 @@ module Helpers
   end
 
   module ClassMethods
-    def second_testing
-    end
+
   end
 end

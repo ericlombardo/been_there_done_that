@@ -6,5 +6,5 @@ require './config/environment'
 
 use Rack::MethodOverride
 
-# use other controllers here
+use UserController
 run ApplicationController
