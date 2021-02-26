@@ -15,4 +15,8 @@ class AdventureController < ApplicationController
     erb :"adventures/show"
   end
 
+  post "/adventures/new" do # show form to log a new trip
+    binding.pry
+    erb :"adventures/new"
+  end
 end
