@@ -78,17 +78,17 @@ activities.each {|activity| Activity.create(name: activity)}
     adventure = Adventure.new
     adventure.title = titles.sample
     adventure.rating = Faker::Number.within(range: 1..10)
-    adventure.go_again = Faker::Boolean.boolean
+    adventure.recommend = Faker::Boolean.boolean
     adventure.start_date = Faker::Date.backward(days: 4000)
     adventure.end_date = Faker::Date.between(from: adventure.start_date, to: Faker::Date.forward(days: 30))
     adventure.miles_covered = Faker::Number.within(range: 50..3000)
     adventure.companions = companions.sample(rand(0..4))
-    adventure.favorite_memory = memories.sample
+    adventure.highlight = memories.sample
     adventure.weather = weather.sample
     adventure.summary = summaries.sample
     adventure.transportation = Faker::Vehicle.make
     adventure.food = foods.sample(rand(3..6))
-    adventure.notes = notes.sample
+    adventure.private_notes = notes.sample
 		adventure.user_id = user.id
 
     # Create adventure states and activities
