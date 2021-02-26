@@ -1,0 +1,7 @@
+<h1>Other Adventurers</h1>
+
+<% @users.each do |u| %>
+  <% if u.id != session_id %>
+    <h5><a href="/users/<%=u.id %>"><%= u.username %></a></h5>
+  <% end %>
+<% end %>

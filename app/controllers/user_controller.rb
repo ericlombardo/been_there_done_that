@@ -1,7 +1,6 @@
 class UserController < ApplicationController
 
   get '/users' do  # show all users
-    binding.pry
     if logged_in?
       @users = User.all
       erb :"users/index"
@@ -17,6 +16,10 @@ class UserController < ApplicationController
     else
       redirect "/login"
     end
+  end
+
+  post "/users" do
+    redirect "/users"
   end
 
   delete "/users/:id" do

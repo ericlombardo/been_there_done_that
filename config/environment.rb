@@ -17,4 +17,5 @@ ActiveRecord::Base.establish_connection(
 require_all 'lib'
 require './app/controllers/application_controller' 
 require './app/controllers/user_controller'
+require './app/controllers/adventure_controller'
 require_all 'app'

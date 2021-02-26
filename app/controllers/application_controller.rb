@@ -1,6 +1,5 @@
 require './config/environment'
 
-
 class ApplicationController < Sinatra::Base
   include Helpers::InstanceMethods
   extend Helpers::ClassMethods
@@ -10,6 +9,7 @@ class ApplicationController < Sinatra::Base
     set :views, 'app/views'
     enable :sessions
     set :session_secret, ENV.fetch('SESSION_SECRET') { SecureRandom.hex(64) }
+    register Sinatra::Flash
   end
 
   get "/" do  # goes to login page to start signing in

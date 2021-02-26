@@ -1,13 +1,17 @@
-<h1>Welcome back <%=@user.username %></h1>
+<% if creator? %>
+  <h1>Welcome Back <%=@user.username %></h1>
+<% else %>
+  <h1><%=@user.username %>'s Profile</h1>
+<% end %>
 
-create for with button for 
-  see other users 
-  create adventure
-  my adventures
-<form method="POST" action="/logout">
-  <input type="submit" id="logout_button" value="Logout">
-</form><br>
-<form method="POST" action="/users/<%=@user.id %>">
-  <input id="hidden" type="hidden" name="_method" value="DELETE">
-  <input type="submit" value="Delete Profile">
-</form>
+
+<a href="/users"><button>Other Users</button></a>
+<br>
+<a href="/adventures"><button>Other Adventures</button></a>
+<br>
+<% if creator? %>
+  <!--Logout Button-->
+  <form method="POST" action="/logout"><button>Logout</button></form><br>
+  <!--Delete Profile Button-->
+  <form method="POST" action="/users/<%=@user.id %>"><input id="hidden" type="hidden" name="_method" value="DELETE"><button>Delete Profile</button></form>
+<% end %>

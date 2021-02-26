@@ -1,0 +1,5 @@
+<h1>Adventures</h1>
+
+<% @adventures.each do |a| %>
+  <h5><a href="adventures/<%=a.id%>"><%=a.title %></a> - <%=a.user.username %></h5>
+<% end %>
