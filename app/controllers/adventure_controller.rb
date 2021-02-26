@@ -19,6 +19,7 @@ class AdventureController < ApplicationController
 
 
   post "/adventures" do
+    binding.pry
     adventure = Adventure.new(params[:adventure])
     if adventure.save
       adventure.user_id = current_user
