@@ -15,7 +15,7 @@ class ApplicationController < Sinatra::Base
   get "/" do  # goes to login page to start signing in
     redirect '/login'
   end
-
+  
   get "/login" do  # show login form, if signed in show profile page
     if logged_in?
       redirect to "/users/#{session_id}"
