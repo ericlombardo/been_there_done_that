@@ -17,7 +17,6 @@ class AdventureController < ApplicationController
     erb :"adventures/show"
   end
 
-
   post "/adventures" do 
     adventure = Adventure.new(params[:adventure])
     
@@ -39,5 +38,9 @@ class AdventureController < ApplicationController
       # mes. errors 
       redirect "/adventures/new"
     end
+  end
+
+  get "/adventures/:id/edit" do
+    erb :"adventures/edit"
   end
 end

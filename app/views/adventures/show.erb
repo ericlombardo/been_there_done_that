@@ -14,4 +14,11 @@
 <h5>Trip Summary:</h5>
 <h5><%=@adventure.summary %></h5>
 <h5>Private Notes: </h5>
-<h5><%=@adventure.private_notes %></h5>
+<h5><%=@adventure.private_notes %></h5><br>
+
+<% if creator? %>
+  if creator, then show button to redirect to 'adventures/:id/edit'
+  <a href="/adventures/<%=@adventure.id %>/edit">
+    <button>Edit Adventure</button>
+  </a>
+<% end %>
