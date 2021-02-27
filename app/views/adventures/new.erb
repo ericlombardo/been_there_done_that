@@ -55,7 +55,7 @@
   <!--States and Activities Section-->
 
   <label for="states">Select State:</label><br>
-  <select name="state_ids[][state_1]" id="state_1"><br>
+  <select name="state_ids[]" id="state_1"><br>
     <option selected disabled hidden style='display: none' value=''></option>
     <% @states.each do |s| %>
     <option value="<%=s.id %>"><%=s.name %></option>
@@ -63,8 +63,8 @@
   </select><br>
   
   <label for="activites">Select Activities:</label><br>
-  <% 5.times do %>
-  <select name="activities[state_1][]" id="activities">
+  <% 3.times do %>
+  <select name="state_1_activity_ids[]" id="activities">
     <!--Found this code snippet https://stackoverflow.com/questions/6223865/blank-html-select-without-blank-item-in-dropdown-list/19704217-->
     <option selected disabled hidden style='display: none' value=''></option>
     <% @activities.each do |a| %>
@@ -75,15 +75,15 @@
 
 
   <label for="states">Another State:</label><br>  
-  <select name="state_ids[][state_2]" id="state_2"><br>
+  <select name="state_ids[]" id="state_2"><br>
     <option selected disabled hidden style='display: none' value=''></option>
     <% @states.each do |s| %>
     <option value="<%=s.id %>"><%=s.name %></option>
     <% end %>
   </select><br>
 
-  <% 5.times do %>
-  <select name="activities[state_2][]" id="activities">
+  <% 3.times do %>
+  <select name="state_2_activity_ids[]" id="activities">
     <!--Found this code snippet https://stackoverflow.com/questions/6223865/blank-html-select-without-blank-item-in-dropdown-list/19704217-->
     <option selected disabled hidden style='display: none' value=''></option>
     <% @activities.each do |a| %>
@@ -91,7 +91,24 @@
     <% end %>
   </select>
   <% end %><br>
+  
+  <label for="states">Another State:</label><br>  
+  <select name="state_ids[]" id="state_3"><br>
+    <option selected disabled hidden style='display: none' value=''></option>
+    <% @states.each do |s| %>
+    <option value="<%=s.id %>"><%=s.name %></option>
+    <% end %>
+  </select><br>
 
+  <% 3.times do %>
+  <select name="state_3_activity_ids[]" id="activities">
+    <!--Found this code snippet https://stackoverflow.com/questions/6223865/blank-html-select-without-blank-item-in-dropdown-list/19704217-->
+    <option selected disabled hidden style='display: none' value=''></option>
+    <% @activities.each do |a| %>
+    <option value="<%=a.id%>"><%=a.name %></option>
+    <% end %>
+  </select>
+  <% end %><br>
 
   <input type="submit" value="Log Adventure">
 </from>
