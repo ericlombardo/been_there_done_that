@@ -22,24 +22,19 @@ class AdventureController < ApplicationController
     adventure = Adventure.new(params[:adventure])
     
     if adventure.valid?
-      # link user to adventure
-      adventure.user_id = session_id
-      #saves adventure
-      adventure.save
-      # link states to adventure
+      adventure.user_id = session_id    # link user to adventure
+      adventure.save    #saves adventure
       states = State.find(params[:state_ids]) # gets states
       states.each.with_index(1) do |s, i| # loops through each one with index
         # creates join table instance using state_id and adventure_id
         s.state_adventures.create(adventure_id: adventure.id) 
-        activities = Activity.find(params["state_#{i}_activity_ids"])
-        activities.each do |a|
-          a.state_activities.create(state_id: s.id)
-          a.adventure_activities.create(adventure_id: adventure.id)
+        activities = Activity.find(params["state_#{i}_activity_ids"])   # get activities for that specific state
+        activities.each do |a| # loops through each activity for that state
+          a.state_activities.create(state_id: s.id)   # creates instance for each using state and activity id
+          a.adventure_activities.create(adventure_id: adventure.id) # creates instance for each using activity and adventure ids
         end
-        
       end
       binding.pry
-
     else
       # mes. errors 
       redirect "/adventures/new"
