@@ -34,7 +34,7 @@ class AdventureController < ApplicationController
           a.adventure_activities.create(adventure_id: adventure.id) # creates instance for each using activity and adventure ids
         end
       end
-      binding.pry
+      redirect to "/adventures/#{adventure.id}"
     else
       # mes. errors 
       redirect "/adventures/new"
