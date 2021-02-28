@@ -18,7 +18,6 @@ class AdventureController < ApplicationController
   end
 
   post "/adventures" do 
-    binding.pry
     adventure = Adventure.new(params[:adventure])
     
     if adventure.valid?
