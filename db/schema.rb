@@ -28,7 +28,7 @@ ActiveRecord::Schema.define(version: 2021_02_22_200425) do
     t.boolean "recommend"
     t.string "start_date"
     t.string "end_date"
-    t.float "miles_covered"
+    t.integer "miles_covered"
     t.string "companions"
     t.text "highlight"
     t.string "weather"

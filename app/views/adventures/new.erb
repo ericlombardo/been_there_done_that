@@ -58,7 +58,7 @@
   <select name="state_ids[]" id="state_1"><br>
     <option selected disabled hidden style='display: none' value=''></option>
     <% @states.each do |s| %>
-    <option value="<%=s.id %>"><%=s.name %></option>
+      <option id="state_1" value="<%=s.id %>"><%=s.name %></option>
     <% end %>
   </select><br>
   

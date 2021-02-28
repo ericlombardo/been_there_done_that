@@ -41,6 +41,13 @@ class AdventureController < ApplicationController
   end
 
   get "/adventures/:id/edit" do
+    get_activities
+    get_states
+    find_adventure
     erb :"adventures/edit"
+  end
+
+  post "/adventures/:id" do
+    binding.pry
   end
 end

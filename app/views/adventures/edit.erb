@@ -1,6 +1,6 @@
 <h1>Edit </h1>         Get access to adventure and fill in blancks
 
-<form method="POST" action="/adventures">
+<form method="POST" action="/adventures/<%=@adventure.id %>">
   <label for="title">Trip Title:</label><br>
   <input type="text" id="title" name="adventure[title]" value="<%=@adventure.title %>"><br>
 
@@ -53,7 +53,7 @@
   <select name="state_ids[]" id="state_1"><br>
     <option selected disabled hidden style='display: none' value=''></option>
     <% @states.each do |s| %>
-    <option value="<%=s.id %>"><%=s.name %></option>
+    <option value="<%=s.id %>" <%= 'selected' if @adventure.states.first.id == s.id %>><%=s.name %></option>
     <% end %>
   </select><br>
   
@@ -63,7 +63,7 @@
     <!--Found this code snippet https://stackoverflow.com/questions/6223865/blank-html-select-without-blank-item-in-dropdown-list/19704217-->
     <option selected disabled hidden style='display: none' value=''></option>
     <% @activities.each do |a| %>
-    <option value="<%=a.id%>"><%=a.name %></option>
+    <option value="<%=a.id%>" <% binding.pry %>><%=a.name %></option>
     <% end %>
   </select>
   <% end %><br>
@@ -105,5 +105,5 @@
   </select>
   <% end %><br>
 
-  <input type="submit" value="Log Adventure">
+  <input type="submit" value="Edit Adventure">
 </from>
