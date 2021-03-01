@@ -44,6 +44,9 @@ class AdventureController < ApplicationController
     get_activities
     get_states
     find_adventure
+    # find activities for that adventure and state, show 1-3 if there
+    activities = 
+      
     erb :"adventures/edit"
   end
 

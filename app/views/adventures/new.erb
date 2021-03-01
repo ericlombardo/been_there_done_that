@@ -63,9 +63,9 @@
         <option id="state_<%=i%>" value="<%=s.id %>"><%=s.name%></option>
       <% end %>
     </select><br>
-    <label for="activites">Select Activities:</label><br>
+    <label for="activity_list">Select Activities:</label><br>
     <% 3.times do %>
-      <select name="state_<%=i%>_activity_ids[]" id="activities">
+      <select name="state_<%=i%>_activity_ids[]" id="activity_list">
         <!--Found this code snippet https://stackoverflow.com/questions/6223865/blank-html-select-without-blank-item-in-dropdown-list/19704217-->
         <option selected disabled hidden style='display: none' value=''></option>
         <% @activities.each do |a| %>
