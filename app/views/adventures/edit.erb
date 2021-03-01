@@ -52,11 +52,11 @@
 
   <% i = 1 %>  
   <% x = 0 %>
-  <% 3.times do %>
+  <% 3.times do %>  <!-- Create three state slots and fill if there is a value-->
     <label for="state_<%= i %>">Select State:</label><br>
     <select name="state_ids[]" id="state_<%=i%>">
-      <% if x < @adventure.states.count%>
-        <option selected value="<%=@adventure.states[x].id%>"><%=@adventure.states[x].name%></option>
+      <% if x < @adventure.states.uniq.count%>
+        <option selected value="<%=@adventure.states.uniq[x].id%>"><%=@adventure.states.uniq[x].name%></option>
       <% else %>
         <option selected disabled hidden style='display: none' value=''></option>
       <% end %>
@@ -69,11 +69,10 @@
 
     <label for="activity_list">Select Activities:</label><br>
     <% y = 0 %>
-    <% 3.times do %>
+    <% 3.times do %>  <!-- Display three activities for each state and fill if uniq value given-->
       <select name="state_<%=i%>_activity_ids[]" id="activity_list">
-        <% if !@adventure.states[x].nil? && y < @adventure.states[x].activities.count%>
-        <option selected value="<%=@adventure.states[x].activities[y].id%>"><%=@adventure.states[x].activities[y].name%></option>
-        <!--Found this code snippet https://stackoverflow.com/questions/6223865/blank-html-select-without-blank-item-in-dropdown-list/19704217-->
+        <% if !@adventure.states.uniq[x].nil? && y < uniq_state_count%>
+          <option selected value="<%=@adventure.states.uniq[x].activities[y].id%>"><%=@adventure.states.uniq[x].activities[y].name%></option> <!--Found this code snippet https://stackoverflow.com/questions/6223865/blank-html-select-without-blank-item-in-dropdown-list/19704217-->
         <% else %>
           <option selected disabled hidden style='display: none' value=''></option>
         <% end %>

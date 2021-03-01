@@ -49,6 +49,10 @@ module Helpers
     def format_date(date)
       date.strftime("%d/%m/%Y")
     end
+
+    def uniq_state_count
+      AdventureStateActivity.where(adventure_id: @adventure.id).pluck(:state_id).uniq.count # found #pluck method example here: https://stackoverflow.com/questions/9658881/rails-select-unique-values-from-a-column/9658899
+    end
   end
 
   module ClassMethods

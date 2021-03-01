@@ -47,7 +47,6 @@ class AdventureController < ApplicationController
 
   patch "/adventures/:id" do # takes in new form data and updates the existing adventure
     find_adventure
-    binding.pry
     redirect to "/adventures/#{@adventure.id}"
 
   end
