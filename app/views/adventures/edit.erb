@@ -70,9 +70,9 @@
     <% y = 0 %>
     <% 3.times do %>
       <select name="state_<%=i%>_activity_ids[]" id="activity_list">
-        <!--Found this code snippet https://stackoverflow.com/questions/6223865/blank-html-select-without-blank-item-in-dropdown-list/19704217-->
         <% if !@adventure.states[x].nil? && y < @adventure.states[x].activities.count%>
-          <option selected value="<%=@adventure.states[x].activities[y].id%>"><%=@adventure.states[x].activities[y].name%></option>
+        <option selected value="<%=@adventure.states[x].activities[y].id%>"><%=@adventure.states[x].activities[y].name%></option>
+        <!--Found this code snippet https://stackoverflow.com/questions/6223865/blank-html-select-without-blank-item-in-dropdown-list/19704217-->
         <% else %>
           <option selected disabled hidden style='display: none' value=''></option>
         <% end %>
