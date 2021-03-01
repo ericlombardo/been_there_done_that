@@ -13,6 +13,7 @@ class AdventureController < ApplicationController
   end
 
   get '/adventures/:id' do  # Show adventure data based on id
+    binding.pry
     find_adventure
     erb :"adventures/show"
   end

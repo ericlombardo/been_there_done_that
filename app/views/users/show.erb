@@ -6,7 +6,7 @@
 
 <% if profile_creator? %>
   <a href="/users/<%=@user.id %>"><button>My Stats</button></a><br>
-  <a href="/adventures/<%=@user.id %>"><button>My Adventures</button></a><br>
+  <a href="/adventures/<%=current_user.id %>"><button>My Adventures</button></a><br>
   <a href="/adventures/new"><button>Log An Adventure</button></a><br>
   <!--Logout Button-->
   <form method="POST" action="/logout"><button>Logout</button></form>
