@@ -1,6 +1,7 @@
 <h1>Edit <%=@adventure.title%> </h1>         Get access to adventure and fill in blancks
 
 <form method="POST" action="/adventures/<%=@adventure.id %>">
+  <input type="hidden" name="_method" value="PATCH">
   <label for="title">Trip Title:</label><br>
   <input type="text" id="title" name="adventure[title]" value="<%=@adventure.title %>"><br>
 
