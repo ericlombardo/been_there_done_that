@@ -29,7 +29,7 @@ class AdventureController < ApplicationController
         s.state_adventures.create(adventure_id: adventure.id) 
         activities = Activity.find(params["state_#{i}_activity_ids"])   # get activities for that specific state
         activities.each do |a| # loops through each activity for that state
-          a.state_activities.create(state_id: s.id)   # creates instance for each using state and activity id
+          a.state_activities.create(state_id: s.id, adventure_id: adventure.id)   # creates instance for each using state and activity id
           a.adventure_activities.create(adventure_id: adventure.id) # creates instance for each using activity and adventure ids
         end
       end
