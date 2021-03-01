@@ -14,12 +14,7 @@ class AdventureController < ApplicationController
 
   get '/adventures/:id' do  # Show adventure data based on id
     find_adventure
-    if @adventure.nil?
-      # mes. no adventures yet, let's create one
-      redirect to "/adventures/new"
-    else
-      erb :"adventures/show"
-    end
+    erb :"adventures/show"
   end
 
   post "/adventures" do  # Takes form info, validates truthyness, creates new adventure, links states, user, and activities, or redirects to new form
