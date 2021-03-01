@@ -10,15 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_02_22_200425) do
+ActiveRecord::Schema.define(version: 2021_02_22_194331) do
 
   create_table "activities", force: :cascade do |t|
     t.string "name"
     t.string "description"
   end
 
-  create_table "adventure_activities", force: :cascade do |t|
+  create_table "adventure_state_activities", force: :cascade do |t|
     t.integer "adventure_id"
+    t.integer "state_id"
     t.integer "activity_id"
   end
 
@@ -37,17 +38,6 @@ ActiveRecord::Schema.define(version: 2021_02_22_200425) do
     t.string "food"
     t.text "private_notes"
     t.integer "user_id"
-  end
-
-  create_table "state_activities", force: :cascade do |t|
-    t.integer "state_id"
-    t.integer "activity_id"
-    t.integer "adventure_id"
-  end
-
-  create_table "state_adventures", force: :cascade do |t|
-    t.integer "state_id"
-    t.integer "adventure_id"
   end
 
   create_table "states", force: :cascade do |t|
