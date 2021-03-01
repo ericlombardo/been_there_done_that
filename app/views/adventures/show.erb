@@ -16,9 +16,8 @@
 <h5>Private Notes: </h5>
 <h5><%=@adventure.private_notes %></h5><br>
 
-<% if creator? %>
-  if creator, then show button to redirect to 'adventures/:id/edit'
+<% binding.pry %>
   <a href="/adventures/<%=@adventure.id %>/edit">
     <button>Edit Adventure</button>
   </a>
-<% end %>
+

@@ -42,7 +42,7 @@ module Helpers
       @activities = @activities.sort_by {|a| a.name}
     end
 
-    def creator?
+    def profile_creator?
       params[:id].to_i == session_id
     end
   end
