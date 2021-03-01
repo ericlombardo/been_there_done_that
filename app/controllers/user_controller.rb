@@ -22,4 +22,11 @@ class UserController < ApplicationController
       redirect "/login"
     end
   end
+
+  get "/users/:id/adventures" do
+    binding.pry
+    @my_adventures = find_user.adventures
+
+    erb :"users/show_adventures"
+  end
 end

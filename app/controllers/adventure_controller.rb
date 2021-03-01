@@ -13,7 +13,6 @@ class AdventureController < ApplicationController
   end
 
   get '/adventures/:id' do  # Show adventure data based on id
-    binding.pry
     find_adventure
     if @adventure.nil?
       # mes. no adventures yet, let's create one
