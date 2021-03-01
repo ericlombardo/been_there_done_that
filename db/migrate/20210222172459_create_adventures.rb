@@ -4,8 +4,8 @@ class CreateAdventures < ActiveRecord::Migration[5.2]
       t.string :title
       t.integer :rating
       t.boolean :recommend
-      t.string :start_date
-      t.string :end_date
+      t.date :start_date
+      t.date :end_date
       t.integer :miles_covered
       t.string :companions
       t.text :highlight
