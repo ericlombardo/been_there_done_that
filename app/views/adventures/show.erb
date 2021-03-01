@@ -16,8 +16,9 @@
 <h5>Private Notes: </h5>
 <h5><%=@adventure.private_notes %></h5><br>
 
-<% binding.pry %>
+<% if find_adventure.user_id == session_id  %>
   <a href="/adventures/<%=@adventure.id %>/edit">
     <button>Edit Adventure</button>
   </a>
+<% end %>
 
