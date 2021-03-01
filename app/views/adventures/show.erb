@@ -1,6 +1,14 @@
 <h1><%=@adventure.title %></h1>
 
 <h3><%=@adventure.highlight %></h3>
+<h4>States Visited:</h4>
+<% @adventure.states.each do |s| %>
+  <h5><%=s.name%></h5>
+<% end %>
+<h4>Activities:</h4>
+<% @adventure.activities.each do |a| %>
+  <h5><%=a.name%></h5>
+<% end %><br><br>
 
 <h5>Rating: <%=@adventure.rating %> / 10</h5>
 <h5>Would You Recommend: <%=@adventure.recommend %></h5>
