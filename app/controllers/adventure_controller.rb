@@ -50,23 +50,8 @@ class AdventureController < ApplicationController
 
   patch "/adventures/:id" do # takes in new form data and updates the existing adventure
     find_adventure
-
-    @adventure.states.clear
-    @adventure.activities.clear
-    @adventure.update(params[:adventure])
     binding.pry
-    states = State.find(params[:state_ids]) # gets states
-    states.each.with_index(1) do |s, i| # loops through each one with index
-      # creates join table instance using state_id and adventure_id
-      s.state_adventures.create(adventure_id: @adventure.id) 
-      activities = Activity.find(params["state_#{i}_activity_ids"])   # get activities for that specific state
-      activities.each do |a| # loops through each activity for that state
-        a.state_activities.create(state_id: s.id)   # creates instance for each using state and activity id
-        a.adventure_activities.create(adventure_id: @adventure.id) # creates instance for each using activity and adventure ids
-      end
-    end
-    binding.pry
-    redirect to "/adventures/#{adventure.id}"
+    redirect to "/adventures/#{@adventure.id}"
 
   end
 end
