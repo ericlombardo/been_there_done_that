@@ -65,43 +65,43 @@ states.each {|params| State.create(params)}
 activities.each {|activity| Activity.create(name: activity)}
 
 
-# Create User
-10.times do
-	user = User.new
-  user.username = Faker::Name.unique.name
-  user.email = Faker::Internet.free_email(name: user.username)
-  user.password = Faker::Alphanumeric.alphanumeric(number: 8)
-	user.save
+# # Create User
+# 10.times do
+# 	user = User.new
+#   user.username = Faker::Name.unique.name
+#   user.email = Faker::Internet.free_email(name: user.username)
+#   user.password = Faker::Alphanumeric.alphanumeric(number: 8)
+# 	user.save
 	
-  # Create Adventures
-  rand(1..4).times do
-    adventure = Adventure.new
-    adventure.title = titles.sample
-    adventure.rating = Faker::Number.within(range: 1..10)
-    adventure.recommend = Faker::Boolean.boolean
-    adventure.start_date = Faker::Date.backward(days: 4000)
-    adventure.end_date = Faker::Date.between(from: adventure.start_date, to: Faker::Date.forward(days: 30))
-    adventure.miles_covered = Faker::Number.within(range: 50..3000)
-    adventure.companions = companions.sample(rand(0..4))
-    adventure.highlight = memories.sample
-    adventure.weather = weather.sample
-    adventure.summary = summaries.sample
-    adventure.transportation = Faker::Vehicle.make
-    adventure.food = foods.sample(rand(3..6))
-    adventure.private_notes = notes.sample
-		adventure.user_id = user.id
+#   # Create Adventures
+#   rand(1..4).times do
+#     adventure = Adventure.new
+#     adventure.title = titles.sample
+#     adventure.rating = Faker::Number.within(range: 1..10)
+#     adventure.recommend = Faker::Boolean.boolean
+#     adventure.start_date = Faker::Date.backward(days: 4000)
+#     adventure.end_date = Faker::Date.between(from: adventure.start_date, to: Faker::Date.forward(days: 30))
+#     adventure.miles_covered = Faker::Number.within(range: 50..3000)
+#     adventure.companions = companions.sample(rand(0..4))
+#     adventure.highlight = memories.sample
+#     adventure.weather = weather.sample
+#     adventure.summary = summaries.sample
+#     adventure.transportation = Faker::Vehicle.make
+#     adventure.food = foods.sample(rand(3..6))
+#     adventure.private_notes = notes.sample
+# 		adventure.user_id = user.id
 
-    # Create adventure states and activities
-    ad_states = State.all.sample(rand(1..3))
-    ad_activities = Activity.all.sample(rand(1..4))
+#     # Create adventure states and activities
+#     ad_states = State.all.sample(rand(1..3))
+#     ad_activities = Activity.all.sample(rand(1..4))
 
-    # link associations 
-    adventure.states << ad_states
-    adventure.activities << ad_activities 
-    ad_states.each {|s| s.activities << ad_activities}
-    ad_activities.each {|a| a.states << ad_states}
+#     # link associations 
+#     adventure.states << ad_states
+#     adventure.activities << ad_activities 
+#     ad_states.each {|s| s.activities << ad_activities}
+#     ad_activities.each {|a| a.states << ad_states}
 
-    # saves adventures with all associations
-    adventure.save
-  end
-end
+#     # saves adventures with all associations
+#     adventure.save
+#   end
+# end
