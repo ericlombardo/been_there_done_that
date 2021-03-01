@@ -45,6 +45,10 @@ module Helpers
     def profile_creator?
       params[:id].to_i == session_id
     end
+
+    def format_date(date)
+      date.strftime("%d/%m/%Y")
+    end
   end
 
   module ClassMethods
