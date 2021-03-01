@@ -24,8 +24,8 @@ class UserController < ApplicationController
   end
 
   get "/users/:id/adventures" do
-    binding.pry
-    @my_adventures = find_user.adventures
+    block_not_logged_in
+    @adventures = find_user.adventures
 
     erb :"users/show_adventures"
   end
