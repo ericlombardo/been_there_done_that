@@ -1,7 +1,7 @@
 class AdventureController < ApplicationController
 
-  # get route to show erb :index
-  get "/adventures" do 
+  
+  get "/adventures" do  # get route to show erb :index
     get_adventures
     erb :"adventures/index"
   end
@@ -12,12 +12,12 @@ class AdventureController < ApplicationController
     erb :"adventures/new"
   end
 
-  get '/adventures/:id' do  #Create show page for each adventure, decide what is public what is private
+  get '/adventures/:id' do  # Show adventure data based on id
     find_adventure
     erb :"adventures/show"
   end
 
-  post "/adventures" do 
+  post "/adventures" do  # Takes form info, validates truthyness, creates new adventure, links states, user, and activities, or redirects to new form
     adventure = Adventure.new(params[:adventure])
     
     if adventure.valid?
@@ -40,17 +40,15 @@ class AdventureController < ApplicationController
     end
   end
 
-  get "/adventures/:id/edit" do
+  get "/adventures/:id/edit" do # shows form to edit previous adventure with data filled in
     get_activities
     get_states
     find_adventure
-    # find activities for that adventure and state, show 1-3 if there
-    activities = 
-      
+
     erb :"adventures/edit"
   end
 
-  post "/adventures/:id" do
+  post "/adventures/:id" do # takes in new form data and updates the existing adventure
     binding.pry
   end
 end
