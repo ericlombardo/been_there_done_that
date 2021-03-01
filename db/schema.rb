@@ -42,6 +42,7 @@ ActiveRecord::Schema.define(version: 2021_02_22_200425) do
   create_table "state_activities", force: :cascade do |t|
     t.integer "state_id"
     t.integer "activity_id"
+    t.integer "adventure_id"
   end
 
   create_table "state_adventures", force: :cascade do |t|
