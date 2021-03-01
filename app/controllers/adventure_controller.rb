@@ -18,6 +18,7 @@ class AdventureController < ApplicationController
   end
 
   post "/adventures" do  # Takes form info, validates truthyness, creates new adventure, links states, user, and activities, or redirects to new form
+    binding.pry
     adventure = Adventure.new(params[:adventure])
     
     if adventure.valid?
@@ -25,12 +26,9 @@ class AdventureController < ApplicationController
       adventure.save    #saves adventure
       states = State.find(params[:state_ids]) # gets states
       states.each.with_index(1) do |s, i| # loops through each one with index
-        # creates join table instance using state_id and adventure_id
-        s.state_adventures.create(adventure_id: adventure.id) 
         activities = Activity.find(params["state_#{i}_activity_ids"])   # get activities for that specific state
         activities.each do |a| # loops through each activity for that state
-          a.state_activities.create(state_id: s.id, adventure_id: adventure.id)   # creates instance for each using state and activity id
-          a.adventure_activities.create(adventure_id: adventure.id) # creates instance for each using activity and adventure ids
+          a.adventure_state_activities.create(state_id: s.id, adventure_id: adventure.id) # creates instance for each using activity and adventure ids
         end
       end
       redirect to "/adventures/#{adventure.id}"
