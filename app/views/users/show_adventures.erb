@@ -1,0 +1,10 @@
+<% if @adventures.first.user_id == current_user.id %>
+  <% @adventures.each do |a| %>
+    <h3><%=a.title%></h3>
+    <h5><%=format_date(a.start_date) %></h5>
+    <h5><%=a.end_date %></h5>
+    <h4><%=a.highlight%></h4>
+  <% end %>
+<% else %>
+
+<% end %>
