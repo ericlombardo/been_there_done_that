@@ -75,35 +75,25 @@ User.create(username: "fj", email: "fj@fj.com", password: "asdfasdf")
 #   user.password = Faker::Alphanumeric.alphanumeric(number: 8)
 # 	user.save
 	
-#   # Create Adventures
+#   # Create trips
 #   rand(1..4).times do
-#     adventure = Adventure.new
-#     adventure.title = titles.sample
-#     adventure.rating = Faker::Number.within(range: 1..10)
-#     adventure.recommend = Faker::Boolean.boolean
-#     adventure.start_date = Faker::Date.backward(days: 4000)
-#     adventure.end_date = Faker::Date.between(from: adventure.start_date, to: Faker::Date.forward(days: 30))
-#     adventure.miles_covered = Faker::Number.within(range: 50..3000)
-#     adventure.companions = companions.sample(rand(0..4))
-#     adventure.highlight = memories.sample
-#     adventure.weather = weather.sample
-#     adventure.summary = summaries.sample
-#     adventure.transportation = Faker::Vehicle.make
-#     adventure.food = foods.sample(rand(3..6))
-#     adventure.private_notes = notes.sample
-# 		adventure.user_id = user.id
+#     trip = Trip.new
+#     trip.title = titles.sample
+#     trip.rating = Faker::Number.within(range: 1..10)
+#     trip.recommend = Faker::Boolean.boolean
+#     trip.start_date = Faker::Date.backward(days: 4000)
+#     trip.end_date = Faker::Date.between(from: trip.start_date, to: Faker::Date.forward(days: 30))
+#     trip.miles_covered = Faker::Number.within(range: 50..3000)
+#     trip.companions = companions.sample(rand(0..4))
+#     trip.highlight = memories.sample
+#     trip.weather = weather.sample
+#     trip.summary = summaries.sample
+#     trip.transportation = Faker::Vehicle.make
+#     trip.food = foods.sample(rand(3..6))
+#     trip.private_notes = notes.sample
+# 		trip.user_id = user.id
 
-#     # Create adventure states and activities
-#     ad_states = State.all.sample(rand(1..3))
-#     ad_activities = Activity.all.sample(rand(1..4))
-
-#     # link associations 
-#     adventure.states << ad_states
-#     adventure.activities << ad_activities 
-#     ad_states.each {|s| s.activities << ad_activities}
-#     ad_activities.each {|a| a.states << ad_states}
-
-#     # saves adventures with all associations
-#     adventure.save
+#     # saves trips
+#     trip.save
 #   end
 # end

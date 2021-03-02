@@ -1,6 +1,6 @@
-class CreateAdventures < ActiveRecord::Migration[5.2]
+class CreateTrips < ActiveRecord::Migration[5.2]
   def change
-    create_table :adventures do |t|
+    create_table :trips do |t|
       t.string :title
       t.integer :rating
       t.boolean :recommend

@@ -21,16 +21,16 @@ module Helpers
       @user = User.find_by(id: params[:id])
     end
 
-    def find_adventure
-      @adventure = Adventure.find_by(id: params[:id])
+    def find_trip
+      @trip = Trip.find_by(id: params[:id])
     end
 
     def get_all_users
       @users = User.all
     end
 
-    def get_all_adventures
-      @adventures = Adventure.all
+    def get_all_trips
+      @trips = Trip.all
     end
 
     def get_all_states
