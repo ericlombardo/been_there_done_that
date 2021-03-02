@@ -1,5 +1,6 @@
 <h1><%=@adventure.title %></h1>
 
+<!--key of state name and value of array activity objects-->
 <h3><%=@adventure.highlight %></h3>
 <h4>States Visited:</h4>
 <% @adventure.states.uniq.each do |s| %>

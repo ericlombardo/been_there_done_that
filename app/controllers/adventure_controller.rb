@@ -19,7 +19,6 @@ class AdventureController < ApplicationController
 
   post "/adventures" do  # Takes form info, validates truthyness, creates new adventure, links states, user, and activities, or redirects to new form
     adventure = Adventure.new(params[:adventure])
-    
     if valid(adventure)
       link_user_and_save(adventure)   # link user to adventure and saves adventure
       assign_states_and_activities_to_adventure(params, adventure)
@@ -34,12 +33,22 @@ class AdventureController < ApplicationController
     get_activities
     get_states
     find_adventure
-
+    binding.pry
+    # format a hash that has 
+    # {state name: name value, activities: [activities]}
+    # state name key
+    # do bottom way state name => array of instaces of activity
+    # i = 0
+    # until i == 3
+      # state.count.do 
+      # i += 1
+      # creaete empty path
     erb :"adventures/edit"
   end
 
   patch "/adventures/:id" do # takes in new form data and updates the existing adventure
     find_adventure  # get adventure
+    binding.pry
     @adventure.update(params[:adventure]) # update adventure details
 
     AdventureStateActivity.where(adventure_id: @adventure.id).destroy_all
