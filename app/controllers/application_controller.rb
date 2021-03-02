@@ -14,4 +14,5 @@ class ApplicationController < Sinatra::Base
   get "/" do  # goes to login page to start signing in
     redirect '/login'
   end
+end
   
