@@ -47,7 +47,7 @@ module Helpers
     end
 
     def format_date(date)
-      date.strftime("%d/%m/%Y")
+      date.strftime("%d/%m/%Y") if !date.nil?
     end
 
     def uniq_state_count
