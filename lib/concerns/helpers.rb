@@ -54,7 +54,7 @@ module Helpers
     def valid(model)
       model.valid?
     end
-
+  end
   module ClassMethods
 
   end
