@@ -41,18 +41,12 @@ class AdventureController < ApplicationController
 
   patch "/adventures/:id" do # takes in new form data and updates the existing adventure
     find_adventure  # get adventure
+    @adventure.update(params[:adventure]) # update adventure details
 
     AdventureStateActivity.where(adventure_id: @adventure.id).destroy_all
     
-    @adventure.update(params[:adventure]) # update adventure details
-    
-    if valid(@adventure)
-      assign_states_and_activities_to_adventure(params, @adventure)
-      redirect to "/adventures/#{@adventure.id}"
-    else
-      # mes. errors 
-      redirect "/adventures/new"
-    end
-
+    assign_states_and_activities_to_adventure(params, @adventure)
+    binding.pry
+    redirect to "/adventures/#{@adventure.id}"
   end
 end

@@ -71,7 +71,8 @@
     <% y = 0 %>
     <% 3.times do %>  <!-- Display three activities for each state and fill if uniq value given-->
       <select name="state_<%=i%>_activity_ids[]" id="activity_list">
-        <% if !@adventure.states.uniq[x].nil? && y < uniq_state_count%>
+        <% if !@adventure.states.uniq[x].nil? && y < uniq_state_count %>
+
           <option selected value="<%=@adventure.states.uniq[x].activities[y].id%>"><%=@adventure.states.uniq[x].activities[y].name%></option> <!--Found this code snippet https://stackoverflow.com/questions/6223865/blank-html-select-without-blank-item-in-dropdown-list/19704217-->
         <% else %>
           <option selected disabled hidden style='display: none' value=''></option>
