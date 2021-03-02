@@ -23,7 +23,6 @@ class AdventureController < ApplicationController
     if valid(adventure)
       link_user_and_save(adventure)   # link user to adventure and saves adventure
       assign_states_and_activities_to_adventure(params, adventure)
-      binding.pry
       redirect to "/adventures/#{adventure.id}"
     else
       # mes. errors 

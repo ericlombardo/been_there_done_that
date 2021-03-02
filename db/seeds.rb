@@ -64,6 +64,8 @@ states.each {|params| State.create(params)}
 # Create Activities
 activities.each {|activity| Activity.create(name: activity)}
 
+# Create admin account for testing
+User.create(username: "fj", email: "fj@fj.com", password: "asdfasdf")
 
 # # Create User
 # 10.times do
