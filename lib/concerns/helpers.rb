@@ -53,6 +53,25 @@ module Helpers
     def uniq_state_count
       AdventureStateActivity.where(adventure_id: @adventure.id).pluck(:state_id).uniq.count # found #pluck method example here: https://stackoverflow.com/questions/9658881/rails-select-unique-values-from-a-column/9658899
     end
+
+    def valid(model)
+      model.valid?
+    end
+
+    def link_user_and_save(adventure)  # link user to adventure and saves adventure
+      adventure.user_id = session_id   
+      adventure.save    
+    end
+
+    def assign_states_and_activities_to_adventure(params, adventure)
+      states = State.find(params[:state_ids]) # gets states
+      states.each.with_index(1) do |s, i| # loops through each one with index
+        activities = Activity.find(params["state_#{i}_activity_ids"])   # get activities for that specific state
+        activities.each do |a| # loops through each activity for that state
+          adventure.adventure_state_activities.create(state_id: s.id, activity_id: a.id) # creates instance for each using activity and adventure ids
+        end
+      end
+    end
   end
 
   module ClassMethods

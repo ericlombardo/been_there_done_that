@@ -20,16 +20,10 @@ class AdventureController < ApplicationController
   post "/adventures" do  # Takes form info, validates truthyness, creates new adventure, links states, user, and activities, or redirects to new form
     adventure = Adventure.new(params[:adventure])
     
-    if adventure.valid?
-      adventure.user_id = session_id    # link user to adventure
-      adventure.save    #saves adventure
-      states = State.find(params[:state_ids]) # gets states
-      states.each.with_index(1) do |s, i| # loops through each one with index
-        activities = Activity.find(params["state_#{i}_activity_ids"])   # get activities for that specific state
-        activities.each do |a| # loops through each activity for that state
-          adventure.adventure_state_activities.create(state_id: s.id, activity_id: a.id) # creates instance for each using activity and adventure ids
-        end
-      end
+    if valid(adventure)
+      link_user_and_save(adventure)   # link user to adventure and saves adventure
+      assign_states_and_activities_to_adventure(params, adventure)
+      binding.pry
       redirect to "/adventures/#{adventure.id}"
     else
       # mes. errors 
@@ -46,8 +40,19 @@ class AdventureController < ApplicationController
   end
 
   patch "/adventures/:id" do # takes in new form data and updates the existing adventure
-    find_adventure
-    redirect to "/adventures/#{@adventure.id}"
+    find_adventure  # get adventure
+
+    AdventureStateActivity.where(adventure_id: @adventure.id).destroy_all
+    
+    @adventure.update(params[:adventure]) # update adventure details
+    
+    if valid(@adventure)
+      assign_states_and_activities_to_adventure(params, @adventure)
+      redirect to "/adventures/#{@adventure.id}"
+    else
+      # mes. errors 
+      redirect "/adventures/new"
+    end
 
   end
 end
