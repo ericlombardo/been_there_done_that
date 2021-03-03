@@ -5,7 +5,7 @@ class User < ActiveRecord::Base
   has_many :states, through: :adventures
 
   validates_associated :adventures, :activities, :states  # validates associations
-
+  
   validates :username, :email, presence: true # confirm has email and username
   validates :password, length: { minimum: 7 }, unless: :no_password # confirm has password
   validates :username, uniqueness: { message: "%{value} is already taken. Try a different username"}, unless: :no_username  # confirm unique password
