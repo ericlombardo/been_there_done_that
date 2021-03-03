@@ -11,6 +11,7 @@
   <label for="rating">Rating:</label><br>
   <select name="adventure[rating]" id="rating"><br>
       <% i = 1 %>
+      <option selected value=''></option>
       <% 10.times do %>
         <option value="<%= i %>" <%= 'selected' if @adventure.rating == i %>><%= i %></option>"
         <% i += 1 %>
@@ -54,11 +55,10 @@
   <% x = 0 %>  <!--counter for the iterations through states-->
   <% 3.times do %>  <!-- Create three state slots and fill if there is a value-->
     <label for="state_<%= i %>">Select State: <%= '*' if i == 1 %></label><br>
-    <select name="state_ids[]" id="state_<%=i%>">
+    <select name="state_ids[]" id="state_<%=i%>" >
+      <option selected value=''></option>
       <% if x < @adventure_log.count%> <!--less than states hash count-->
         <option selected value="<%=@adventure_log[x][:state].id%>"><%=@adventure_log[x][:state].name%></option>
-      <% else %>
-        <option selected disabled hidden style='display: none' value=''></option>
       <% end %>
       
       <% @states.each do |s| %>
@@ -71,10 +71,9 @@
     <% y = 0 %>
     <% 3.times do %>  <!-- Display three activities for each state and fill if uniq value given-->
       <select name="state_<%=i%>_activity_ids[]" id="activity_list">
+        <option selected value=''></option>
         <% if !@adventure_log[x].nil? && !@adventure_log[x][:activities][y].nil? %><!--state activities count-->
           <option selected value="<%=@adventure_log[x][:activities][y].id%>"><%=@adventure_log[x][:activities][y].name%></option> <!--Found this code snippet https://stackoverflow.com/questions/6223865/blank-html-select-without-blank-item-in-dropdown-list/19704217-->
-        <% else %>
-          <option selected disabled hidden style='display: none' value=''></option>
         <% end %>
         
         <% @activities.each do |a| %>
