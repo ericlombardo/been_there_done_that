@@ -70,7 +70,7 @@
     <label for="activity_list">Select Activities: <%= '*' if i == 1%></label><br>
     <% y = 0 %>
     <% 3.times do %>  <!-- Display three activities for each state and fill if uniq value given-->
-      <select name="state_<%=i%>_activity_ids[]" id="activity_list" <%= 'required' if i == 1 %>>
+      <select name="state_<%=i%>_activity_ids[]" id="activity_list" <%= 'required' if i == 1 && y == 0 %>>
         <option selected value=''></option>
         <% if !@adventure_log[x].nil? && !@adventure_log[x][:activities][y].nil? %><!--state activities count-->
           <option selected value="<%=@adventure_log[x][:activities][y].id%>"><%=@adventure_log[x][:activities][y].name%></option> <!--Found this code snippet https://stackoverflow.com/questions/6223865/blank-html-select-without-blank-item-in-dropdown-list/19704217-->
