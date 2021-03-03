@@ -60,7 +60,6 @@ class AdventureController < ApplicationController
   end
 
   delete "/adventures/:id" do # get adventure, delete it from the adventures, but not from state activities
-    binding.pry
     find_adventure.destroy
     redirect to "/users/#{session_id}"
   end
