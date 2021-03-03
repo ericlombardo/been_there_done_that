@@ -3,6 +3,8 @@ class AdventureController < ApplicationController
   
   get "/adventures" do  # get route to show erb :index
     get_adventures
+    get_states
+    get_activities
     erb :"adventures/index"
   end
 
@@ -62,5 +64,14 @@ class AdventureController < ApplicationController
   delete "/adventures/:id" do # get adventure, delete it from the adventures, but not from state activities
     find_adventure.destroy
     redirect to "/users/#{session_id}"
+  end
+
+  post "/adventures/state_filter" do
+    binding.pry
+  end
+
+  get "/adventures#:state" do
+    # show adventures for that state
+    # send to adventure index
   end
 end
