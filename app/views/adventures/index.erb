@@ -1,5 +1,14 @@
 <h1>Adventures</h1>
+<h3>Filter Adventures:</h3>
+<h4>By State: </h4>
+<select name="state_filter" id="state_filter">
+  <option value="bingo">bingo</option>
+</select>
+<h4>By Activity: </h4>
+<a href="/adventures"><button>Filter Results</button></a>
 
 <% @adventures.each do |a| %>
-  <h5><a href="adventures/<%=a.id%>"><%=a.title %></a> - <%=a.user.username %></h5>
+  <h2><a href="adventures/<%=a.id%>"><%=a.title %></a></h2><br>
+  <h4>States: <%=a.states.uniq.pluck(:name).join(", ")%></h4>
+  <h4>Activities: <%=a.activities.pluck(:name).join(", ")%></h4>
 <% end %>
