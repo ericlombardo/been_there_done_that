@@ -29,7 +29,7 @@ module Helpers
     end
 
     def get_adventures
-      @adventures = Adventure.all
+      @adventures ||= Adventure.all
     end
 
     def get_states
