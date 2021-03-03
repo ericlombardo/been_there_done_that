@@ -11,7 +11,7 @@ class UserController < ApplicationController
       activity_count = @activities.each_with_object(Hash.new(0)) {|activity, hash| hash[activity.name] += 1}
     
       @top_states = state_count.max(3) {|a, b| a[1] <=> b[1]}   # loop through state_count to collect top 3
-      @top_activities = activity_count.max(3) {|a, b| a[1] <=> b[1]}.collect {|a| a[0]}
+      @top_activities = activity_count.max(3) {|a, b| a[1] <=> b[1]}
 
       erb :"users/show"
     else

@@ -5,10 +5,35 @@
 <% end %>
 
 <h2>States Visited</h2>
-<% binding.pry %>
+<% @states.each.with_index(1) do |s, i| %>
+  <h4><%="#{i}. #{s.name}" %></h4>
+<% end %>
+
+<h2>State Count</h2>
+<h4><%=@states.count%></h4>
+
+<h2>Activity Count</h2>
+<h4><%=@activities.collect {|a| a.name}.uniq.count%></h4>
+
+
+<h2>Your Activities</h2>
+<% @activities.each.with_index(1) do |a, i| %>
+  <h4><%="#{i}. #{a.name}"%></h4>
+<% end %>
+
+
+<h2>Most Visited States</h2>
+<% @top_states.each do |s| %>
+<h4><%="#{s[0]} - #{s[1]}"%></h4>
+<% end %>
+
+<h2>Favorite Activites</h2>
+<% @top_activities.each do |a| %>
+  <h4><%="#{a[0]} - #{a[1]}"%></h4>
+<% end %>
 
 <% if profile_creator? %>
-  <!--Logout Button-->
+<!--Logout Button-->
   <form method="POST" action="/logout"><button>Logout</button></form>
   <!--Delete Profile Button-->
   <form method="POST" action="/users/<%=@user.id %>"><input id="hidden" type="hidden" name="_method" value="DELETE"><button>Delete Profile</button></form>
