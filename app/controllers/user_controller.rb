@@ -4,7 +4,7 @@ class UserController < ApplicationController
     if logged_in?
       @user = User.find(params[:id])
       @states = @user.adventures.collect {|a| a.states.uniq}.flatten    # get all states for that user, not doubled up
-      @activities = @user.adventures.collect{|a| a.activities}.flatten  # get all activities for that user, not doubled up
+      @activities = @user.adventures.collect{|a| a.activities}.flatten  # get all activities for that user
     
       # loops through states, create new hash set value to (0) if no value, create key/value for state.name/count
       state_count = @states.each_with_object(Hash.new(0)) {|state, hash| hash[state.name] += 1}   
