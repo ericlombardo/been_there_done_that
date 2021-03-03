@@ -68,7 +68,7 @@ module Helpers
       states.each.with_index(1) do |s, i| # loops through each one with index
         activities = Activity.find(params["state_#{i}_activity_ids"])   # get activities for that specific state
         activities.each do |a| # loops through each activity for that state
-          adventure.adventure_state_activities.create(state_id: s.id, activity_id: a.id) # creates instance for each using activity and adventure ids
+          @adventure.adventure_state_activities.create(state_id: s.id, activity_id: a.id) # creates instance for each using activity and adventure ids
         end
       end
     end
