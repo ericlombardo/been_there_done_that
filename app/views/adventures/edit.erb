@@ -2,10 +2,10 @@
 
 <form method="POST" action="/adventures/<%=@adventure.id %>">
   <input type="hidden" name="_method" value="PATCH">
-  <label for="title">Trip Title:</label><br>
+  <label for="title">Trip Title: *</label><br>
   <input type="text" id="title" name="adventure[title]" value="<%=@adventure.title %>"><br>
 
-  <label for="highlight">Highlight:</label><br>
+  <label for="highlight">Highlight: *</label><br>
   <input type="text" id="highlight" maxlength="150" name="adventure[highlight]" value="<%=@adventure.highlight %>"> (Keep to 150 characters or less)<br>
     
   <label for="rating">Rating:</label><br>
@@ -36,7 +36,7 @@
   <label for="weather">Weather:</label><br>
     <input type="text" id="weather" name="adventure[weather]" value="<%=@adventure.weather%>"><br>
 
-  <label for="summary">Trip Summary:</label><br>
+  <label for="summary">Trip Summary: *</label><br>
   <textarea id="summary" name="adventure[summary]" rows="7" cols="50"><%=@adventure.summary %></textarea><br>
 
   <label for="transportation">Transportation:</label><br>
@@ -53,7 +53,7 @@
   <% i = 1 %>  <!--variable to set name and id values for states-->
   <% x = 0 %>  <!--counter for the iterations through states-->
   <% 3.times do %>  <!-- Create three state slots and fill if there is a value-->
-    <label for="state_<%= i %>">Select State:</label><br>
+    <label for="state_<%= i %>">Select State: <%= '*' if i == 1 %></label><br>
     <select name="state_ids[]" id="state_<%=i%>">
       <% if x < @adventure_log.count%> <!--less than states hash count-->
         <option selected value="<%=@adventure_log[x][:state].id%>"><%=@adventure_log[x][:state].name%></option>
@@ -67,7 +67,7 @@
     </select><br>
 
 
-    <label for="activity_list">Select Activities:</label><br>
+    <label for="activity_list">Select Activities: <%= '*' if i == 1%></label><br>
     <% y = 0 %>
     <% 3.times do %>  <!-- Display three activities for each state and fill if uniq value given-->
       <select name="state_<%=i%>_activity_ids[]" id="activity_list">
