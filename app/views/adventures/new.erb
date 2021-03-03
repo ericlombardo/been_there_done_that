@@ -52,48 +52,24 @@
 
   <!--States and Activities Section-->
   <% i = 1 %>  
-  <label for="state_<%= i %>">Select State: *</label><br>
-  <select name="state_ids[]" id="state_<%=i%>" required> 
-    <option selected value=''></option>
-    <% @states.each do |s| %>
-      <option id="state_<%=i%>" value="<%=s.id %>"><%=s.name%></option>
-    <% end %>
-  </select><br>
-  
-  <label for="activity_list">Select Activities: *</label><br>
-  <select name="state_<%=i%>_activity_ids[]" id="activity_list" required>
-    <option selected value=''></option>
-    <% @activities.each do |a| %>
-      <option value="<%=a.id%>"><%=a.name %></option>
-    <% end %>
-  </select><br>
-  
-  <% 2.times do %>
-    <select name="state_<%=i%>_activity_ids[]" id="activity_list">
-      <option selected value=''></option>
-      <% @activities.each do |a| %>
-        <option value="<%=a.id%>"><%=a.name %></option>
-      <% end %>
-    </select><br>
-  <% end %>
-  <% i += 1 %>
-
-  <% 2.times do %>
-    <label for="state_<%= i %>">Select State:</label><br>
-    <select name="state_ids[]" id="state_<%=i%>">
+  <% 3.times do %>
+    <label for="state_<%= i %>">Select State: <%= '*' if i == 1 %></label><br>
+    <select name="state_ids[]" id="state_<%=i%>" <%= 'required' if i == 1 %>>
       <option selected value=''></option>
       <% @states.each do |s| %>
         <option id="state_<%=i%>" value="<%=s.id %>"><%=s.name%></option>
       <% end %>
     </select><br>
-    <label for="activity_list">Select Activities:</label><br>
+    <label for="activity_list">Select Activities: <%= '*' if i == 1 %></label><br>
+    <% x = 0 %>
     <% 3.times do %>
-      <select name="state_<%=i%>_activity_ids[]" id="activity_list">
+      <select name="state_<%=i%>_activity_ids[]" id="activity_list" <%= 'required' if i == 1 && x == 0 %>>
         <option selected value=''></option>
         <% @activities.each do |a| %>
           <option value="<%=a.id%>"><%=a.name %></option>
         <% end %>
       </select><br>
+      <% x += 1 %>
     <% end %>
     <% i += 1 %>
   <% end %>

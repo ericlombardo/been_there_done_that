@@ -47,7 +47,6 @@ module Helpers
     end
 
     def format_date(date)
-      binding.pry
       date.nil? ? (date) : (date.strftime("%d/%m/%Y"))
     end
 
