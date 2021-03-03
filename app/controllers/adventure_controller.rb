@@ -33,7 +33,7 @@ class AdventureController < ApplicationController
     get_activities
     get_states
     find_adventure
-    binding.pry
+
     # loop through each state
     i = 0 # set counter
     @adventure_log = []
@@ -44,14 +44,6 @@ class AdventureController < ApplicationController
       @adventure_log[i] = {state: state, activities: activity_array} # create hash item in log with state and activities
       i += 1
     end
-
-    # get instance of state for adventure
-    # @state = @adventure.states.uniq[0] #=> instance of state
-    # get activities from that adventure and state
-    # create a hash with them
-    # adventure_log = [
-    # {state: @state, activities: activity_array}
-    # ]
 
     erb :"adventures/edit"
   end
