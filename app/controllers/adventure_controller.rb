@@ -58,4 +58,10 @@ class AdventureController < ApplicationController
     assign_states_and_activities_to_adventure(params, @adventure) # link new adventure_state_activities for updated adventure
     redirect to "/adventures/#{@adventure.id}"
   end
+
+  delete "/adventures/:id" do # get adventure, delete it from the adventures, but not from state activities
+    binding.pry
+    find_adventure.destroy
+    redirect to "/users/#{session_id}"
+  end
 end
