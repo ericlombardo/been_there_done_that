@@ -34,15 +34,25 @@ class AdventureController < ApplicationController
     get_states
     find_adventure
     binding.pry
-    # format a hash that has 
-    # {state name: name value, activities: [activities]}
-    # state name key
-    # do bottom way state name => array of instaces of activity
-    # i = 0
-    # until i == 3
-      # state.count.do 
-      # i += 1
-      # creaete empty path
+    # loop through each state
+    i = 0 # set counter
+    @adventure_log = []
+    @adventure.states.uniq.count.times do # however many states there are, loop through that many times
+      state = @adventure.states.uniq[i]  # get instance of that state
+      activity_ids = AdventureStateActivity.where(adventure_id: @adventure.id, state_id: @adventure.states.uniq[i].id).pluck(:activity_id) #=> find adventure_state_activity instances that match adventure.id and state_id
+      activity_array = Activity.find(activity_ids)  # get array of activity ideas for that adventure state
+      @adventure_log[i] = {state: state, activities: activity_array} # create hash item in log with state and activities
+      i += 1
+    end
+
+    # get instance of state for adventure
+    # @state = @adventure.states.uniq[0] #=> instance of state
+    # get activities from that adventure and state
+    # create a hash with them
+    # adventure_log = [
+    # {state: @state, activities: activity_array}
+    # ]
+
     erb :"adventures/edit"
   end
 
