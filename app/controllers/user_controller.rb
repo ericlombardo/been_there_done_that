@@ -3,6 +3,13 @@ class UserController < ApplicationController
   get "/users/:id" do
     if logged_in?
       @user = User.find(params[:id])
+
+      # get all states for that user, not doubled up
+      @states = @user.adventures.collect {|a| a.states.uniq}.flatten
+      # get all activities for that user, not doubled up
+      @activities = @user.adventures.collect{|a| a.activities}.flatten
+      # count the instances of each one and find the max(3)
+      
       erb :"users/show"
     else
       redirect "/login"

@@ -4,6 +4,9 @@
   <h1><%=@user.username %>'s Profile</h1>
 <% end %>
 
+<h2>States Visited</h2>
+<% binding.pry %>
+
 <% if profile_creator? %>
   <!--Logout Button-->
   <form method="POST" action="/logout"><button>Logout</button></form>
