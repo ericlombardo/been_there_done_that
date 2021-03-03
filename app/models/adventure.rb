@@ -5,5 +5,5 @@ class Adventure < ActiveRecord::Base
   has_many :states, through: :adventure_state_activities
 
   # validations
-  
+  validates :title, :highlight, :summary, presence: true # confirm has email and username
 end
