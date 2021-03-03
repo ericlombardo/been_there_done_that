@@ -47,7 +47,8 @@ module Helpers
     end
 
     def format_date(date)
-      date.strftime("%d/%m/%Y") if !date.nil?
+      binding.pry
+      date.nil? ? (date) : (date.strftime("%d/%m/%Y"))
     end
 
     def uniq_state_count
@@ -64,14 +65,15 @@ module Helpers
     end
 
     def assign_states_and_activities_to_adventure(params, adventure)
-      states = State.find(params[:state_ids]) # gets states
+      states = State.find(params[:state_ids].find_all {|id| id != ""}) # gets states
       states.each.with_index(1) do |s, i| # loops through each one with index
-        activities = Activity.find(params["state_#{i}_activity_ids"])   # get activities for that specific state
+        activities = Activity.find(params["state_#{i}_activity_ids"].find_all {|id| id != ""})   # get activities for that specific state
         activities.each do |a| # loops through each activity for that state
           adventure.adventure_state_activities.create(state_id: s.id, activity_id: a.id) # creates instance for each using activity and adventure ids
         end
       end
     end
+
   end
 
   module ClassMethods

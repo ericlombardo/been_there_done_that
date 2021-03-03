@@ -13,8 +13,8 @@
 
 <h5>Rating: <%=@adventure.rating %> / 10</h5>
 <h5>Would You Recommend: <%=@adventure.recommend %></h5>
-<h5>Trip Start Date: <%=@adventure.start_date %></h5>
-<h5>Trip End Date: <%=@adventure.end_date %></h5>
+<h5>Trip Start Date: <%=format_date(@adventure.start_date) %></h5>
+<h5>Trip End Date: <%=format_date(@adventure.end_date) %></h5>
 <h5>Weather: <%=@adventure.weather %></h5>
 <h5>Miles Covered: <%=@adventure.miles_covered %></h5>
 <h5>Transportation: <%=@adventure.transportation %></h5>
