@@ -1,6 +1,7 @@
 <% if @adventures.empty? %>
   <h1>Sorry, no adventures tracked yet.</h1>
 <% else %>
+  <% binding.pry %>
   <% @adventures.each do |a| %>
     <h3><a href="/adventures/<%=a.user_id%>"><%=a.title%></a></h3>
     <h5><%=format_date(a.start_date) %></h5>

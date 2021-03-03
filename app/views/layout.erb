@@ -8,7 +8,13 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
 
     <title>Been There Done That</title>
- 
+    <div class="topnav">
+      <% if logged_in? %>
+        <a class="activie" href="/users/<%=session_id%>">Homebase</a>
+        <a href="/users/<%=current_user.id%>/adventures">My Adventures</a>
+        <a href="/adventures/new">Log An Adventure</a>
+      <% end %>
+    </div>
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 

@@ -13,13 +13,13 @@ class AdventureController < ApplicationController
   end
 
   get '/adventures/:id' do  # Show adventure data based on id
+    binding.pry
     find_adventure
     erb :"adventures/show"
   end
 
   post "/adventures" do  # Takes form info, validates truthyness, creates new adventure, links states, user, and activities, or redirects to new form
     adventure = Adventure.new(params[:adventure])
-    binding.pry
     if valid(adventure)
       link_user_and_save(adventure)   # link user to adventure and saves adventure
       assign_states_and_activities_to_adventure(params, adventure)
