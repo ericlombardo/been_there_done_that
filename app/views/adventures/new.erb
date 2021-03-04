@@ -61,10 +61,10 @@
         <option id="state_<%=i%>" value="<%=s.id %>"><%=s.name%></option>
       <% end %>
     </select><br>
-    <label for="activity_list">Select Activities: <%= '*' if i == 1 %></label><br>
+    <label for="activity_list">Select Activities:</label><br>
     <% x = 0 %>
     <% 3.times do %>
-      <select name="state_<%=i%>_activity_ids[]" id="activity_list" <%= 'required' if i == 1 && x == 0 %>>
+      <select name="state_<%=i%>_activity_ids[]" id="activity_list">
         <option selected hidden disabled style="display:none"></option>
         <% @activities.each do |a| %>
           <option value="<%=a.id%>"><%=a.name %></option>

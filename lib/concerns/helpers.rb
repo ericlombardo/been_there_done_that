@@ -79,16 +79,13 @@ module Helpers
     def assign_states_and_activities_to_adventure(params, adventure)
       states = State.find(params[:state_ids]) # gets states
       states.each.with_index(1) do |s, i| # loops through each one with index
-        # if state has activities loop through and create adv-st-act
-        # if not create adv-st-act with only adv_id and st_id
-        
-        if activities = Activity.find(params["state_#{i}_activity_ids"])   # get activities for that specific state
-          binding.pry
+        if params["state_#{i}_activity_ids"].nil?
+          adventure.adventure_state_activities.create(state_id: s.id) # creates instance of adventure_state_activity if only a state is selected
+        else
+          activities = Activity.find(params["state_#{i}_activity_ids"])   # get activities for that specific state
           activities.each do |a| # loops through each activity for that state
             adventure.adventure_state_activities.create(state_id: s.id, activity_id: a.id) # creates instance for each using activity and adventure ids
           end
-        else
-          adventure.adventure_state_activities.create(state_id: s.id) # creates instance of adventure_state_activity if only a state is selected
         end
       end
     end
