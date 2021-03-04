@@ -67,7 +67,12 @@ class AdventureController < ApplicationController
   end
 
   post "/adventures/state_filter" do
-    binding.pry
+
+    state_ids = AdventureStateActivity.where(state_id: params[:state_filter]).pluck(:adventure_id).uniq
+    @state_filter = Adventure.find(state_ids)
+
+    erb :"adventures/index"
+
   end
 
   get "/adventures#:state" do
