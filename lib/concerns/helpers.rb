@@ -64,7 +64,9 @@ module Helpers
     end
 
     def assign_states_and_activities_to_adventure(params, adventure)
-      states = State.find(params[:state_ids].find_all {|id| id != ""}) # gets states
+      binding.pry
+      params[:state_ids].delete("")
+      states = State.find(params[:state_ids]) # gets states
       states.each.with_index(1) do |s, i| # loops through each one with index
         activities = Activity.find(params["state_#{i}_activity_ids"].find_all {|id| id != ""})   # get activities for that specific state
         activities.each do |a| # loops through each activity for that state
