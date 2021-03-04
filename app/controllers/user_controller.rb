@@ -19,12 +19,13 @@ class UserController < ApplicationController
     end
   end
 
-  post "/users" do
-    redirect "/users"
-  end
+  # post "/users" do
+  #   redirect "/users"
+  # end
 
   delete "/users/:id" do
-    if logged_in?
+    binding.pry
+    if logged_in? 
       find_user.destroy
       session.clear
       redirect "/login"

@@ -37,7 +37,6 @@ class AdventureController < ApplicationController
     get_states
     find_adventure
 
-    # loop through each state
     gen_adv_log
 
     erb :"adventures/edit"
@@ -45,7 +44,6 @@ class AdventureController < ApplicationController
 
   patch "/adventures/:id" do # takes in new form data and updates the existing adventure
     find_adventure  # get adventure
-    binding.pry
     @adventure.update(params[:adventure]) # update adventure details
 
     AdventureStateActivity.where(adventure_id: @adventure.id).destroy_all # destroy all adventure_state_activities for that adventure
