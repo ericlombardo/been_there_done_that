@@ -1,10 +1,8 @@
-<%= "<h2>No Adventures Yet. Track Yours To Be The First!</h2>" if @adventures.empty?%>
-
 <h1>Adventures</h1>
 <h3>Filter Adventures:</h3>
 <h4>By State: </h4>
-<form method="POST" action="/adventures/state_filter">
-<select name="state_filter" id="state_filter"> <!--wrap in form-->
+<form method="POST" action="/adventures">
+<select name="state_filter" id="state_filter"> 
   <option selected value=''></option>
   <% @states.each do |s| %> 
   <option id="state_filter" value="<%=s.id%>"><%=s.name%></option>
@@ -13,6 +11,26 @@
 <input type="submit" value="Filter Resualts">
 </form>
 
+<% if @state_filter.nil? %>
+  <% @adventures.each do |a| %>
+    <h2><a href="adventures/<%=a.id%>"><%=a.title %></a></h2><br>
+    <h4>States: <%=a.states.uniq.pluck(:name).join(", ")%></h4>
+    <h4>Activities: <%=a.activities.pluck(:name).join(", ")%></h4>
+  <% end %>
+<% else %>
+  <% @state_filter.each do |a| %>
+    <h2><a href="<%=a.id%>"><%=a.title%></a></h2>
+    <h4>States: <%=a.states.uniq.pluck(:name).join(", ")%></h4>
+    <h4>Activities: <%=a.activities.pluck(:name).join(", ")%></h4>
+  <% end %>
+<% end %>
+
+
+
+
+
+
+
 <!-- <h4>By Activity: </h4>
 <select name="state_filter" id="state_filter">
   <option selected value=''></option>
@@ -20,9 +38,3 @@
   <option id="state_filter" value="<%=a.id%>"><%=a.name%></option>
 <% end %>
 </select><br> -->
-
-<% @adventures.each do |a| %>
-  <h2><a href="adventures/<%=a.id%>"><%=a.title %></a></h2><br>
-  <h4>States: <%=a.states.uniq.pluck(:name).join(", ")%></h4>
-  <h4>Activities: <%=a.activities.pluck(:name).join(", ")%></h4>
-<% end %>
