@@ -67,19 +67,27 @@ class AdventureController < ApplicationController
     redirect to "/users/#{session_id}"
   end
 
-  post "/adventures/state_filter" do
+  post "/adventures/filtered" do
     get_activities
     get_states
-    state_ids = AdventureStateActivity.where(state_id: params[:state_filter]).pluck(:adventure_id).uniq
-    @state_filter = Adventure.find(state_ids)
-    # binding.pry
-    redirect to "/adventures" if @state_filter.empty?
-    erb :"adventures/index"
+    ids = params[:filter_ids]
 
-  end
-
-  get "/adventures#:state" do
-    # show adventures for that state
-    # send to adventure index
+    case ids.collect {|id| id.empty?}
+    when [false, false]
+      filter_ids = AdventureStateActivity.where(state_id: ids[0], activity_id: ids[1]).pluck(:adventure_id).uniq
+    when [false, true]
+      filter_ids = AdventureStateActivity.where(state_id: ids[0]).pluck(:adventure_id).uniq
+    when [true, false]
+      filter_ids = AdventureStateActivity.where(activity_id: ids[1]).pluck(:adventure_id).uniq
+    else [true, true]
+      # message no trips meet that criteria
+      redirect to "/adventures"
+    end
+    if Adventure.find(filter_ids).empty?
+      redirect to "/adventures"
+    else
+      @filtered = Adventure.find(filter_ids)
+      erb :"adventures/index"
+    end
   end
 end
