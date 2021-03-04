@@ -55,7 +55,7 @@
   <% x = 0 %>  <!--counter for the iterations through states-->
   <% 3.times do %>  <!-- Create three state slots and fill if there is a value-->
     <label for="state_<%= i %>">Select State: <%= '*' if i == 1 %></label><br>
-    <select name="state_ids[]" id="state_<%=i%>" <%= 'required' if i == 1 %>>
+    <select name="log[state<%=i%>][id]" id="state_<%=i%>" <%= 'required' if i == 1 %>>
       <option selected hidden disabled style="display:none"></option>
       <% if x < @adventure_log.count%> <!--less than states hash count-->
         <option selected value="<%=@adventure_log[x][:state].id%>"><%=@adventure_log[x][:state].name%></option>
@@ -70,7 +70,7 @@
     <label for="activity_list">Select Activities: <%= '*' if i == 1%></label><br>
     <% y = 0 %>
     <% 3.times do %>  <!-- Display three activities for each state and fill if uniq value given-->
-      <select name="state_<%=i%>_activity_ids[]" id="activity_list" <%= 'required' if i == 1 && y == 0 %>>
+      <select name="log[state<%=i%>][activities][]" id="activity_list" <%= 'required' if i == 1 && y == 0 %>>
         <option selected hidden disabled style="display:none"></option>
         <% if !@adventure_log[x].nil? && !@adventure_log[x][:activities][y].nil? %><!--state activities count-->
           <option selected value="<%=@adventure_log[x][:activities][y].id%>"><%=@adventure_log[x][:activities][y].name%></option> <!--Found this code snippet https://stackoverflow.com/questions/6223865/blank-html-select-without-blank-item-in-dropdown-list/19704217-->
