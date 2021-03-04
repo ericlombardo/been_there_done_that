@@ -11,10 +11,10 @@
 <% end %>
 
 <h2>State Count</h2>
-<h4><%=@states.count%></h4>
+<h4><%=@states.uniq.count%></h4>
 
 <h2>Activity Count</h2>
-<h4><%=@activities.collect {|a| a.nae}.uniq.count%></h4>
+<h4><%=@activities.collect {|a| a.name}.uniq.count%></h4>
 
 
 <h2><%='Your' if profile_creator?%> Activities</h2>

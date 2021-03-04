@@ -22,7 +22,6 @@ class AdventureController < ApplicationController
 
   post "/adventures" do  # Takes form info, validates truthyness, creates new adventure, links states, user, and activities, or redirects to new form
     adventure = Adventure.new(params[:adventure])
-
     if valid(adventure)
       link_user_and_save(adventure)   # link user to adventure and saves adventure
       assign_states_and_activities_to_adventure(params, adventure)

@@ -3,7 +3,6 @@ class UserController < ApplicationController
   get "/users/:id" do
     if logged_in?
       @user = User.find(params[:id])
-      binding.pry
       @states = @user.adventures.collect {|a| a.states.uniq}.flatten    # get all states for that user, not doubled up
       @activities = @user.adventures.collect{|a| a.activities}.flatten  # get all activities for that user
     
