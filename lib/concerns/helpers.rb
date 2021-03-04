@@ -63,14 +63,32 @@ module Helpers
       adventure.save    
     end
 
+    def gen_adv_log
+      i = 0 # set counter
+      @adventure_log = []
+      @adventure.states.uniq.count.times do # however many states there are, loop through that many times
+        state = @adventure.states.uniq[i]  # get instance of that state
+        activity_ids = AdventureStateActivity.where(adventure_id: @adventure.id, state_id: @adventure.states.uniq[i].id).pluck(:activity_id) #=> find adventure_state_activity instances that match adventure.id and state_id
+        activity_array = Activity.find(activity_ids)  # get array of activity ideas for that adventure state
+        @adventure_log[i] = {state: state, activities: activity_array} # create hash item in log with state and activities
+        i += 1
+      end
+      @adventure_log
+    end
+
     def assign_states_and_activities_to_adventure(params, adventure)
-      binding.pry
-      params[:state_ids].delete("")
       states = State.find(params[:state_ids]) # gets states
       states.each.with_index(1) do |s, i| # loops through each one with index
-        activities = Activity.find(params["state_#{i}_activity_ids"].find_all {|id| id != ""})   # get activities for that specific state
-        activities.each do |a| # loops through each activity for that state
-          adventure.adventure_state_activities.create(state_id: s.id, activity_id: a.id) # creates instance for each using activity and adventure ids
+        # if state has activities loop through and create adv-st-act
+        # if not create adv-st-act with only adv_id and st_id
+        
+        if activities = Activity.find(params["state_#{i}_activity_ids"])   # get activities for that specific state
+          binding.pry
+          activities.each do |a| # loops through each activity for that state
+            adventure.adventure_state_activities.create(state_id: s.id, activity_id: a.id) # creates instance for each using activity and adventure ids
+          end
+        else
+          adventure.adventure_state_activities.create(state_id: s.id) # creates instance of adventure_state_activity if only a state is selected
         end
       end
     end
