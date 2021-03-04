@@ -72,6 +72,8 @@ class AdventureController < ApplicationController
     get_states
     state_ids = AdventureStateActivity.where(state_id: params[:state_filter]).pluck(:adventure_id).uniq
     @state_filter = Adventure.find(state_ids)
+    # binding.pry
+    redirect to "/adventures" if @state_filter.empty?
     erb :"adventures/index"
 
   end
