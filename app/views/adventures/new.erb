@@ -55,7 +55,8 @@
   <% 3.times do %>
     <label for="state_<%= i %>">Select State: <%= '* (select state to track activities)' if i == 1 %></label><br>
     <select name="state_ids[]" id="state_<%=i%>" <%= 'required' if i == 1 %>>
-      <option selected value=''></option>
+      <option selected hidden disabled style="display:none"></option>
+      
       <% @states.each do |s| %>
         <option id="state_<%=i%>" value="<%=s.id %>"><%=s.name%></option>
       <% end %>
@@ -64,7 +65,7 @@
     <% x = 0 %>
     <% 3.times do %>
       <select name="state_<%=i%>_activity_ids[]" id="activity_list" <%= 'required' if i == 1 && x == 0 %>>
-        <option selected value=''></option>
+        <option selected hidden disabled style="display:none"></option>
         <% @activities.each do |a| %>
           <option value="<%=a.id%>"><%=a.name %></option>
         <% end %>

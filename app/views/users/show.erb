@@ -6,7 +6,7 @@
 
 
 <h2>States Visited</h2>
-<% @states.each.with_index(1) do |s, i| %>
+<% @states.uniq.each.with_index(1) do |s, i| %>
   <h4><%="#{i}. #{s.name}" %></h4>
 <% end %>
 
@@ -14,10 +14,10 @@
 <h4><%=@states.count%></h4>
 
 <h2>Activity Count</h2>
-<h4><%=@activities.collect {|a| a.name}.uniq.count%></h4>
+<h4><%=@activities.collect {|a| a.nae}.uniq.count%></h4>
 
 
-<h2>Your Activities</h2>
+<h2><%='Your' if profile_creator?%> Activities</h2>
 <% @activities.pluck(:name).uniq.each.with_index(1) do |a, i| %>
   <h4><%="#{i}. #{a}"%></h4>
 <% end %>
