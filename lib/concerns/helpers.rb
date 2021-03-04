@@ -46,6 +46,10 @@ module Helpers
       params[:id].to_i == session_id
     end
 
+    def adventure_creator?(adventure)
+      session_id == adventure.user_id
+    end
+
     def format_date(date)
       date.nil? ? (date) : (date.strftime("%d/%m/%Y"))
     end
@@ -110,8 +114,9 @@ module Helpers
       @details << "<h5>Food: #{@adventure.food}</h5>" unless @adventure.food.empty?
       @details << "<h5>Trip Summary:</h5>"
       @details << "<h5>#{@adventure.summary}</h5>" 
-      @details << "<h5>Private Notes:</h5>" unless @adventure.private_notes.empty?
-      @details << "<h5>#{@adventure.private_notes}</h5>" unless @adventure.private_notes.empty?
+      binding.pry
+      @details << "<h5>Private Notes:</h5>" unless @adventure.private_notes.empty? || !adventure_creator?(@adventure)
+      @details << "<h5>#{@adventure.private_notes}</h5>" unless @adventure.private_notes.empty? || !adventure_creator?(@adventure)
       @details
     end
   end
