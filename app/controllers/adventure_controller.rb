@@ -2,11 +2,8 @@ class AdventureController < ApplicationController
 
   
   get "/adventures" do  # get route to show erb :index
-    binding.pry
     get_adventures
-    # if adventures empty 
-    # redirect to log adventure
-    # give flash message that no adventures yet, track to be first
+    # if adventures empty, redirect to log adventure, give flash message that no adventures yet, track to be first
     get_states
     get_activities
     erb :"adventures/index"
@@ -75,7 +72,6 @@ class AdventureController < ApplicationController
     get_states
     state_ids = AdventureStateActivity.where(state_id: params[:state_filter]).pluck(:adventure_id).uniq
     @state_filter = Adventure.find(state_ids)
-    # binding.pry
     erb :"adventures/index"
 
   end
