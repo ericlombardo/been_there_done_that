@@ -1,11 +1,12 @@
 module Helpers
   module InstanceMethods
-    def logged_in?
-      !!session[:user_id]
+    # logged_in? helper method => !!session[:user_id]
+    def block_if_logged_in
+      redirect to "/users/#{session_id}" if !!session_id
     end
 
-    def block_not_logged_in
-      redirect "/login" if session[:user_id].nil?
+    def block_if_logged_out
+      redirect "/login" if !session_id
     end
 
     def session_id

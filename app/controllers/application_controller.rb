@@ -17,15 +17,13 @@ class ApplicationController < Sinatra::Base
   end
   
   get "/login" do  # show login form, if signed in show profile page
-    if logged_in?
-      redirect to "/users/#{session_id}"
-    else
-      erb :login
-    end
+    block_if_logged_in # logged_in? helper method
+    erb :login
   end
 
   get "/signup" do  # shows signup form, if signed in show profile page
-    logged_in? ? (redirect to "/users/#{session_id}") : (erb :signup)
+    block_if_logged_in  # logged_in? helper method
+    erb :signup 
   end
 
   post "/signup" do # validates input, logs in and shows profile page if valid, reloads if not
@@ -54,7 +52,7 @@ class ApplicationController < Sinatra::Base
   end
 
   post "/logout" do # clears session and redirects to login || redirects to login
-    if logged_in?
+    if session_id # logged_in? helper method
       session.clear
       # mes. successfully logged out, until next time
       redirect "/login"
