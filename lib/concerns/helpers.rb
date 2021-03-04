@@ -73,6 +73,23 @@ module Helpers
       end
     end
 
+    def show_details(adventure) #create a string of html to return in array to iterate through
+      @details = []
+      @details << "<h5>Rating: #{@adventure.rating} / 10</h5>" unless @adventure.rating.nil?
+      @details << "<h5>Would You Recommend: #{@adventure.recommend}</h5>" unless @adventure.recommend.nil?
+      @details << "<h5>Trip Start Date: #{format_date(@adventure.start_date)}</h5>" unless @adventure.start_date.nil?
+      @details << "<h5>Trip End Date: #{format_date(@adventure.end_date)}</h5>" unless @adventure.end_date.nil?
+      @details << "<h5>Weather: #{@adventure.weather}</h5>" unless @adventure.weather.empty?
+      @details << "<h5>Miles Covered: #{@adventure.miles_covered}</h5>" unless @adventure.miles_covered.nil?
+      @details << "<h5>Transportation: #{@adventure.transportation}</h5>" unless @adventure.transportation.empty?
+      @details << "<h5>Companions: #{@adventure.companions}</h5>" unless @adventure.companions.empty?
+      @details << "<h5>Food: #{@adventure.food}</h5>" unless @adventure.food.empty?
+      @details << "<h5>Trip Summary:</h5>"
+      @details << "<h5>#{@adventure.summary}</h5>" 
+      @details << "<h5>Private Notes:</h5>" unless @adventure.private_notes.empty?
+      @details << "<h5>#{@adventure.private_notes}</h5>" unless @adventure.private_notes.empty?
+      @details
+    end
   end
 
   module ClassMethods
