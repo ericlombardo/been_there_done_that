@@ -8,13 +8,16 @@ class Adventure < ActiveRecord::Base
   validates :title, :highlight, :summary, presence: true # confirm has email and username
 
   def slug
-    self.title.split(" ").join("-").downcase
+    self.title.split(" ").join("-").downcase + "-#{self.id}"
+
   end
 
   def self.find_by_slug(slug)
+
     self.all.find do |a|
       a.slug == slug
     end
   end
+
 
 end
