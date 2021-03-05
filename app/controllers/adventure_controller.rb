@@ -31,6 +31,7 @@ class AdventureController < ApplicationController
     if valid(adventure)
       link_user_and_save(adventure)   # link user to adventure and saves adventure
       assign_states_and_activities_to_adventure(params, adventure)
+      flash[:success] = "New Adventure Created"
       redirect to "/adventures/#{adventure.slug}"
     else
       flash[:danger] = adventure.errors.full_messages
@@ -70,7 +71,7 @@ class AdventureController < ApplicationController
     if adventure_creator?(@adventure)
       @adventure.destroy 
       flash[:succes] = "Successfully deleted adventure"
-      redirect to "/users/#{current_user.slug}"
+      redirect to "/users/#{current_user.slug}/adventures"
     end
   end
 
@@ -89,7 +90,7 @@ class AdventureController < ApplicationController
     else [true, true]
       redirect to "/adventures"
     end
-    if Adventure.find(filter_ids).empty?
+    if Adventure.find(filter_ids).empty? # check if there are any adventures for those filtered results
       flash[:info] = "No adventures met this criteria"
       redirect to "/adventures"
     else

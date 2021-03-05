@@ -34,7 +34,7 @@ class ApplicationController < Sinatra::Base
       flash[:success] = "Successful Login"
       redirect to "/users/#{current_user.slug}"
     else
-      flash[:danger] = user.errors.full_messages.join(', and')
+      flash[:danger] = user.errors.full_messages.join(', and ')
       redirect "/signup"
     end
   end
@@ -46,15 +46,15 @@ class ApplicationController < Sinatra::Base
       flash[:success] = "Successful Login"
       redirect "/users/#{current_user.slug}"
     else
-      flash[:danger] = "No match found. Please try again of click link to signup"
+      flash[:danger] = "No match found. Please try again or click link to signup"
       redirect "/login" 
     end
   end
 
   post "/logout" do # clears session and redirects to login || redirects to login
     block_if_logged_out # logged_in? helper method
+      flash[:success] = "Until next time #{current_user.username}!"
       session.clear
-      flash[:success] = "Logged Out. Go have an adventure!"
       redirect "/login"
   end
 end

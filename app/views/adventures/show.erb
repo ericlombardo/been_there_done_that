@@ -1,6 +1,6 @@
 <h1><%=@adventure.title %></h1>
 <h4>Adventurer: <a href="/users/<%=@adventure.user.slug%>"><%=@adventure.user.username%></a></h4>
-<!--key of state name and value of array activity objects-->
+
 <h3><%=@adventure.highlight %></h3>
 <h4>States Visited:</h4>
 <% @adventure.states.uniq.each do |s| %>
@@ -17,7 +17,7 @@
 <% end %>
 <br>
 
-<% if find_adventure.user_id == session_id  %>
+<% if adventure_creator?(@adventure)  %>
   <a href="/adventures/<%=@adventure.slug %>/edit"><button>Edit Adventure</button></a>
   <form method="POST" action="/adventures/<%=@adventure.slug%>">
     <input type="hidden" name="_method" value="DELETE">

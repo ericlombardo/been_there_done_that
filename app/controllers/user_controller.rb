@@ -24,6 +24,8 @@ class UserController < ApplicationController
       session.clear
       flash[:alert] = "Sorry to see you go. Your account has been deleted"
       redirect "/login"
+    else
+      redirect to "/users/#{current_user.slug}"
     end
   end
 
