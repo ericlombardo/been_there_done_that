@@ -2,7 +2,8 @@ class UserController < ApplicationController
 
   get "/users/:slug" do
     block_if_logged_out   #logged_in? helper method
-    @user = User.find_by_slug(params[:slug])
+    find_user
+    
     @states = @user.adventures.collect {|a| a.states.uniq}.flatten    # get all states for that user, not doubled up
     @activities = @user.adventures.collect{|a| a.activities}.flatten  # get all activities for that user
   
@@ -21,6 +22,7 @@ class UserController < ApplicationController
     if profile_creator? # logged_in? helper
       find_user.destroy
       session.clear
+      flash[:alert] = "Sorry to see you go. Your account has been deleted"
       redirect "/login"
     end
   end

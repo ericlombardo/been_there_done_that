@@ -2,11 +2,17 @@ module Helpers
   module InstanceMethods
     # logged_in? helper method => !!session[:user_id]
     def block_if_logged_in
-      redirect to "/users/#{current_user.slug}" if !!session_id
+      if !!session_id
+        flash[:info] = "No need to login in. We're already acquainted"
+        redirect to "/users/#{current_user.slug}" if !!session_id
+      end
     end
 
     def block_if_logged_out
-      redirect "/login" if !session_id
+      if !session_id
+        flash[:warning] = "Must login to view this content"
+        redirect "/login" 
+      end
     end
 
     def session_id
@@ -19,10 +25,18 @@ module Helpers
 
     def find_user
       @user = User.find_by_slug(params[:slug])
+      if @user.nil?
+        flash[:warning] = "Sorry, couldn't find the adventurer you input"
+        redirect to "/users/#{current_user.slug}"
+      end
     end
 
     def find_adventure
       @adventure = Adventure.find_by_slug(params[:slug])
+      if @adventure.nil?
+        flash[:warning] = "Couldn't find that adventure. Here are some that we could find"
+        redirect to "/adventures"
+      end
     end
 
     def get_users

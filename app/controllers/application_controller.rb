@@ -28,14 +28,13 @@ class ApplicationController < Sinatra::Base
 
   post "/signup" do # validates input, logs in and shows profile page if valid, reloads if not
     user = User.new(params)
-    if user
+    if valid(user)
       user.save # if valid create user, assign session id, redirect to profile
       session[:user_id] = user.id 
-      # add message saying successfully logged in
-      binding.pry
+      flash[:success] = "Successful Login"
       redirect to "/users/#{current_user.slug}"
     else
-      # add message showing errros
+      flash[:danger] = user.errors.full_messages.join(', and')
       redirect "/signup"
     end
   end
@@ -44,10 +43,10 @@ class ApplicationController < Sinatra::Base
     user = User.find_by(username: params[:username])
     if user && user.authenticate(params[:password])
       session[:user_id] = user.id
-      # add message saying successfully logged in
+      flash[:success] = "Successful Login"
       redirect "/users/#{current_user.slug}"
     else
-      # add message saying no match. retry or click link to signup
+      flash[:danger] = "No match found. Please try again of click link to signup"
       redirect "/login" 
     end
   end
@@ -55,7 +54,7 @@ class ApplicationController < Sinatra::Base
   post "/logout" do # clears session and redirects to login || redirects to login
     block_if_logged_out # logged_in? helper method
       session.clear
-      # mes. successfully logged out, until next time
+      flash[:success] = "Logged Out. Go have an adventure!"
       redirect "/login"
   end
 end

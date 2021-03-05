@@ -4,7 +4,10 @@ class AdventureController < ApplicationController
   get "/adventures" do  # get route to show erb :index
     block_if_logged_out
     get_adventures
-    # if adventures empty, redirect to log adventure, give flash message that no adventures yet, track to be first
+    if @adventures.empty?
+      flash[:info] = "No Adventures Yet! Be the first to track an adventures"
+      redirect to "/users/#{current_user.slug}"
+    end
     get_states
     get_activities
     erb :"adventures/index"
@@ -19,7 +22,6 @@ class AdventureController < ApplicationController
 
   get '/adventures/:slug' do  # Show adventure data based on id
     block_if_logged_out
-    binding.pry
     find_adventure
     erb :"adventures/show"
   end
@@ -31,7 +33,7 @@ class AdventureController < ApplicationController
       assign_states_and_activities_to_adventure(params, adventure)
       redirect to "/adventures/#{adventure.slug}"
     else
-      # mes. errors 
+      flash[:danger] = adventure.errors.full_messages
       redirect "/adventures/new"
     end
   end
@@ -39,7 +41,10 @@ class AdventureController < ApplicationController
   get "/adventures/:slug/edit" do # shows form to edit previous adventure with data filled in
     block_if_logged_out
     find_adventure
-    redirect to "/adventures/#{@adventure.slug}" if !adventure_creator?(@adventure)
+    if !adventure_creator?(@adventure)
+      flash[:danger] = "This is not the adventure you are looking for. Must be creator to edit"
+      redirect to "/adventures/#{@adventure.slug}"
+    end
     get_activities
     get_states
 
@@ -61,8 +66,11 @@ class AdventureController < ApplicationController
   delete "/adventures/:slug" do # get adventure, delete it from the adventures, but not from state activities
     block_if_logged_out
     find_adventure
-    @adventure.destroy if adventure_creator?(@adventure)
-    redirect to "/users/#{current_user.slug}"
+    if adventure_creator?(@adventure)
+      @adventure.destroy 
+      flash[:succes] = "Successfully deleted adventure"
+      redirect to "/users/#{current_user.slug}"
+    end
   end
 
   post "/adventures/filtered" do
@@ -78,10 +86,10 @@ class AdventureController < ApplicationController
     when [true, false]
       filter_ids = AdventureStateActivity.where(activity_id: ids[1]).pluck(:adventure_id).uniq
     else [true, true]
-      # message no trips meet that criteria
       redirect to "/adventures"
     end
     if Adventure.find(filter_ids).empty?
+      flash[:info] = "No adventures met this criteria"
       redirect to "/adventures"
     else
       @filtered = Adventure.find(filter_ids)
