@@ -33,9 +33,10 @@ class AdventureController < ApplicationController
   end
 
   get "/adventures/:id/edit" do # shows form to edit previous adventure with data filled in
+    find_adventure
+    redirect to "/adventures/#{params[:id]}" if !adventure_creator?(@adventure)
     get_activities
     get_states
-    find_adventure
 
     gen_adv_log
 
@@ -53,7 +54,8 @@ class AdventureController < ApplicationController
   end
 
   delete "/adventures/:id" do # get adventure, delete it from the adventures, but not from state activities
-    find_adventure.destroy
+    find_adventure
+    @adventure.destroy if adventure_creator?(@adventure)
     redirect to "/users/#{session_id}"
   end
 
