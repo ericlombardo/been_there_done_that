@@ -20,13 +20,14 @@
 <input type="submit" value="Filter Resualts">
 </form>
 <% if @filtered.nil? %>
-  <% @adventures.each do |a| %>
+  <% binding.pry %>
+  <% @adventures.reverse.each do |a| %>
     <h2><a href="adventures/<%=a.slug%>"><%=a.title %></a></h2><br>
     <h4>States: <%=a.states.uniq.pluck(:name).join(", ")%></h4>
     <h4>Activities: <%=a.activities.pluck(:name).join(", ")%></h4>
   <% end %>
 <% else %>
-  <% @filtered.each do |a| %>
+  <% @filtered.reverse.each do |a| %>
     <h2><a href="<%=a.id%>"><%=a.title%></a></h2>
     <h4>States: <%=a.states.uniq.pluck(:name).join(", ")%></h4>
     <h4>Activities: <%=a.activities.pluck(:name).join(", ")%></h4>
