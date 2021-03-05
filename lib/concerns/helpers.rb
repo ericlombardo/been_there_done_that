@@ -18,15 +18,15 @@ module Helpers
     end
 
     def find_user
-      @user = User.find_by(id: params[:id])
+      @user = User.find_by_slug(params[:slug])
     end
 
     def find_adventure
-      @adventure = Adventure.find_by(id: params[:id])
+      @adventure = Adventure.find_by_slug(params[:slug])
     end
 
     def get_users
-      @users = User.all
+      @users ||= User.all
     end
 
     def get_adventures
@@ -34,17 +34,17 @@ module Helpers
     end
 
     def get_states
-      @states = State.all
+      @states ||= State.all
       @states = @states.sort_by {|s| s.name}
     end
 
     def get_activities
-      @activities = Activity.all
+      @activities ||= Activity.all
       @activities = @activities.sort_by {|a| a.name}
     end
 
     def profile_creator?
-      params[:id].to_i == session_id
+      User.find_by_slug(params[:slug]).id == session_id
     end
 
     def adventure_creator?(adventure)

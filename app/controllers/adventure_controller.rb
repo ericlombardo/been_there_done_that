@@ -17,8 +17,9 @@ class AdventureController < ApplicationController
     erb :"adventures/new"
   end
 
-  get '/adventures/:id' do  # Show adventure data based on id
+  get '/adventures/:slug' do  # Show adventure data based on id
     block_if_logged_out
+    binding.pry
     find_adventure
     erb :"adventures/show"
   end
@@ -28,17 +29,17 @@ class AdventureController < ApplicationController
     if valid(adventure)
       link_user_and_save(adventure)   # link user to adventure and saves adventure
       assign_states_and_activities_to_adventure(params, adventure)
-      redirect to "/adventures/#{adventure.id}"
+      redirect to "/adventures/#{adventure.slug}"
     else
       # mes. errors 
       redirect "/adventures/new"
     end
   end
 
-  get "/adventures/:id/edit" do # shows form to edit previous adventure with data filled in
+  get "/adventures/:slug/edit" do # shows form to edit previous adventure with data filled in
     block_if_logged_out
     find_adventure
-    redirect to "/adventures/#{params[:id]}" if !adventure_creator?(@adventure)
+    redirect to "/adventures/#{@adventure.slug}" if !adventure_creator?(@adventure)
     get_activities
     get_states
 
@@ -47,17 +48,17 @@ class AdventureController < ApplicationController
     erb :"adventures/edit"
   end
 
-  patch "/adventures/:id" do # takes in new form data and updates the existing adventure
+  patch "/adventures/:slug" do # takes in new form data and updates the existing adventure
     find_adventure  # get adventure
     @adventure.update(params[:adventure]) # update adventure details
 
     AdventureStateActivity.where(adventure_id: @adventure.id).destroy_all # destroy all adventure_state_activities for that adventure
     
     assign_states_and_activities_to_adventure(params, @adventure) # link new adventure_state_activities for updated adventure
-    redirect to "/adventures/#{@adventure.id}"
+    redirect to "/adventures/#{@adventure.slug}"
   end
 
-  delete "/adventures/:id" do # get adventure, delete it from the adventures, but not from state activities
+  delete "/adventures/:slug" do # get adventure, delete it from the adventures, but not from state activities
     block_if_logged_out
     find_adventure
     @adventure.destroy if adventure_creator?(@adventure)

@@ -18,8 +18,8 @@
 <br>
 
 <% if find_adventure.user_id == session_id  %>
-  <a href="/adventures/<%=@adventure.id %>/edit"><button>Edit Adventure</button></a>
-  <form method="POST" action="/adventures/<%=@adventure.id%>">
+  <a href="/adventures/<%=@adventure.slug %>/edit"><button>Edit Adventure</button></a>
+  <form method="POST" action="/adventures/<%=@adventure.slug%>">
     <input type="hidden" name="_method" value="DELETE">
     <button value="<%=@adventure.id%>">Delete Adventure</button>
   </form>

@@ -1,6 +1,6 @@
 <h1>Edit <%=@adventure.title%> </h1>         
 
-<form method="POST" action="/adventures/<%=@adventure.id %>">
+<form method="POST" action="/adventures/<%=@adventure.slug %>">
   <input type="hidden" name="_method" value="PATCH">
   <label for="title">Trip Title: *</label><br>
   <input type="text" id="title" name="adventure[title]" value="<%=@adventure.title %>"><br>

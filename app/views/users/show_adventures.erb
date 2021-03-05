@@ -2,7 +2,7 @@
   <h1>Sorry, no adventures tracked yet.</h1>
 <% else %>
   <% @adventures.each do |a| %>
-    <h3><a href="/adventures/<%=a.id%>"><%=a.title%></a></h3>
+    <h3><a href="/adventures/<%=a.slug%>"><%=a.title%></a></h3>
     <h5><%=format_date(a.start_date) %></h5>
     <h5><%=format_date(a.end_date) %></h5>
     <h4><%=a.highlight%></h4>

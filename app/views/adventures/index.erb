@@ -21,7 +21,7 @@
 </form>
 <% if @filtered.nil? %>
   <% @adventures.each do |a| %>
-    <h2><a href="adventures/<%=a.id%>"><%=a.title %></a></h2><br>
+    <h2><a href="adventures/<%=a.slug%>"><%=a.title %></a></h2><br>
     <h4>States: <%=a.states.uniq.pluck(:name).join(", ")%></h4>
     <h4>Activities: <%=a.activities.pluck(:name).join(", ")%></h4>
   <% end %>
