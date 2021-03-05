@@ -2,6 +2,7 @@ class AdventureController < ApplicationController
 
   
   get "/adventures" do  # get route to show erb :index
+    block_if_logged_out
     get_adventures
     # if adventures empty, redirect to log adventure, give flash message that no adventures yet, track to be first
     get_states
@@ -10,12 +11,14 @@ class AdventureController < ApplicationController
   end
 
   get "/adventures/new" do # show form to log a new trip
+    block_if_logged_out
     get_activities
     get_states
     erb :"adventures/new"
   end
 
   get '/adventures/:id' do  # Show adventure data based on id
+    block_if_logged_out
     find_adventure
     erb :"adventures/show"
   end
@@ -33,6 +36,7 @@ class AdventureController < ApplicationController
   end
 
   get "/adventures/:id/edit" do # shows form to edit previous adventure with data filled in
+    block_if_logged_out
     find_adventure
     redirect to "/adventures/#{params[:id]}" if !adventure_creator?(@adventure)
     get_activities
@@ -54,6 +58,7 @@ class AdventureController < ApplicationController
   end
 
   delete "/adventures/:id" do # get adventure, delete it from the adventures, but not from state activities
+    block_if_logged_out
     find_adventure
     @adventure.destroy if adventure_creator?(@adventure)
     redirect to "/users/#{session_id}"

@@ -21,17 +21,16 @@ class UserController < ApplicationController
   # end
 
   delete "/users/:id" do
-    binding.pry
-    if session_id && session_id == current_user.id # logged_in? helper
+    block_if_logged_out
+    if profile_creator? # logged_in? helper
       find_user.destroy
       session.clear
-      redirect "/login"
-    else
       redirect "/login"
     end
   end
 
   get "/users/:id/adventures" do
+    block_if_logged_out
     @adventures = find_user.adventures
     erb :"users/show_adventures"
   end

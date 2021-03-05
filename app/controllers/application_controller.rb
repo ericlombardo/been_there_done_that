@@ -52,13 +52,9 @@ class ApplicationController < Sinatra::Base
   end
 
   post "/logout" do # clears session and redirects to login || redirects to login
-    if session_id # logged_in? helper method
+    block_if_logged_out # logged_in? helper method
       session.clear
       # mes. successfully logged out, until next time
       redirect "/login"
-    else
-      # mes. must be logged in to logout
-      redirect "/login"
-    end
   end
 end
