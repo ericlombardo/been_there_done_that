@@ -60,6 +60,7 @@ class AdventureController < ApplicationController
     AdventureStateActivity.where(adventure_id: @adventure.id).destroy_all # destroy all adventure_state_activities for that adventure
     
     assign_states_and_activities_to_adventure(params, @adventure) # link new adventure_state_activities for updated adventure
+    flash[:success] = "Successfully updated adventure"
     redirect to "/adventures/#{@adventure.slug}"
   end
 
