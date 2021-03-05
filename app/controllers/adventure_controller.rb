@@ -61,7 +61,7 @@ class AdventureController < ApplicationController
     block_if_logged_out
     find_adventure
     @adventure.destroy if adventure_creator?(@adventure)
-    redirect to "/users/#{session_id}"
+    redirect to "/users/#{current_user.slug}"
   end
 
   post "/adventures/filtered" do

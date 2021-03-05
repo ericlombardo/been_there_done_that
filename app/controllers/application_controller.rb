@@ -32,7 +32,8 @@ class ApplicationController < Sinatra::Base
       user.save # if valid create user, assign session id, redirect to profile
       session[:user_id] = user.id 
       # add message saying successfully logged in
-      redirect to "/users/#{session_id}"
+      binding.pry
+      redirect to "/users/#{current_user.slug}"
     else
       # add message showing errros
       redirect "/signup"
@@ -44,7 +45,7 @@ class ApplicationController < Sinatra::Base
     if user && user.authenticate(params[:password])
       session[:user_id] = user.id
       # add message saying successfully logged in
-      redirect "/users/#{session_id}"
+      redirect "/users/#{current_user.slug}"
     else
       # add message saying no match. retry or click link to signup
       redirect "/login" 

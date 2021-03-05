@@ -2,7 +2,7 @@ module Helpers
   module InstanceMethods
     # logged_in? helper method => !!session[:user_id]
     def block_if_logged_in
-      redirect to "/users/#{session_id}" if !!session_id
+      redirect to "/users/#{current_user.slug}" if !!session_id
     end
 
     def block_if_logged_out

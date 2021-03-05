@@ -1,8 +1,8 @@
 class UserController < ApplicationController
 
-  get "/users/:id" do
+  get "/users/:slug" do
     block_if_logged_out   #logged_in? helper method
-    @user = User.find(params[:id])
+    @user = User.find_by_slug(params[:slug])
     @states = @user.adventures.collect {|a| a.states.uniq}.flatten    # get all states for that user, not doubled up
     @activities = @user.adventures.collect{|a| a.activities}.flatten  # get all activities for that user
   
@@ -16,11 +16,7 @@ class UserController < ApplicationController
     erb :"users/show"
   end
 
-  # post "/users" do
-  #   redirect "/users"
-  # end
-
-  delete "/users/:id" do
+  delete "/users/:slug" do
     block_if_logged_out
     if profile_creator? # logged_in? helper
       find_user.destroy
@@ -29,7 +25,7 @@ class UserController < ApplicationController
     end
   end
 
-  get "/users/:id/adventures" do
+  get "/users/:slug/adventures" do
     block_if_logged_out
     @adventures = find_user.adventures
     erb :"users/show_adventures"
