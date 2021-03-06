@@ -3,9 +3,9 @@ class Adventure < ActiveRecord::Base
   has_many :adventure_state_activities
   has_many :activities, through: :adventure_state_activities
   has_many :states, through: :adventure_state_activities
-
-  mount_uploader :image, ImageUploader
-  %w(jpg jpeg gif png)
+  
+  mount_uploader :image, ImagesUploader 
+  
   # validations
   validates :title, :highlight, :summary, presence: true # confirm has email and username
 
