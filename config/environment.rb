@@ -1,9 +1,10 @@
 ENV['SINATRA_ENV'] ||= "development"
 
 require 'bundler/setup'
-require 'carrierwave'
+require "carrierwave"
 require "carrierwave/orm/activerecord"
 Bundler.require(:default, ENV['SINATRA_ENV'])
+
 
 configure :development do   # found on a learn lesson
   set :database, 'sqlite3:db/development.sqlite'
@@ -17,4 +18,7 @@ ActiveRecord::Base.establish_connection(
 )
 
 require_all 'lib'
-require_all 'app'
+require './app/controllers/application_controller' 
+require './app/controllers/user_controller'
+require './app/controllers/adventure_controller'
+require_all './app'
