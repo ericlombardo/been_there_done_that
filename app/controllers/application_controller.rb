@@ -45,7 +45,7 @@ class ApplicationController < Sinatra::Base
       flash[:success] = "Successful Login"
       redirect "/users/#{current_user.slug}"
     else
-      flash[:danger] = "No match found. Please try again or click link to signup"
+      flash[:danger] = "No match found. Please try again or click link to sign up"
       redirect "/login" 
     end
   end
