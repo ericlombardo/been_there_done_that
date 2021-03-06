@@ -39,13 +39,6 @@
   </style>
   </head>
   <body>
-      <% flash.keys.each do |k| %>
-      <% if flash[k] %>
-      <div class="alert alert-<%=k%>">
-        <%= flash[k] %>
-      </div>
-      <% end %>
-      <% end %>
       
       <%= yield %>
       
