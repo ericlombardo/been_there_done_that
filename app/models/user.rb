@@ -4,6 +4,7 @@ class User < ActiveRecord::Base
   has_many :activities, through: :adventures
   has_many :states, through: :adventures
 
+
   validates_associated :adventures, :activities, :states  # validates associations
   
   validates :username, :email, presence: true # confirm has email and username

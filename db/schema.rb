@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_02_22_194331) do
+ActiveRecord::Schema.define(version: 2021_03_06_061609) do
 
   create_table "activities", force: :cascade do |t|
     t.string "name"
@@ -38,6 +38,7 @@ ActiveRecord::Schema.define(version: 2021_02_22_194331) do
     t.string "food"
     t.text "private_notes"
     t.integer "user_id"
+    t.string "image"
   end
 
   create_table "states", force: :cascade do |t|
