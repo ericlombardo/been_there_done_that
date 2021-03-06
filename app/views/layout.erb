@@ -54,35 +54,29 @@
       background: none;
       padding: 0!important;
     }
+    .cover_photo{
+      background-size: contain;
+    }
 
   </style>
   </head>
   <body>
     <% if !!session[:user_id] %>
       <div class="container-fluid"> <!--creates a container for all pages to go in-->
-        <img class="img-responsive" src="/images/banner_photo.jpg" alt="banner-photo" width="100%" height="250px">
-        <nav class="navbar navbar-expand-m navbar-dark bg-dark justify-content-center"><!--Identifies contents will be navbar and set color scheme-->
+        <img class="img-responsive cover_photo" src="/images/banner_photo.jpg" alt="banner-photo" width="100%" height="250px">
+        <nav class="navbar navbar-expand-sm navbar-dark bg-dark sticky-top"><!--Identifies contents will be navbar and set color scheme-->
           <nav class="container-fluid"> <!--make contents go across full screen-->
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
               <span class="navbar-toggler-icon"></span> <!--creates navbar icon when sized too small-->
             </button>
-            <div class="collapse navbar-collapse" id="navbarText"> <!--creates navbar entry container, makes it "dropable" when for icon-->
+            
+            <div class="collapse navbar-collapse" id="navbarText"> <!--navbar links-->
               <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <li class="navbar-nav">
-                  <a class="nav-link" href="/users/<%=current_user.slug%>">Homebase</a>
-                </li>
-                <li>
-                  <a class="nav-link" href="/users/<%=current_user.slug%>/adventures">My Adventures</a>
-                </li> 
-                <li> 
-                  <a class="nav-link" href="/adventures/new">Log Adventure</a>
-                </li> 
-                <li> 
-                  <a class="nav-link" href="/adventures">Discover Adventures</a>
-                </li>
-                <li>
-                  <a class="nav-link" href="/logout">Log Out</a>
-                </li>
+                <li class="navbar-nav"><a class="nav-link" href="/users/<%=current_user.slug%>">Homebase</a></li>
+                <li><a class="nav-link" href="/users/<%=current_user.slug%>/adventures">My Adventures</a></li> 
+                <li><a class="nav-link" href="/adventures/new">Log Adventure</a></li> 
+                <li><a class="nav-link" href="/adventures">Discover Adventures</a></li>
+                <li><a class="nav-link" href="/logout">Log Out</a></li>
               </ul>
             </div>
           </nav>
