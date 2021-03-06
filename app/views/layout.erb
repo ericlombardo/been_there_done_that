@@ -44,14 +44,46 @@
     .cover_title{
       font-family: 'Permanent Marker', sans-serif;
     }
-    
+    .container-fluid {
+    padding-right:0;
+    padding-left:0;
+    margin-right:auto;
+    margin-left:auto
+    }
+    .button_as_link{
+      background: none;
+      padding: 0!important;
+    }
 
   </style>
   </head>
   <body>
-      
+    <div class="container-fluid"> <!--creates a container for all pages to go in-->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark"><!--Identifies contents will be navbar and set color scheme-->
+      <nav class="container-fluid"> <!--make contents go across full screen-->
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span> <!--creates navbar icon when sized too small-->
+        </button>
+        <div class="collapse navbar-collapse" id="navbarText"> <!--creates navbar entry container, makes it "dropable" when for icon-->
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="navbar-nav">
+              <a class="nav-link" href="/users/<%=current_user.slug%>">Homebase</a>
+            </li>
+            <li>
+              <a class="nav-link" href="/users/<%=current_user.slug%>/adventures">My Adventures</a>
+            </li> 
+            <li> 
+              <a class="nav-link" href="/adventures/new">Log Adventure</a>
+            </li> 
+            <li> 
+              <a class="nav-link" href="/adventures">Discover Adventures</a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </nav>
       <%= yield %>
-      
+    </div>
     <!--JS link for Bootstrap with popper link in as well (don't need jquery link, it budnles everything needed)-->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
   </body>

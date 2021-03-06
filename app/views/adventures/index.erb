@@ -20,7 +20,6 @@
 <input type="submit" value="Filter Resualts">
 </form>
 <% if @filtered.nil? %>
-  <% binding.pry %>
   <% @adventures.reverse.each do |a| %>
     <h2><a href="adventures/<%=a.slug%>"><%=a.title %></a></h2><br>
     <h4>States: <%=a.states.uniq.pluck(:name).join(", ")%></h4>
