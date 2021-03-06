@@ -1,21 +1,20 @@
-<div class="bg-image">
-  <div class="img-fluid" id="login_img">
-    <div class="container">
-      <div class="row">
-        <div class="col-sm-6 bg-white rounded">
-          <form method="POST" action="/login">
-            <h1>Been There! Done That!</h1>
-            <h3>Login To Track Your Adventures</h3>
-            <label for="login_username_input">Username: </label>
-              <input type="text" name="username" id="login_username_input">
-            <br>
-            <label for="login_password_input">Password: </label>
-              <input type="password" name="password" id="login_password_input">
-            <br>
-            <input type="submit" id="login_submit_button" value="Login">
-            <p>Not registered yet? <a href="/signup">sign up here</a></p>
-          </form>
-        </div>
+<div id="login_img" class="bg-image">
+  <div class="container">
+    <div class="row">
+      <div id="login_box" class="col-sm-5 bg-white rounded">
+        <form id="login_form" method="POST" action="/login">
+          <h1>Been There! Done That!</h1>
+          <h3>Login To Track Your Adventures</h3>
+      
+          <label for="login_username_input">Username: </label>
+            <input type="text" name="username" id="login_username_input">
+          <br>
+          <label for="login_password_input">Password: </label>
+            <input type="password" name="password" id="login_password_input">
+          <br>
+          <input type="submit" id="login_submit_button" value="Login">
+          <p>Not registered yet? <a href="/signup">sign up here</a></p>
+        </form>
       </div>
     </div>
   </div>

@@ -21,21 +21,27 @@
       background-position: center;
       height: 100vh; /* sets height to 100% viewport height (screen) */
     }
+    #login_box{
+      margin: 0 auto;
+    }
+    
+    form{
+      text-align: center;
+    }
 
   </style>
   </head>
   <body>
-    <div class="container"></div>   
       <% flash.keys.each do |k| %>
-        <% if flash[k] %>
-          <div class="alert alert-<%=k%>">
-            <%= flash[k] %>
-          </div>
-        <% end %>
+      <% if flash[k] %>
+      <div class="alert alert-<%=k%>">
+        <%= flash[k] %>
+      </div>
       <% end %>
+      <% end %>
+      
       <%= yield %>
-
-    </div>
+      
     <!--JS link for Bootstrap with popper link in as well (don't need jquery link, it budnles everything needed)-->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
   </body>
