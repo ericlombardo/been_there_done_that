@@ -128,7 +128,7 @@ DEPENDENCIES
   activerecord (~> 5.2)
   bcrypt
   capybara
-  carrierwave
+  carrierwave (~> 1.0)
   database_cleaner-active_record
   dotenv
   faker

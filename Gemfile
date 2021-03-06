@@ -4,7 +4,6 @@ gem 'sinatra'
 gem 'sinatra-flash'
 gem 'activerecord', '~> 5.2', :require => 'active_record'
 gem 'sinatra-activerecord', :require => 'sinatra/activerecord'
-gem 'carrierwave'
 gem 'rake'
 gem 'require_all'
 gem 'sqlite3', '~> 1.3.6'
@@ -15,6 +14,7 @@ gem 'bcrypt'
 gem 'tux'
 gem 'dotenv'
 gem 'faker'
+gem 'carrierwave', '~> 1.0'
 
 group :development do
 end
