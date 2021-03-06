@@ -50,8 +50,7 @@ class ApplicationController < Sinatra::Base
     end
   end
 
-  post "/logout" do # clears session and redirects to login || redirects to login
-    binding.pry
+  get "/logout" do # clears session and redirects to login || redirects to login
     block_if_logged_out # logged_in? helper method
     flash[:success] = "Until next time #{current_user.username}!"
     session.clear
