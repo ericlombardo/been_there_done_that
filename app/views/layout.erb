@@ -6,7 +6,7 @@
   <!--Link css stylesheet for Bootstrap-->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
   <link rel="preconnect" href="https://fonts.gstatic.com"> <!--Google link for 3 fonts-->
-<link href="https://fonts.googleapis.com/css2?family=Montserrat&family=Overpass:wght@200;300&family=Permanent+Marker&display=swap" rel="stylesheet">   <!--font-family: 'Montserrat', sans-serif; font-family: 'Overpass', sans-serif; font-family: 'Permanent Marker', cursive;-->
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat&family=Overpass:wght@200;300&family=Permanent+Marker&display=swap" rel="stylesheet">   <!--font-family: 'Montserrat', sans-serif; font-family: 'Overpass', sans-serif; font-family: 'Permanent Marker', cursive;-->
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <title>Been There Done That</title>
@@ -50,18 +50,40 @@
     margin-right:auto;
     margin-left:auto
     }
+    .banner_container{
+      position: relative;
+      text-align: center;
+    }
+    .center{
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
 
+    .large{
+      font-size: 3em;
+    }
+
+    .white_bar{
+      width: 100%;
+      height: 60px;
+      background-color: rgba(255, 255, 255, .7);
+    }
 
 
   </style>
   </head>
   <body>
     <% if !!session[:user_id] %>
+    <div class="banner_container">
+      <img src="/images/banner_photo_0.jpg" alt="banner photo" style="width:100%;">
+      <div class="white_bar center"></div>
+      <div class="center cover_title large">
+        <%= yield_content :header_text %>
+      </div>
+    </div>
       <div class="container-fluid"> <!--creates a container for all pages to go in-->
-        <div class="container-fluid">
-          <img class="img-responsive" src="/images/banner_photo_0.jpg" alt="banner-photo" width="100%">
-          <div class="center"><h1 class="text-center cover_title">been there! done that!</h1></div>
-        </div>
         <nav class="navbar navbar-expand-sm navbar-dark bg-dark sticky-top"><!--Identifies contents will be navbar and set color scheme-->
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
               <span class="navbar-toggler-icon"></span> <!--creates navbar icon when sized too small-->
