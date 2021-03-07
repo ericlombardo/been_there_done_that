@@ -12,41 +12,60 @@
     <label for="highlight">Highlight: *</label>
     <textarea id="highlight" class="form-control" rows="3" cols="40" maxlength="150" name="adventure[highlight]" placeholder="150 characters or less" required></textarea>
   </div>
-  <div class="form-group">
-    <label for="start_date">Trip Start Date:</label>
-    <input type="date" class="form-control" id="start_date" name="adventure[start_date]">
-  </div>
-  <div class="form-group">
-    <label for="end_date">Trip End Date:</label>
-    <input type="date" class="form-control" id="end_date" name="adventure[end_date]">
-  </div>
-  <div class="form-group">
-    <label for="rating">Rating:</label>
-    <select class="form-control" name="adventure[rating]" id="rating">
-      <% x = 1 %>
-      <option value='' selected></option>
-      <% 10.times do %>
-        <option value="<%=x%>"><%=x%></option>
-        <% x += 1 %>
-      <% end %>
-    </select>
-  </div>
-  <div class="form-group">
-    <label for="recommend">Would you recommend his trip?</label>
-    <div class="form-check">
-      <input type="radio" class="form-check-input" id="recommend" value="yes" name="adventure[recommend]"> Yes</input>
+  <div class="row">
+    <div class="col">
+      <div class="form-group">
+        <label for="start_date">Trip Start Date:</label>
+        <input type="date" class="form-control" id="start_date" name="adventure[start_date]">
+      </div>
     </div>
-    <div class="form-check">
-      <input type="radio" class="form-check-input" id="recommend" value="no" name="adventure[recommend]"> No</input>
+    <div class="col">
+      <div class="form-group">
+        <label for="end_date">Trip End Date:</label>
+        <input type="date" class="form-control" id="end_date" name="adventure[end_date]">
+      </div>
     </div>
   </div>
-  <div class="form-group">
-    <label for="miles_covered">Miles Covered:</label>
-    <input type="number" class="form-control" id="miles_covered" name="adventure[miles_covered]">
-  </div>
-  <div class="form-group">
-    <label for="companions">Companions:</label>
-    <input type="text" class="form-control" id="companions" name="adventure[companions]">
+  
+  <div class="row">
+    <div class="col">
+      <div class="form-group">
+        <label for="rating">Rating:</label>
+        <select class="form-control" name="adventure[rating]" id="rating">
+          <% x = 1 %>
+          <option value='' selected></option>
+          <% 10.times do %>
+            <option value="<%=x%>"><%=x%></option>
+            <% x += 1 %>
+          <% end %>
+        </select>
+      </div>
+    </div>
+    <div class="col">
+      <div class="form-group">
+        <label for="recommend">Would you recommend his trip?</label>
+        <div class="form-check">
+          <input type="radio" class="form-check-input" id="recommend" value="yes" name="adventure[recommend]"> Yes</input>
+        </div>
+        <div class="form-check">
+          <input type="radio" class="form-check-input" id="recommend" value="no" name="adventure[recommend]"> No</input>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-3">
+        <div class="form-group">
+          <label for="miles_covered">Miles Covered:</label>
+          <input type="number" class="form-control" id="miles_covered" name="adventure[miles_covered]">
+        </div>
+      </div>
+      <div class="col">
+        <div class="form-group">
+          <label for="transportation">Transportation:</label>
+          <input type="text" class="form-control" id="transportation" name="adventure[transportation]">
+        </div>
+      </div>
+    </div>
   </div>
   <div class="form-group">
     <label for="weather">Weather:</label>
@@ -57,8 +76,8 @@
     <textarea id="summary" class="form-control" name="adventure[summary]" rows="7" cols="50" placeholder="Share with people what all you got into" required></textarea>
   </div>
   <div class="form-group">
-    <label for="transportation">Transportation:</label>
-    <input type="text" class="form-control" id="transportation" name="adventure[transportation]">
+    <label for="companions">Companions:</label>
+    <input type="text" class="form-control" id="companions" name="adventure[companions]">
   </div>
   <div class="form-group">
     <label for="food">Food:</label>
