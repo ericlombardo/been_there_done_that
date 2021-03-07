@@ -6,13 +6,29 @@
   <% end %>
 <% end %>
 
-<h2>States Visited</h2>
-<% @states.uniq.each.with_index(1) do |s, i| %>
-  <h4><%="#{i}. #{s.name}" %></h4>
-<% end %>
+<div class="row text-center p-3">
+  <div class="col">
+    <h2>Most Visited States</h2>
+    <% @top_states.each do |s| %>
+      <h4><%="#{s[0]} - #{s[1]}"%></h4>
+    <% end %>
+  </div>
+  <div class="col-6">
+    <h2>States Visited - <%=@state_list.count%> / 50</h2>
+    <h5><%=@state_list.join(', ')%></h5>
+  </div>
+  <div class="col">
+    <h2>Favorite Activites</h2>
+    <% @top_activities.each do |a| %>
+      <h4><%="#{a[0]} - #{a[1]}"%></h4>
+    <% end %>
+  </div>
+</div>
 
-<h2>State Count</h2>
-<h4><%=@states.uniq.count%></h4>
+
+
+
+
 
 <h2>Activity Count</h2>
 <h4><%=@activities.collect {|a| a.name}.uniq.count%></h4>
@@ -22,15 +38,9 @@
   <h4><%="#{i}. #{a}"%></h4>
 <% end %>
 
-<h2>Most Visited States</h2>
-<% @top_states.each do |s| %>
-<h4><%="#{s[0]} - #{s[1]}"%></h4>
-<% end %>
 
-<h2>Favorite Activites</h2>
-<% @top_activities.each do |a| %>
-  <h4><%="#{a[0]} - #{a[1]}"%></h4>
-<% end %>
+
+
 
 <% if profile_creator? %>
   <!--Delete Profile Button-->
