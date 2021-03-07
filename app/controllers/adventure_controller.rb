@@ -90,6 +90,7 @@ class AdventureController < ApplicationController
     else [true, true]
       redirect to "/adventures"
     end
+    binding.pry
     if Adventure.find(filter_ids).empty? # check if there are any adventures for those filtered results
       flash[:info] = "No adventures met this criteria"
       redirect to "/adventures"

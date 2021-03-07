@@ -22,6 +22,7 @@ class UserController < ApplicationController
   delete "/users/:slug" do
     block_if_logged_out
     if profile_creator? # logged_in? helper
+      binding.pry
       find_user.destroy
       session.clear
       flash[:alert] = "Sorry to see you go. Your account has been deleted"
