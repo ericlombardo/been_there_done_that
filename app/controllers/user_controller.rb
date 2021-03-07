@@ -22,8 +22,9 @@ class UserController < ApplicationController
   delete "/users/:slug" do
     block_if_logged_out
     if profile_creator? # logged_in? helper
-      binding.pry
-      find_user.destroy
+      adventure_ids = current_user.adventures.pluck(:id)
+      AdventureStateActivity.where(adventure_id: adventure_ids).destroy
+      current_user.destroy
       session.clear
       flash[:alert] = "Sorry to see you go. Your account has been deleted"
       redirect "/login"

@@ -69,6 +69,7 @@ class AdventureController < ApplicationController
     block_if_logged_out
     find_adventure
     if adventure_creator?(@adventure)
+      AdventureStateActivity.where(adventure_id: @adventure.id).destroy_all
       @adventure.destroy 
       flash[:succes] = "Successfully deleted adventure"
       redirect to "/users/#{current_user.slug}/adventures"
@@ -90,7 +91,7 @@ class AdventureController < ApplicationController
     else [true, true]
       redirect to "/adventures"
     end
-    binding.pry
+
     if Adventure.find(filter_ids).empty? # check if there are any adventures for those filtered results
       flash[:info] = "No adventures met this criteria"
       redirect to "/adventures"
