@@ -31,8 +31,6 @@
 <% end %>
 
 <% if profile_creator? %>
-<!--Logout Button-->
-  <form method="POST" action="/logout"><button>Logout</button></form>
   <!--Delete Profile Button-->
   <form method="POST" action="/users/<%=current_user.slug %>"><input id="hidden" type="hidden" name="_method" value="DELETE"><button>Delete Profile</button></form>
 <% end %>
