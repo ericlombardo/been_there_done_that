@@ -38,11 +38,12 @@
     }
 
     .titles{
-      font-family: 'Overpass', sans-serif;
+      font-size: 1.5em;
     }
 
     .cover_title{
       font-family: 'Permanent Marker', sans-serif;
+      font-size: 3em;
     }
     .container-fluid {
     padding-right:0;
@@ -60,9 +61,6 @@
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-    }
-    .large{
-      font-size: 3em;
     }
     .white_bar{
       width: 100%;
@@ -82,7 +80,7 @@
       <div class="banner_container">
         <img src="/images/banner_photo_0.jpg" alt="banner photo" style="width:100%;">
         <div class="white_bar center"></div>
-        <div class="center cover_title large">
+        <div class="center cover_title">
           <% yield_content :title do%>
             <h1>been there! done that!</h1>
           <% end %>
