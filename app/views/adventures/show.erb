@@ -1,31 +1,36 @@
 <% content_for :title do %>
   <h1><%=@adventure.title %></h1>
 <% end %>
+<div class="padded_sides">
+  <div class="row text-center">
+    <h4>Adventurer: <a href="/users/<%=@adventure.user.slug%>"><%=@adventure.user.username%></a></h4>
+  </div>
+    <div class="row">
+      <div class="col">
+        <h4>Highlight: <%=@adventure.highlight %></h4>
+        <h4>States Visited:</h4>
+        <% @adventure.states.uniq.each do |s| %>
+          <h5><%=s.name%></h5>
+        <% end %>
+        <h4>Activities:</h4>
+        <% @adventure.activities.each do |a| %>
+          <h5><%=a.name%></h5>
+        <% end %>
+      </div>
+      <div class="col">
+        <% show_details(@adventure).each do |d| %>
+        <%= d %>
+        <% end %>
+      </div>
+    </div>
+  </div>
 
-<h4>Adventurer: <a href="/users/<%=@adventure.user.slug%>"><%=@adventure.user.username%></a></h4>
-
-<h3><%=@adventure.highlight %></h3>
-<h4>States Visited:</h4>
-<% @adventure.states.uniq.each do |s| %>
-<h5><%=s.name%></h5>
-<% end %>
-<h4>Activities:</h4>
-<% @adventure.activities.each do |a| %>
-<h5><%=a.name%></h5>
-<% end %><br><br>
-
-
-<% show_details(@adventure).each do |d| %>
-  <%= d %>
-<% end %>
-<br>
-
-<% if adventure_creator?(@adventure)  %>
-  <a href="/adventures/<%=@adventure.slug %>/edit"><button>Edit Adventure</button></a>
-  <form method="POST" action="/adventures/<%=@adventure.slug%>">
-    <input type="hidden" name="_method" value="DELETE">
-    <button value="<%=@adventure.id%>">Delete Adventure</button>
-  </form>
-<% end %>
-
+  <% if adventure_creator?(@adventure)  %>
+    <a href="/adventures/<%=@adventure.slug %>/edit"><button>Edit Adventure</button></a>
+    <form method="POST" action="/adventures/<%=@adventure.slug%>">
+      <input type="hidden" name="_method" value="DELETE">
+      <button value="<%=@adventure.id%>">Delete Adventure</button>
+    </form>
+  <% end %>
+</div>
 
