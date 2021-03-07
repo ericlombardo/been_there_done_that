@@ -4,20 +4,18 @@
 <div class="padded_sides">
   <div class="row text-center">
     <h4>Adventurer: <a href="/users/<%=@adventure.user.slug%>"><%=@adventure.user.username%></a></h4>
-  </div>
-    <div class="row">
+    <h5><%=@adventure.highlight %></h5>
+  </div><br>
+    <div class="row text-center">
       <div class="col">
-        <h4>Highlight: <%=@adventure.highlight %></h4>
-        <h4>States Visited:</h4>
-        <% @adventure.states.uniq.each do |s| %>
-          <h5><%=s.name%></h5>
-        <% end %>
-        <h4>Activities:</h4>
-        <% @adventure.activities.each do |a| %>
-          <h5><%=a.name%></h5>
+        <% @adventure_log.each do |adventure| %>
+          <h2><%= adventure[:state].name %></h2>
+          <% adventure[:activities].each do |activity| %>
+            <h5><%= activity.name %></h5>
+          <% end %>
         <% end %>
       </div>
-      <div class="col">
+      <div class="col-9">
         <% show_details(@adventure).each do |d| %>
         <%= d %>
         <% end %>
@@ -26,11 +24,17 @@
   </div>
 
   <% if adventure_creator?(@adventure)  %>
-    <a href="/adventures/<%=@adventure.slug %>/edit"><button>Edit Adventure</button></a>
-    <form method="POST" action="/adventures/<%=@adventure.slug%>">
-      <input type="hidden" name="_method" value="DELETE">
-      <button value="<%=@adventure.id%>">Delete Adventure</button>
-    </form>
+    <div class="row main_form text-center">
+      <div class="col">
+        <a href="/adventures/<%=@adventure.slug %>/edit"><button class="btn button_colors">Edit Adventure</button></a>
+      </div>
+      <div class="col">
+        <form method="POST" action="/adventures/<%=@adventure.slug%>">
+          <input type="hidden" name="_method" value="DELETE">
+          <button class="btn button_colors" value="<%=@adventure.id%>">Delete Adventure</button>
+        </form>
+      </div>
+    </div> 
   <% end %>
 </div>
 
