@@ -80,7 +80,9 @@
       <img src="/images/banner_photo_0.jpg" alt="banner photo" style="width:100%;">
       <div class="white_bar center"></div>
       <div class="center cover_title large">
-        <%= yield_content :header_text %>
+        <% yield_content :text do%>
+          <h1>been there! done that!</h1>
+        <% end %>
       </div>
     </div>
       <div class="container-fluid"> <!--creates a container for all pages to go in-->

@@ -1,7 +1,9 @@
-<% if profile_creator? %>
-<h1>Welcome Back <%=@user.username %></h1>
-<% else %>
-<h1><%=@user.username %>'s Profile</h1>
+<% content_for :text do %>
+  <% if profile_creator? %>
+    <h1>Welcome Back <%=@user.username %></h1>
+  <% else %>
+    <h1><%=@user.username %>'s Profile</h1>
+  <% end %>
 <% end %>
 
 <h2>States Visited</h2>

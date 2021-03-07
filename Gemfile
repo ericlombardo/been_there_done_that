@@ -14,6 +14,7 @@ gem 'bcrypt'
 gem 'tux'
 gem 'dotenv'
 gem 'faker'
+gem 'sinatra-contrib', :require => 'sinatra/content_for'
 
 group :development do
 end

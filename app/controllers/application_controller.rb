@@ -3,6 +3,7 @@ require './config/environment'
 class ApplicationController < Sinatra::Base
   include Helpers::InstanceMethods
   extend Helpers::ClassMethods
+  helpers Sinatra::ContentFor
 
   configure do
     set :public_folder, 'public'
