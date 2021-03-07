@@ -1,53 +1,84 @@
-<h1>Edit <%=@adventure.title%> </h1>         
+<% content_for :title do %>
+  <h1>Edit <%=@adventure.title%> </h1> 
+<% end %>
+      
+<form method="POST" action="/adventures/<%=@adventure.slug %>" class="main_form titles padded_sides">
+  <div class="form-group">
+    <label for="title">Trip Title: *</label>
+    <input type="text" class="form-control" id="title" name="adventure[title]" value="<%=@adventure.title %>" size="40" required>
+  </div>
+  <div class="form-group">
+    <label for="highlight">Highlight: *</label>
+    <textarea id="highlight" class="form-control" rows="3" cols="40" maxlength="150" name="adventure[highlight]" required><%=@adventure.highlight %>"</textarea>
+  </div>
+  <div class="row">
+    <div class="col">
+      <div class="form-group">
+        <label for="start_date">Trip Start Date:</label>
+        <input type="date" class="form-control" id="start_date" value="<%=@adventure.start_date %>" name="adventure[start_date]">
+      </div>
+    </div>
+    <div class="col">
+      <div class="form-group">
+        <label for="end_date">Trip End Date:</label>
+        <input type="date" class="form-control" id="end_date" value="<%= @adventure.end_date %>" name="adventure[end_date]">
+      </div>
+    </div>
+  </div>
 
-<form method="POST" action="/adventures/<%=@adventure.slug %>">
-  <input type="hidden" name="_method" value="PATCH">
-  <label for="title">Trip Title: *</label><br>
-  <input type="text" id="title" name="adventure[title]" value="<%=@adventure.title %>"><br>
+  <div class="form-group">
+    <label for="recommend">Would you recommend?   </label>
+    <input type="radio" class="form-check-input" style="font-size: 1em;" value="yes" name="adventure[recommend]" <%= 'checked' if @adventure.recommend %>> Yes</input>
+    <input type="radio" class="form-check-input" style="font-size: 1em;" value="no" name="adventure[recommend]" <%= 'checked' if !@adventure.recommend %>> No</input>
+  </div>
 
-  <label for="highlight">Highlight: *</label><br>
-  <input type="text" id="highlight" maxlength="150" name="adventure[highlight]" value="<%=@adventure.highlight %>"> (Keep to 150 characters or less)<br>
-    
-  <label for="rating">Rating:</label><br>
-  <select name="adventure[rating]" id="rating"><br>
-      <% i = 1 %>
-      <option selected value=''></option>
+  <div class="form-group">
+    <label for="rating">Rating:</label>
+    <select class="form-control" name="adventure[rating]" id="rating">
+      <% x = 1 %>
+      <option value='' selected></option>
       <% 10.times do %>
-        <option value="<%= i %>" <%= 'selected' if @adventure.rating == i %>><%= i %></option>"
-        <% i += 1 %>
+        <option value="<%=x%>" <%= 'selected' if @adventure.rating == x %>><%=x%></option>
+        <% x += 1 %>
       <% end %>
-  </select><br>
+    </select>
+  </div>
 
-  <label for="recommend">Would you recommend his trip?</label><br>
-  <input type="radio" id="recommend" value="yes" name="adventure[recommend]" <%= 'checked' if @adventure.recommend %>> Yes</input>
-  <input type="radio" id="recommend" value="no" name="adventure[recommend]" <%= 'checked' if !@adventure.recommend %>> No</input><br>
+  <div class="row">
+    <div class="col-4">
+      <div class="form-group">
+        <label for="miles_covered">Miles:</label>
+        <input type="number" class="form-control" id="miles_covered" value="<%=@adventure.miles_covered%>" name="adventure[miles_covered]">
+      </div>
+    </div>
+    <div class="col">
+      <div class="form-group">
+        <label for="transportation">Transportation:</label>
+        <input type="text" class="form-control" id="transportation" value="<%=@adventure.transportation %>" name="adventure[transportation]">
+      </div>
+    </div>
+  </div>
 
-  <label for="start_date">Trip Start Date:</label><br>
-    <input type="date" id="start_date" name="adventure[start_date]" value="<%=@adventure.start_date %>"><br>
-
-  <label for="end_date">Trip End Date:</label><br>
-    <input type="date" id="end_date" name="adventure[end_date]" value="<%= @adventure.end_date %>"><br>
-
-  <label for="miles_covered">Miles Covered:</label><br>
-    <input type="number" id="miles_covered" name="adventure[miles_covered]" value="<%=@adventure.miles_covered%>"><br>
-
-  <label for="companions">Companions:</label><br>
-    <input type="text" id="companions" name="adventure[companions]" value="<%=@adventure.companions%>"><br>
-
-  <label for="weather">Weather:</label><br>
-    <input type="text" id="weather" name="adventure[weather]" value="<%=@adventure.weather%>"><br>
-
-  <label for="summary">Trip Summary: *</label><br>
-  <textarea id="summary" name="adventure[summary]" rows="7" cols="50"><%=@adventure.summary %></textarea><br>
-
-  <label for="transportation">Transportation:</label><br>
-  <input type="text" id="transportation" name="adventure[transportation]" value="<%=@adventure.transportation %>"><br>
-
-  <label for="food">Food:</label><br>
-    <input type="text" id="food" name="adventure[food]" value="<%=@adventure.food%>"><br>
-    
-  <label for="private_notes">Notes Just For You</label><br>
-  <textarea id="private_notes" name="adventure[private_notes]" rows="7" cols="50"><%=@adventure.private_notes %></textarea><br>
+  <div class="form-group">
+    <label for="weather">Weather:</label>
+    <input type="text" class="form-control" id="weather" value="<%=@adventure.weather%>" name="adventure[weather]">
+  </div>
+  <div class="form-group">
+    <label for="summary">Trip Summary: *</label>
+    <textarea id="summary" class="form-control" name="adventure[summary]" rows="7" cols="50" placeholder="Share with people what all you got into" required><%=@adventure.summary%></textarea>
+  </div>
+  <div class="form-group">
+    <label for="companions">Companions:</label>
+    <input type="text" class="form-control" id="companions" value="<%=@adventure.companions%>" name="adventure[companions]">
+  </div>
+  <div class="form-group">
+    <label for="food">Food:</label>
+    <input type="text" class="form-control" id="food" value="<%=@adventure.food%>"name="adventure[food]">
+  </div>
+  <div class="form-group">
+    <label for="private_notes">Notes Just For You</label>
+    <textarea class="form-control bottom_margin" id="private_notes" name="adventure[private_notes]" rows="7" cols="50" placeholder="These won't be shown on public profiles"><%=@adventure.private_notes%></textarea>
+  </div>  
 
   <!--States and Activities Section-->
 
@@ -55,7 +86,7 @@
   <% x = 0 %>  <!--counter for the iterations through states-->
   <% 3.times do %>  <!-- Create three state slots and fill if there is a value-->
     <label for="state_<%= i %>">Select State: <%= '*' if i == 1 %></label><br>
-    <select name="log[state<%=i%>][id]" id="state_<%=i%>" <%= 'required' if i == 1 %>>
+    <select class="form-control" name="log[state<%=i%>][id]" id="state_<%=i%>" <%= 'required' if i == 1 %>>
       <option selected hidden disabled style="display:none"></option>
       <% if x < @adventure_log.count%> <!--less than states hash count-->
         <option selected value="<%=@adventure_log[x][:state].id%>"><%=@adventure_log[x][:state].name%></option>
@@ -65,12 +96,12 @@
         <option id="state_<%=i%>" value="<%=s.id %>"><%=s.name%></option>
       <% end %>
     </select><br>
-
+  </from>
 
     <label for="activity_list">Select Activities: <%= '*' if i == 1%></label><br>
     <% y = 0 %>
     <% 3.times do %>  <!-- Display three activities for each state and fill if uniq value given-->
-      <select name="log[state<%=i%>][activities][]" id="activity_list">
+      <select class="form-control" name="log[state<%=i%>][activities][]" id="activity_list">
         <option selected hidden disabled style="display:none"></option>
         <% if !@adventure_log[x].nil? && !@adventure_log[x][:activities][y].nil? %><!--state activities count-->
           <option selected value="<%=@adventure_log[x][:activities][y].id%>"><%=@adventure_log[x][:activities][y].name%></option> <!--Found this code snippet https://stackoverflow.com/questions/6223865/blank-html-select-without-blank-item-in-dropdown-list/19704217-->
@@ -87,5 +118,5 @@
   <% end %>
 
 
-  <input type="submit" value="Edit Adventure">
+  <input class="form-control" style="background-color: #8D8741;"type="submit" value="Edit Trip">
 </from>
