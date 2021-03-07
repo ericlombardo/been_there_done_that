@@ -1,4 +1,7 @@
-<h1><%=@adventure.title %></h1>
+<% content_for :title do %>
+  <h1><%=@adventure.title %></h1>
+<% end %>
+
 <h4>Adventurer: <a href="/users/<%=@adventure.user.slug%>"><%=@adventure.user.username%></a></h4>
 
 <h3><%=@adventure.highlight %></h3>
