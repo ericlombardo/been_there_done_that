@@ -1,10 +1,10 @@
-<div class="text-center main_form padded_sides">
+<div class="padded_sides">
   <% if @adventures.empty? %>
     <h1>Sorry, no adventures tracked yet.</h1>
   <% else %>
     <% @adventures.each do |a| %>
       <div class="row">
-        <h3><a href="/adventures/<%=a.slug%>"><%=a.title%></a></h3>
+        <h2><a href="/adventures/<%=a.slug%>"><%=a.title%></a></h2>
       </div>
       <div class="row bottom_margin">
         <h4><%=a.highlight%></h4>
