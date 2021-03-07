@@ -2,36 +2,48 @@
   <h1>Discover</h1>
 <% end %>
 
-<h3>Filter Adventures:</h3>
-<h4>By State: </h4>
-<form method="POST" action="/adventures/filtered">
-<select name="filter_ids[]" id="state_filter"> 
-  <option selected value=''></option>
-  <% @states.each do |s| %> 
-  <option id="state_filter" value="<%=s.id%>"><%=s.name%></option>
-<% end %>
-</select>
+  <form method="POST" class="padded_sides"action="/adventures/filtered">
+    <div class="row padding_sides">
+      <div class="col">
+        <div class="form-group">
+          <select class="form-control"name="filter_ids[]" id="state_filter"> 
+            <option selected value>Filter By State</option>
+            <% @states.each do |s| %> 
+              <option id="state_filter" value="<%=s.id%>"><%=s.name%></option>
+            <% end %>
+          </select>
+        </div>
+      </div>
+      <div class="col">
+        <div class="form-group">
+          <select class="form-control" name="filter_ids[]" id="activity_filter">
+            <option selected value>Filter By Activity</option>
+            <% @activities.each do |a| %>
+              <option id="activity_filter" value="<%=a.id%>"><%=a.name%></option>
+            <% end %>
+          </select>
+        </div>
+      </div>
+      <div class="col">
+        <div class="form-group">
+          <button type="submit" class="btn button_colors">Filter Results</button>
+        </div>
+      </div>
+    </div>
+  </form>
 
-<h4>By Activity: </h4>
-<select name="filter_ids[]" id="activity_filter">
-  <option selected value=''></option>
-  <% @activities.each do |a| %>
-  <option id="activity_filter" value="<%=a.id%>"><%=a.name%></option>
-<% end %>
-</select><br>
-
-<input type="submit" value="Filter Resualts">
-</form>
-<% if @filtered.nil? %>
-  <% @adventures.reverse.each do |a| %>
-    <h2><a href="adventures/<%=a.slug%>"><%=a.title %></a></h2><br>
-    <h4>States: <%=a.states.uniq.pluck(:name).join(", ")%></h4>
-    <h4>Activities: <%=a.activities.pluck(:name).join(", ")%></h4>
+<div class="padded_sides">
+  <% if @filtered.nil? %>
+    <% @adventures.reverse.each do |a| %>
+      <h2><a href="adventures/<%=a.slug%>"><%=a.title %></a></h2><br>
+      <h4>States: <%=a.states.uniq.pluck(:name).join(", ")%></h4>
+      <h4>Activities: <%=a.activities.pluck(:name).join(", ")%></h4>
+    <% end %>
+  <% else %>
+    <% @filtered.reverse.each do |a| %>
+      <h2><a href="<%=a.id%>"><%=a.title%></a></h2>
+      <h4>States: <%=a.states.uniq.pluck(:name).join(", ")%></h4>
+      <h4>Activities: <%=a.activities.pluck(:name).join(", ")%></h4>
+    <% end %>
   <% end %>
-<% else %>
-  <% @filtered.reverse.each do |a| %>
-    <h2><a href="<%=a.id%>"><%=a.title%></a></h2>
-    <h4>States: <%=a.states.uniq.pluck(:name).join(", ")%></h4>
-    <h4>Activities: <%=a.activities.pluck(:name).join(", ")%></h4>
-  <% end %>
-<% end %>
+</div>
