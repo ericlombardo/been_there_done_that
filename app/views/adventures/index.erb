@@ -31,28 +31,26 @@
       </div>
     </div>
   </form>
-  .
-    <% if @filtered.nil? %>
-      <% @adventures.reverse.each do |a| %>
+  <% if @filtered.nil? %>
+    <% @adventures.reverse.each do |a| %>
+    <div class="row" style="padding-top: 20px;">
+      <h2><a href="/adventures/<%=a.slug%>"><%=a.title%></a></h2>
+    </div>
+    <div class="row bottom_margin">
+      <h4>States: <%=a.states.uniq.pluck(:name).join(", ")%></h4>
+      <h4>Activities: <%=a.activities.pluck(:name).join(", ")%></h4>
+    </div>
+    <% end %>
+  <% else %>
+    <% @filtered.reverse.each do |a| %>
+      <h2><a href="<%=a.id%>"><%=a.title%></a></h2>
       <div class="row">
-        <h2><a href="/adventures/<%=a.slug%>"><%=a.title%></a></h2>
+        <h4>States: <%=a.states.uniq.pluck(:name).join(", ")%></h4>
       </div>
       <div class="row bottom_margin">
-        <h4>States: <%=a.states.uniq.pluck(:name).join(", ")%></h4>
         <h4>Activities: <%=a.activities.pluck(:name).join(", ")%></h4>
       </div>
-      <% end %>
-    <% else %>
-      <% @filtered.reverse.each do |a| %>
-        <h2><a href="<%=a.id%>"><%=a.title%></a></h2>
-        <div class="row">
-          <h4>States: <%=a.states.uniq.pluck(:name).join(", ")%></h4>
-        </div>
-        <div class="row bottom_margin">
-          <h4>Activities: <%=a.activities.pluck(:name).join(", ")%></h4>
-        </div>
-      <% end %>
     <% end %>
-  </div>
+  <% end %>
 </div>
 
