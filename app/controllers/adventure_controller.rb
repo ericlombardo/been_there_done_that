@@ -56,7 +56,6 @@ class AdventureController < ApplicationController
   end
 
   patch "/adventures/:slug" do # takes in new form data and updates the existing adventure
-    binding.pry
     find_adventure  # get adventure
     @adventure.update(params[:adventure]) # update adventure details
 
@@ -73,7 +72,6 @@ class AdventureController < ApplicationController
     if adventure_creator?(@adventure)
       AdventureStateActivity.where(adventure_id: @adventure.id).destroy_all
       @adventure.destroy 
-      flash[:succes] = "Successfully deleted adventure"
       redirect to "/users/#{current_user.slug}/adventures"
     end
   end
