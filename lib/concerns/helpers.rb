@@ -38,6 +38,7 @@ module Helpers
         flash[:warning] = "Couldn't find that adventure. Here are some that we could find"
         redirect to "/adventures"
       end
+      @adventure
     end
 
     def get_users
