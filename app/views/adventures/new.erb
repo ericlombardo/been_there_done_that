@@ -46,16 +46,16 @@
   </div>
 
   <div class="row">
-    <div class="col-4">
-      <div class="form-group">
-        <label for="miles_covered">Miles Covered:</label>
-        <input type="number" class="form-control" id="miles_covered" name="adventure[miles_covered]">
-      </div>
-    </div>
     <div class="col">
       <div class="form-group">
         <label for="transportation">Transportation:</label>
         <input type="text" class="form-control" id="transportation" name="adventure[transportation]">
+      </div>
+    </div>
+    <div class="col-4">
+      <div class="form-group">
+        <label for="miles_covered">Miles:</label>
+        <input type="number" class="form-control" id="miles_covered" name="adventure[miles_covered]">
       </div>
     </div>
   </div>
@@ -94,10 +94,10 @@
         <option id="state_<%=i%>" value="<%=s.id %>"><%=s.name%></option>
       <% end %>
     </select>
-    <label for="activity_list">Select Activities:</label>
+    <label for="activity_list">Select Activities: <%= '*' if i == 1%></label>
     <% x = 0 %>
     <% 3.times do %>
-      <select class="form-control" name="log[state<%=i%>][activities][]" id="activity_list">
+      <select class="form-control" name="log[state<%=i%>][activities][]" id="activity_list" <%= 'required' if i == 1 && x == 0 %>>
         <option selected hidden disabled style="display:none"></option>
         <% @activities.each do |a| %>
           <option value="<%=a.id%>"><%=a.name %></option>
