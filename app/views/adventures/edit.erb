@@ -3,6 +3,7 @@
 <% end %>
       
 <form method="POST" action="/adventures/<%=@adventure.slug %>" class="main_form titles padded_sides">
+  <input type="hidden" name="_method" value="PATCH">
   <div class="form-group">
     <label for="title">Trip Title: *</label>
     <input type="text" class="form-control" id="title" name="adventure[title]" value="<%=@adventure.title %>" size="40" required>
@@ -45,16 +46,16 @@
   </div>
 
   <div class="row">
-    <div class="col-4">
-      <div class="form-group">
-        <label for="miles_covered">Miles:</label>
-        <input type="number" class="form-control" id="miles_covered" value="<%=@adventure.miles_covered%>" name="adventure[miles_covered]">
-      </div>
-    </div>
     <div class="col">
       <div class="form-group">
         <label for="transportation">Transportation:</label>
         <input type="text" class="form-control" id="transportation" value="<%=@adventure.transportation %>" name="adventure[transportation]">
+      </div>
+    </div>
+    <div class="col-4">
+      <div class="form-group">
+        <label for="miles_covered">Miles:</label>
+        <input type="number" class="form-control" id="miles_covered" value="<%=@adventure.miles_covered%>" name="adventure[miles_covered]">
       </div>
     </div>
   </div>
@@ -101,7 +102,7 @@
     <label for="activity_list">Select Activities: <%= '*' if i == 1%></label><br>
     <% y = 0 %>
     <% 3.times do %>  <!-- Display three activities for each state and fill if uniq value given-->
-      <select class="form-control" name="log[state<%=i%>][activities][]" id="activity_list">
+      <select class="form-control" name="log[state<%=i%>][activities][]" id="activity_list" <%= 'required' if i == 1 && y == 0 %>>
         <option selected hidden disabled style="display:none"></option>
         <% if !@adventure_log[x].nil? && !@adventure_log[x][:activities][y].nil? %><!--state activities count-->
           <option selected value="<%=@adventure_log[x][:activities][y].id%>"><%=@adventure_log[x][:activities][y].name%></option> <!--Found this code snippet https://stackoverflow.com/questions/6223865/blank-html-select-without-blank-item-in-dropdown-list/19704217-->
@@ -118,5 +119,5 @@
   <% end %>
 
 
-  <input class="form-control" style="background-color: #8D8741;"type="submit" value="Edit Trip">
+  <input class="form-control" style="background-color: #8D8741;" type="submit" value="Edit Trip">
 </from>

@@ -8,7 +8,6 @@
   </div><br>
     <div class="row ">
       <div class="col">
-        <% binding.pry %>
         <% @adventure_log.each do |adventure| %>
           <h2><%= adventure[:state].name %></h2>
           <% adventure[:activities].each do |activity| %>
