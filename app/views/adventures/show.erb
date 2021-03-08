@@ -6,8 +6,9 @@
     <h4>Adventurer: <a href="/users/<%=@adventure.user.slug%>"><%=@adventure.user.username%></a></h4>
     <h5><%=@adventure.highlight %></h5>
   </div><br>
-    <div class="row text-center">
+    <div class="row ">
       <div class="col">
+        <% binding.pry %>
         <% @adventure_log.each do |adventure| %>
           <h2><%= adventure[:state].name %></h2>
           <% adventure[:activities].each do |activity| %>
@@ -24,7 +25,7 @@
   </div>
 
   <% if adventure_creator?(@adventure)  %>
-    <div class="row main_form text-center padding_sides">
+    <div class="row main_form padding_sides">
       <div class="col">
         <a href="/adventures/<%=@adventure.slug %>/edit"><button class="btn button_colors">Edit Adventure</button></a>
       </div>

@@ -24,7 +24,7 @@ class AdventureController < ApplicationController
     block_if_logged_out
     find_adventure
     gen_adv_log
-
+    binding.pry
     erb :"adventures/show"
   end
 

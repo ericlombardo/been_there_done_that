@@ -1,11 +1,4 @@
 <div id="login_img" class="bg-image">
-  <% flash.keys.each do |k| %>
-    <% if flash[k] %>
-      <div class="alert alert-<%=k%>">
-        <%= flash[k] %>
-      </div>
-    <% end %>
-  <% end %>
   <div class="container">
     <div class="position-absolute top-50 start-50 translate-middle">
       <div id="login_box" class="row rounded" style="background-color:rgba(255, 255, 255, .5);">
