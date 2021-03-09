@@ -1,1 +1,85 @@
-/* https://mdbootstrap.com/docs/standard/content-styles/background-image/ */
+/* tag styling */
+body{
+  width: 100%;
+  font-size: 1em;
+  font-family: 'Montserrat', sans-serif;
+}
+input{
+  margin-top: .5em;
+  margin-bottom: .5em;
+}
+a, a:active, a:visited{
+  color: #659DBD;
+}
+a:hover{
+  color: #8D8741
+}
+
+/* id stylings */
+#login_img{ /* set image and sizing for login background image */
+  background-image: url("/images/login_img.jpg"); /* sets image for background */
+  background-size: cover; /* goes across full width with resizing */
+  background-repeat: no-repeat;
+  background-position: center;
+  height: 100vh; /* sets height to 100% viewport height (screen) */
+}
+
+/* class stylings */
+/* colors */
+.button_colors{
+  background-color: #8D8741;
+}
+
+/* login box styleing */
+.login_text{
+  text-align: center;
+}
+.banner_container{
+  position: relative;
+  text-align: center;
+}
+.center{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.white_bar{
+  width: 100%;
+  height: 70px;
+  background-color: rgba(255, 255, 255, .7);
+}
+
+/* spacing */
+.main_form{
+  width: 600px;
+  margin: auto;
+}
+.large_form{
+  width: 900px;
+  margin: auto;
+}
+.bottom_margin{
+  margin-bottom: 15px;
+}
+.padded_sides{
+  padding: 40px;
+}
+.login_text{
+  text-align: center;
+}
+.container-fluid {
+  padding-right:0;
+  padding-left:0;
+  margin-right:auto;
+  margin-left:auto
+}
+
+/* text styling */
+.titles{
+  font-size: 1.5em;
+}
+.cover_title{
+  font-family: 'Permanent Marker', sans-serif;
+  font-size: 3em;
+}
