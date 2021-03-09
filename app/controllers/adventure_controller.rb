@@ -93,14 +93,3 @@ class AdventureController < ApplicationController
     end
   end
 end
-
-# case ids.collect {|id| id.empty?}
-    # when [false, false]
-    #   filter_ids = AdventureStateActivity.where(state_id: ids[0], activity_id: ids[1]).pluck(:adventure_id).uniq
-    # when [false, true]
-    #   filter_ids = AdventureStateActivity.where(state_id: ids[0]).pluck(:adventure_id).uniq
-    # when [true, false]
-    #   filter_ids = AdventureStateActivity.where(activity_id: ids[1]).pluck(:adventure_id).uniq
-    # else [true, true]
-    #   redirect to "/adventures"
-    # end
