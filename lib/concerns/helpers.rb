@@ -1,38 +1,38 @@
 module Helpers
   module InstanceMethods
-    # logged_in? helper method => !!session[:user_id]
-    def block_if_logged_in
+
+    def block_if_logged_in  # checks for session id, redirects to profile if present
       if !!session_id
         flash[:info] = "No need to login in. We're already acquainted"
-        redirect to "/users/#{current_user.slug}" if !!session_id
+        redirect to "/users/#{current_user.slug}"
       end
     end
 
-    def block_if_logged_out
+    def block_if_logged_out #checks for session id, redirects to login if not present
       if !session_id
         flash[:warning] = "Must login to view this content"
         redirect "/login" 
       end
     end
 
-    def session_id
+    def session_id  # gives session_id
       session[:user_id]
     end
 
-    def current_user
+    def current_user  # uses ID to find the current user instance
       @current_user = User.find_by(id: session_id)
     end
 
-    def find_user
+    def find_user # uses slug to get user instance, redirect to profile if not found
       @user = User.find_by_slug(params[:slug])
-      if @user.nil?
+      if @user.nil? 
         flash[:warning] = "Sorry, couldn't find the adventurer you input"
         redirect to "/users/#{current_user.slug}"
       end
       @user
     end
 
-    def find_adventure
+    def find_adventure  # uses slug to get adventure instance, redirect to adventure index if not found
       @adventure = Adventure.find_by_slug(params[:slug])
       if @adventure.nil?
         flash[:warning] = "Couldn't find that adventure. Here are some that we could find"
@@ -41,41 +41,37 @@ module Helpers
       @adventure
     end
 
-    def get_users
+    def get_users # gets users if the value isn't already assigned
       @users ||= User.all
     end
 
-    def get_adventures
+    def get_adventures  # gets adventures if the value isn't already assigned
       @adventures ||= Adventure.all
     end
 
-    def get_states
+    def get_states  # gets states if the value isn't already assigned, sorts by name
       @states ||= State.all
       @states = @states.sort_by {|s| s.name}
     end
 
-    def get_activities
+    def get_activities  # gets activities if value isn't already assigned, sorts by name
       @activities ||= Activity.all
       @activities = @activities.sort_by {|a| a.name}
     end
 
-    def profile_creator?
+    def profile_creator?  # uses slug to see if current user matches session_id
       User.find_by_slug(params[:slug]).id == session_id
     end
 
-    def adventure_creator?(adventure)
+    def adventure_creator?(adventure) # checks user id againsts adventure user id
       session_id == adventure.user_id
     end
 
-    def format_date(date)
-      date.nil? ? (date) : (date.strftime("%d/%m/%Y"))
+    def format_date(date) # formats date to day, month, then year
+      date.nil? ? (date) : (date.strftime("%m/%d/%Y"))
     end
 
-    def uniq_state_count
-      AdventureStateActivity.where(adventure_id: @adventure.id).pluck(:state_id).uniq.count # found #pluck method example here: https://stackoverflow.com/questions/9658881/rails-select-unique-values-from-a-column/9658899
-    end
-
-    def valid(model)
+    def valid(model)  # checks if model given is valid
       model.valid?
     end
 
@@ -84,20 +80,22 @@ module Helpers
       adventure.save    
     end
 
-    def gen_adv_log
+    def gen_adv_log # create [{state: "ohio", activities: "run, jog, walk"}, {state: "Iowa", ect.}]
       i = 0 # set counter
-      @adventure_log = []
-      @adventure.states.uniq.count.times do # however many states there are, loop through that many times
-        state = @adventure.states.uniq[i]  # get instance of that state
-         unless activity_ids = AdventureStateActivity.where(adventure_id: @adventure.id, state_id: @adventure.states.uniq[i].id).pluck(:activity_id).any? {|a| a.nil?} # check if nil is returned => meaning no activities found
-          activity_ids = AdventureStateActivity.where(adventure_id: @adventure.id, state_id: @adventure.states.uniq[i].id).pluck(:activity_id) #=> find adventure_state_activity instances that match adventure.id and state_id
-          activity_array = Activity.find(activity_ids)  # get array of activity ideas for that adventure state
-          @adventure_log[i] = {state: state, activities: activity_array} # create hash item in log with state and activities
-          i += 1
+      @adventure_log = [] # generates empty array for info
+      @adventure.states.uniq.count.times do # loop through each state in adventure
+        state = @adventure.states.uniq[i]  # assign each state to state variable
+        # find activities that belong to both that adventure and state, collect array of each activity_id
+        activity_ids = AdventureStateActivity.where(adventure_id: @adventure.id, state_id: state.id).pluck(:activity_id)
+        if activity_ids.empty?  # check if no activities
+          @adventure_log[i] = {state: state, activities: ["no activities tracked"]}
         else
-          i += 1
-         end
+          activity_array = Activity.find(activity_ids)  # get array of activity instances
+          @adventure_log[i] = {state: state, activities: activity_array} # create hash item in log with state and activities
+          i += 1  # add one to assign next element in array
+        end
       end
+      binding.pry
       @adventure_log
     end
 
@@ -122,7 +120,7 @@ module Helpers
       end
     end
 
-    def show_details(adventure) #create a string of html to return in array to iterate through
+    def show_details(adventure) # creates array of HTML strings based on validation of presence
       @details = []
       @details << "<h5>Rating: #{@adventure.rating} / 10</h5>" unless @adventure.rating.nil?
       @details << "<h5>Would You Recommend: #{@adventure.recommend}</h5>" unless @adventure.recommend.nil?
@@ -139,9 +137,5 @@ module Helpers
       @details << "<h5>#{@adventure.private_notes}</h5>" unless @adventure.private_notes.empty? || !adventure_creator?(@adventure)
       @details
     end
-  end
-
-  module ClassMethods
-
   end
 end

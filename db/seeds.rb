@@ -63,7 +63,6 @@ admin = User.create(username: "eric", email: "eric@wander.com", password: "codin
 	adventure.food = foods.sample(rand(3..6)).join(', ')
 	adventure.private_notes = notes.sample
 	adventure.user_id = admin.id
-	
 
 	# saves adventures with all associations
 	adventure.save
@@ -78,11 +77,7 @@ admin = User.create(username: "eric", email: "eric@wander.com", password: "codin
 end	
 
 
-
-
-
-
-# Create User
+# Create Fake Users
 10.times do
 	user = User.new
   user.username = Faker::Name.unique.name

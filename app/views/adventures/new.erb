@@ -1,18 +1,18 @@
-<% content_for :title do %>
+<% content_for :title do %>   <!--collects title for banner-->
   <h1>Let's Make A Memory</h1>
 <% end %>
 
 
-<form method="POST" action="/adventures" class="main_form titles padded_sides">
-  <div class="form-group">
+<form method="POST" action="/adventures" class="main_form titles padded_sides"> <!--form for new adventure-->
+  <div class="form-group"> <!--title label and input-->
     <label for="title">Trip Title: *</label>
     <input type="text" class="form-control" id="title" name="adventure[title]" size="40" required>
   </div>
-  <div class="form-group">
+  <div class="form-group"> <!--highlight label and input-->
     <label for="highlight">Highlight: *</label>
     <textarea id="highlight" class="form-control" rows="3" cols="40" maxlength="150" name="adventure[highlight]" placeholder="150 characters or less" required></textarea>
   </div>
-  <div class="row">
+  <div class="row">   <!--start and end date label and input-->
     <div class="col">
       <div class="form-group">
         <label for="start_date">Trip Start Date:</label>
@@ -26,14 +26,12 @@
       </div>
     </div>
   </div>
-  
-  <div class="form-group">
+  <div class="form-group">  <!--recommend label and input-->
     <label for="recommend">Would you recommend?   </label>
     <input type="radio" class="form-check-input" style="font-size: 1em;" value="yes" name="adventure[recommend]"> Yes</input>
     <input type="radio" class="form-check-input" style="font-size: 1em;" value="no" name="adventure[recommend]"> No</input>
   </div>
-
-  <div class="form-group">
+  <div class="form-group">    <!--rating label and input-->
     <label for="rating">Rating:</label>
     <select class="form-control" name="adventure[rating]" id="rating">
       <% x = 1 %>
@@ -44,8 +42,7 @@
       <% end %>
     </select>
   </div>
-
-  <div class="row">
+  <div class="row">   <!--transportation and miles label and input-->
     <div class="col">
       <div class="form-group">
         <label for="transportation">Transportation:</label>
@@ -59,54 +56,59 @@
       </div>
     </div>
   </div>
-
-  <div class="form-group">
+  <div class="form-group">  <!--weather label and input-->
     <label for="weather">Weather:</label>
     <input type="text" class="form-control" id="weather" name="adventure[weather]">
   </div>
-  <div class="form-group">
+  <div class="form-group">    <!--summary label and input-->
     <label for="summary">Trip Summary: *</label>
     <textarea id="summary" class="form-control" name="adventure[summary]" rows="7" cols="50" placeholder="Share with people what all you got into" required></textarea>
   </div>
-  <div class="form-group">
+  <div class="form-group">    <!--companions label and input-->
     <label for="companions">Companions:</label>
     <input type="text" class="form-control" id="companions" name="adventure[companions]">
   </div>
-  <div class="form-group">
+  <div class="form-group">    <!--food label and input-->
     <label for="food">Food:</label>
     <input type="text" class="form-control" id="food" name="adventure[food]">
   </div>
-  <div class="form-group">
+  <div class="form-group">    <!--private_notes label and input-->
     <label for="private_notes">Notes Just For You</label>
     <textarea class="form-control" id="private_notes" name="adventure[private_notes]" rows="7" cols="50" placeholder="These won't be shown on public profiles"></textarea>
   </div>  
 
 
-
   <!--States and Activities Section-->
-  <% i = 1 %>  
+  <% i = 1 %>  <!--label for state input-->
   <% 3.times do %>
+    <!--Sets label for state, puts * if first one to show required-->
     <label for="state_<%= i %>">Select State: <%= '* (select state to track activities)' if i == 1 %></label>
+    <!--create selection with states, required if i = 1 (first state)-->
     <select class="form-control" name="log[state<%=i%>][id]" id="state_<%=i%>" <%= 'required' if i == 1 %>>
+      <!--create initial blank option-->
       <option selected hidden disabled style="display:none"></option>
-      
+      <!--loops through each state and makes it an option-->
       <% @states.each do |s| %>
         <option id="state_<%=i%>" value="<%=s.id %>"><%=s.name%></option>
       <% end %>
     </select>
+
     <label for="activity_list">Select Activities: <%= '*' if i == 1%></label>
-    <% x = 0 %>
+    <% x = 0 %> <!--tracker for the 3 iterations-->
     <% 3.times do %>
+      <!--creates select tag for 3 activity inputs, sets required if first state and first activity-->
       <select class="form-control" name="log[state<%=i%>][activities][]" id="activity_list" <%= 'required' if i == 1 && x == 0 %>>
+        <!--create initial blank option-->
         <option selected hidden disabled style="display:none"></option>
+        <!--loops through each activity and makes it an option-->
         <% @activities.each do |a| %>
           <option value="<%=a.id%>"><%=a.name %></option>
         <% end %>
       </select>
-      <% x += 1 %>
+      <% x += 1 %>  <!--add one to activity counter-->
     <% end %>
-    <% i += 1 %>
+    <% i += 1 %>  <!--add one to state counter-->
   <% end %>
-
+  <!-- input to submit form-->
   <input class="form-control" style="background-color: #8D8741;" type="submit" value="Log Trip">
 </from>

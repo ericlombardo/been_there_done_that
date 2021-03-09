@@ -1,58 +1,58 @@
 require './config/environment'
 
 class ApplicationController < Sinatra::Base
-  include Helpers::InstanceMethods
-  extend Helpers::ClassMethods
-  helpers Sinatra::ContentFor
+  include Helpers::InstanceMethods  # includes instance methods from helpers file
+  helpers Sinatra::ContentFor # allows content_for to work
 
   configure do
-    set :public_folder, 'public'
-    set :views, 'app/views'
-    enable :sessions
-    set :session_secret, ENV.fetch('SESSION_SECRET') { SecureRandom.hex(64) }
-    register Sinatra::Flash
+    set :public_folder, 'public'  # sets route for public folder
+    set :views, 'app/views'       # sets route for views folder
+    enable :sessions              # enables sessions
+    set :session_secret, ENV.fetch('SESSION_SECRET') { SecureRandom.hex(64) }   # creates session_secret from environment variable or securerandom
+    register Sinatra::Flash       # enables the use of Sinatra Flash
   end
-  get "/" do  # goes to login page to start signing in
+
+  get "/" do  # redirects to login page
     redirect '/login'
   end
   
-  get "/login" do  # show login form, if signed in show profile page
-    block_if_logged_in # logged_in? helper method
+  get "/login" do  # redirects if signed in || shows login view
+    block_if_logged_in  
     erb :login
   end
 
-  get "/signup" do  # shows signup form, if signed in show profile page
-    block_if_logged_in  # logged_in? helper method
+  get "/signup" do  # redirects if signed in || shows signup view
+    block_if_logged_in
     erb :signup 
   end
 
-  post "/signup" do # validates input, logs in and shows profile page if valid, reloads if not
-    user = User.new(params)
-    if valid(user)
-      user.save # if valid create user, assign session id, redirect to profile
-      session[:user_id] = user.id 
+  post "/signup" do # creates user or redirects with error messages
+    user = User.new(params) # creates new user
+    if valid(user)  # checks if valid
+      user.save # saves user
+      session[:user_id] = user.id   # links user.id to current user (logs in)
       flash[:success] = "Successful Login"
-      redirect to "/users/#{current_user.slug}"
+      redirect to "/users/#{current_user.slug}" # redirects to profile page
     else
       flash[:danger] = user.errors.full_messages.join(', and ')
-      redirect "/signup"
+      redirect "/signup"  # redirects to signup with errors if not valid
     end
   end
 
   post "/login" do  # validates pre-existing user, shows profile page or reloads login
-    user = User.find_by(username: params[:username])
-    if user && user.authenticate(params[:password])
-      session[:user_id] = user.id
+    user = User.find_by(username: params[:username])  # finds user
+    if user && user.authenticate(params[:password]) # authenticates their info
+      session[:user_id] = user.id   # links user.id to current user (logs in)
       flash[:success] = "Successful Login"
-      redirect "/users/#{current_user.slug}"
+      redirect "/users/#{current_user.slug}"  # redirects to user profile
     else
       flash[:danger] = "No match found. Please try again or click link to sign up"
-      redirect "/login" 
+      redirect "/login"  # if not redirects to login
     end
   end
 
   get "/logout" do # clears session and redirects to login || redirects to login
-    block_if_logged_out # logged_in? helper method
+    block_if_logged_out
     flash[:success] = "Until next time #{current_user.username}!"
     session.clear
     redirect "/login"

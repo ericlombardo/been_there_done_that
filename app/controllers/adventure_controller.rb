@@ -1,9 +1,9 @@
 class AdventureController < ApplicationController
 
   
-  get "/adventures" do  # get route to show erb :index
+  get "/adventures" do  # get adventures, states, and activities, show view
     block_if_logged_out
-    get_adventures
+    get_adventures  
     if @adventures.empty?
       flash[:info] = "No Adventures Yet! Be the first to track an adventures"
       redirect to "/users/#{current_user.slug}"
@@ -23,7 +23,7 @@ class AdventureController < ApplicationController
   get '/adventures/:slug' do  # Show adventure data based on id
     block_if_logged_out
     find_adventure
-    gen_adv_log
+    gen_adv_log 
     erb :"adventures/show"
   end
 
@@ -50,7 +50,7 @@ class AdventureController < ApplicationController
     get_activities
     get_states
 
-    gen_adv_log
+    gen_adv_log # returns an array, each element has state and activities key if present
 
     erb :"adventures/edit"
   end
@@ -63,40 +63,40 @@ class AdventureController < ApplicationController
     
     assign_states_and_activities_to_adventure(params, @adventure) # link new adventure_state_activities for updated adventure
     flash[:success] = "Successfully updated adventure"
-    redirect to "/adventures/#{@adventure.slug}"
+    redirect to "/adventures/#{@adventure.slug}"  # redirects to adventure/slug view
   end
 
   delete "/adventures/:slug" do # get adventure, delete it from the adventures, but not from state activities
     block_if_logged_out
     find_adventure
-    if adventure_creator?(@adventure)
-      AdventureStateActivity.where(adventure_id: @adventure.id).destroy_all
-      @adventure.destroy 
-      redirect to "/users/#{current_user.slug}/adventures"
+    if adventure_creator?(@adventure) # check if user created adventure
+      AdventureStateActivity.where(adventure_id: @adventure.id).destroy_all # finds by trijoin table
+      @adventure.destroy   # deletes that adventure
+      redirect to "/users/#{current_user.slug}/adventures"  # takes user to users other adventures
     end
   end
 
-  post "/adventures/filtered" do
+  post "/adventures/filtered" do  # gets filtered adventures if present
     get_activities
     get_states
-    ids = params[:filter_ids]
+    ids = params[:filter_ids] # collects values for filter ids
 
-    case ids.collect {|id| id.empty?}
-    when [false, false]
+    case ids.collect {|id| id.empty?} # use ids to see case 
+    when [false, false] # both have values
       filter_ids = AdventureStateActivity.where(state_id: ids[0], activity_id: ids[1]).pluck(:adventure_id).uniq
-    when [false, true]
+    when [false, true]  # 1 has value, 2 empty
       filter_ids = AdventureStateActivity.where(state_id: ids[0]).pluck(:adventure_id).uniq
-    when [true, false]
+    when [true, false]  # 1 empty, 2 has value
       filter_ids = AdventureStateActivity.where(activity_id: ids[1]).pluck(:adventure_id).uniq
-    else [true, true]
+    else [true, true] # both empty
       redirect to "/adventures"
     end
 
     if Adventure.find(filter_ids).empty? # check if there are any adventures for those filtered results
       flash[:info] = "No adventures met this criteria"
-      redirect to "/adventures"
+      redirect to "/adventures" # if empty, return to adventures with message
     else
-      @filtered = Adventure.find(filter_ids)
+      @filtered = Adventure.find(filter_ids)  # assign adventures to @filtered to show in view
       erb :"adventures/index"
     end
   end

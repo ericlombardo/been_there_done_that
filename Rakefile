@@ -1,15 +1,13 @@
-# ENV["SINATRA_ENV"] ||= "development"
+require 'dotenv/tasks'  # gives access to dotenv tasks with rake
+require_relative './config/environment' # loads environment file
+require 'sinatra/activerecord/rake' # gives access to rake tasks 
 
-require 'dotenv/tasks'
-require_relative './config/environment'
-require 'sinatra/activerecord/rake'
-
-desc 'enter into Pry'
+desc 'enter into Pry' # enters into Pry session for testing
 task :c => :env do
   Pry.start
 end
 
-desc 'loads env. file'
+desc 'loads env. file'  # loads environment file to make sure everything can load properly
 task :env do
   require_relative './config/environment'
 end

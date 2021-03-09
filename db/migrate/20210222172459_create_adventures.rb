@@ -1,7 +1,7 @@
 class CreateAdventures < ActiveRecord::Migration[5.2]
   def change
-    create_table :adventures do |t|
-      t.string :title
+    create_table :adventures do |t| # create adventures table with keys (has user_id foreign key)
+      t.string :title 
       t.integer :rating
       t.boolean :recommend
       t.date :start_date

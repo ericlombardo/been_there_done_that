@@ -1,18 +1,18 @@
-<% content_for :title do %>
+<% content_for :title do %>   <!--collects title for banner-->
   <h1>Edit <%=@adventure.title%> </h1> 
 <% end %>
       
-<form method="POST" action="/adventures/<%=@adventure.slug %>" class="main_form titles padded_sides">
+<form method="POST" action="/adventures/<%=@adventure.slug %>" class="main_form titles padded_sides"> 
   <input type="hidden" name="_method" value="PATCH">
-  <div class="form-group">
+  <div class="form-group">  <!--title label and input-->
     <label for="title">Trip Title: *</label>
     <input type="text" class="form-control" id="title" name="adventure[title]" value="<%=@adventure.title %>" size="40" required>
   </div>
-  <div class="form-group">
+  <div class="form-group">  <!--highlight label and input-->
     <label for="highlight">Highlight: *</label>
     <textarea id="highlight" class="form-control" rows="3" cols="40" maxlength="150" name="adventure[highlight]" required><%=@adventure.highlight %>"</textarea>
   </div>
-  <div class="row">
+  <div class="row"> <!--start and end date label and input-->
     <div class="col">
       <div class="form-group">
         <label for="start_date">Trip Start Date:</label>
@@ -27,13 +27,13 @@
     </div>
   </div>
 
-  <div class="form-group">
+  <div class="form-group">  <!--recommend label and input-->
     <label for="recommend">Would you recommend?   </label>
     <input type="radio" class="form-check-input" style="font-size: 1em;" value="yes" name="adventure[recommend]" <%= 'checked' if @adventure.recommend %>> Yes</input>
     <input type="radio" class="form-check-input" style="font-size: 1em;" value="no" name="adventure[recommend]" <%= 'checked' if !@adventure.recommend %>> No</input>
   </div>
 
-  <div class="form-group">
+  <div class="form-group">  <!--rating label and input-->
     <label for="rating">Rating:</label>
     <select class="form-control" name="adventure[rating]" id="rating">
       <% x = 1 %>
@@ -45,7 +45,7 @@
     </select>
   </div>
 
-  <div class="row">
+  <div class="row"> <!--transportation and miles label and input-->
     <div class="col">
       <div class="form-group">
         <label for="transportation">Transportation:</label>
@@ -60,23 +60,23 @@
     </div>
   </div>
 
-  <div class="form-group">
+  <div class="form-group">  <!--weather label and input-->
     <label for="weather">Weather:</label>
     <input type="text" class="form-control" id="weather" value="<%=@adventure.weather%>" name="adventure[weather]">
   </div>
-  <div class="form-group">
+  <div class="form-group">  <!--summary label and input-->
     <label for="summary">Trip Summary: *</label>
     <textarea id="summary" class="form-control" name="adventure[summary]" rows="7" cols="50" placeholder="Share with people what all you got into" required><%=@adventure.summary%></textarea>
   </div>
-  <div class="form-group">
+  <div class="form-group">  <!--companions label and input-->
     <label for="companions">Companions:</label>
     <input type="text" class="form-control" id="companions" value="<%=@adventure.companions%>" name="adventure[companions]">
   </div>
-  <div class="form-group">
+  <div class="form-group">   <!--food label and input-->
     <label for="food">Food:</label>
     <input type="text" class="form-control" id="food" value="<%=@adventure.food%>"name="adventure[food]">
   </div>
-  <div class="form-group">
+  <div class="form-group">   <!--private_notes label and input-->
     <label for="private_notes">Notes Just For You</label>
     <textarea class="form-control bottom_margin" id="private_notes" name="adventure[private_notes]" rows="7" cols="50" placeholder="These won't be shown on public profiles"><%=@adventure.private_notes%></textarea>
   </div>  

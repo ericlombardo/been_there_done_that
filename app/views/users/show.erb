@@ -1,13 +1,13 @@
-<% content_for :title do %>
-  <% if profile_creator? %>
+<% content_for :title do %> <!--collect title for banner-->
+  <% if profile_creator? %> 
     <h1>Welcome Back <%=@user.username %></h1>
   <% else %>
     <h1><%=@user.username %>'s Profile</h1>
   <% end %>
 <% end %>
 
-<div class="padded_sides text-center">
-  <div class="row">
+<div class="padded_sides text-center"> 
+  <div class="row">   <!--row that shows top activites and states-->
     <div class="col">
       <h2>Most Visited States</h2>
       <% @top_states.each do |s| %>
@@ -21,13 +21,13 @@
       <% end %>
     </div>
   </div><br>
-  <div class="row">
+  <div class="row">   <!--row that shows states and count-->
     <div class="col">
       <h2>States Visited - <%=@state_list.count%> / 50</h2>
       <h5><%=@state_list.join(', ')%></h5>
     </div>
   </div><br>
-  <div class="row">
+  <div class="row">   <!--row that shows activities and count-->
     <div class="col">
       <h2>Activity Count - <%=@activity_list.count%></h2>
       <h5><%=@activity_list.join(', ')%></h5>
@@ -35,8 +35,7 @@
   </div>
 
   <br><br><br>
-  <% if profile_creator? %>
-    <!--Delete Profile Button-->
+  <% if profile_creator? %>   <!--shows delete profile button if correct user-->
     <form method="POST" action="/users/<%=current_user.slug %>">
       <input id="hidden" type="hidden" name="_method" value="DELETE">
       <button class="btn btn-danger">Delete Profile</button>
