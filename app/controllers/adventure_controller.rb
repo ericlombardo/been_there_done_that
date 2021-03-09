@@ -75,7 +75,7 @@ class AdventureController < ApplicationController
     end
   end
 
-  post "/adventures/filtered" do  #=> {state_id: "x", activity_id: "y"}
+  post "/adventures/filtered" do 
     get_activities
     get_states
     ids = params.select {|k, v| v != ""}

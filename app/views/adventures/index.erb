@@ -42,7 +42,7 @@
     </div>
     <% end %>
   <% else %>
-    <% @filtered.reverse.each do |a| %> <!--displays only filtered adventures with title, activities, and states-->
+    <% @filtered.uniq.reverse.each do |a| %> <!--displays only filtered adventures with title, activities, and states-->
       <h2><a href="<%=a.slug%>"><%=a.title%></a></h2>
       <div class="row">
         <h4>States: <%=a.states.uniq.pluck(:name).join(", ")%></h4>
