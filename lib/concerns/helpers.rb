@@ -101,13 +101,15 @@ module Helpers
 
     def assign_states_and_activities_to_adventure(params, adventure)
       i = 1
+      
       3.times do
-        if !!params[:log]["state#{i}"]  # if we have a state
-          state = State.find_by(id: params[:log]["state#{i}"][:id]) # assign it to state variable
+        state_hash = params[:log]["state#{i}"]
+        if state_hash && state_hash[:id]  # if we have a state
+          state = State.find_by(id: state_hash[:id]) # assign it to state variable
           # check if that state has activities
-          if !!params[:log]["state#{i}"][:activities]
+          if state_hash[:activities]
             # if we do, assign to activities variable
-            activities = Activity.find(params[:log]["state#{i}"][:activities])
+            activities = Activity.find(state_hash[:activities])
             activities.each do |a|  # loop through each activity
               # assign each to adventure.adventure_state_activites with all three ids
               adventure.adventure_state_activities.create(state_id: state.id, activity_id: a.id) # creates instance of adventure_state_activity if only a state is selected
