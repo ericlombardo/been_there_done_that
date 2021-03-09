@@ -6,7 +6,7 @@
     <div class="row">
       <div class="col">
         <div class="form-group">
-          <select class="form-control"name="filter_ids[]" id="state_filter"> 
+          <select class="form-control"name="state_id" id="state_filter"> 
             <option selected value>Filter By State</option>
             <% @states.each do |s| %> 
               <option id="state_filter" value="<%=s.id%>"><%=s.name%></option>
@@ -16,7 +16,7 @@
       </div>
       <div class="col">
         <div class="form-group">
-          <select class="form-control" name="filter_ids[]" id="activity_filter">
+          <select class="form-control" name="activity_id" id="activity_filter">
             <option selected value>Filter By Activity</option>
             <% @activities.each do |a| %>
               <option id="activity_filter" value="<%=a.id%>"><%=a.name%></option>

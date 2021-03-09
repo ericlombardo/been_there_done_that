@@ -76,28 +76,31 @@ class AdventureController < ApplicationController
     end
   end
 
-  post "/adventures/filtered" do
+  post "/adventures/filtered" do  #=> {state_id: "x", activity_id: "y"}
     get_activities
     get_states
-    ids = params[:filter_ids]
+    ids = params.select {|k, v| v != ""}
 
-    case ids.collect {|id| id.empty?}
-    when [false, false]
-      filter_ids = AdventureStateActivity.where(state_id: ids[0], activity_id: ids[1]).pluck(:adventure_id).uniq
-    when [false, true]
-      filter_ids = AdventureStateActivity.where(state_id: ids[0]).pluck(:adventure_id).uniq
-    when [true, false]
-      filter_ids = AdventureStateActivity.where(activity_id: ids[1]).pluck(:adventure_id).uniq
-    else [true, true]
-      redirect to "/adventures"
-    end
+    filter_results = AdventureStateActivity.where(ids)
 
-    if Adventure.find(filter_ids).empty? # check if there are any adventures for those filtered results
+    if filter_results.empty? # check if there are any adventures for those filtered results
       flash[:info] = "No adventures met this criteria"
       redirect to "/adventures"
     else
-      @filtered = Adventure.find(filter_ids)
+      # state_id act_id adv_id 
+      @filtered = filter_results.map {|result| result.adventure}
       erb :"adventures/index"
     end
   end
 end
+
+# case ids.collect {|id| id.empty?}
+    # when [false, false]
+    #   filter_ids = AdventureStateActivity.where(state_id: ids[0], activity_id: ids[1]).pluck(:adventure_id).uniq
+    # when [false, true]
+    #   filter_ids = AdventureStateActivity.where(state_id: ids[0]).pluck(:adventure_id).uniq
+    # when [true, false]
+    #   filter_ids = AdventureStateActivity.where(activity_id: ids[1]).pluck(:adventure_id).uniq
+    # else [true, true]
+    #   redirect to "/adventures"
+    # end
