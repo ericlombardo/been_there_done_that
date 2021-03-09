@@ -80,7 +80,7 @@ module Helpers
       adventure.save    
     end
 
-    def gen_adv_log # create [{state: "ohio", activities: "run, jog, walk"}, {state: "Iowa", ect.}]
+    def gen_adv_log # create array with hash for each state and activities instances {state: "ohio", activities: "running, biking"}
       i = 0 # set counter
       @adventure_log = [] # generates empty array for info
       @adventure.states.uniq.count.times do # loop through each state in adventure
@@ -88,32 +88,31 @@ module Helpers
         # find activities that belong to both that adventure and state, collect array of each activity_id
         activity_ids = AdventureStateActivity.where(adventure_id: @adventure.id, state_id: state.id).pluck(:activity_id)
         if activity_ids.any? {|a| a.nil?}  # check if returned array includes nil (no activities)
-          @adventure_log[i] = {state: state, activities: []}
-          i += 1
-        else
+          @adventure_log[i] = {state: state, activities: []}  # if no activities create hash entry with just state
+          i += 1  
+        else  # if there are activities
           activity_array = Activity.find(activity_ids)  # get array of activity instances
           @adventure_log[i] = {state: state, activities: activity_array} # create hash item in log with state and activities
           i += 1  # add one to assign next element in array
         end
       end
-      @adventure_log
-      binding.pry
+      @adventure_log  # return completed log
     end
 
     def assign_states_and_activities_to_adventure(params, adventure)
       i = 1
       3.times do
-        if !!params[:log]["state#{i}"]
-          state = State.find_by(id: params[:log]["state#{i}"][:id]) # if we have a state
-          # check if we have an activities
+        if !!params[:log]["state#{i}"]  # if we have a state
+          state = State.find_by(id: params[:log]["state#{i}"][:id]) # assign it to state variable
+          # check if that state has activities
           if !!params[:log]["state#{i}"][:activities]
-            # if we do loop through them
+            # if we do, assign to activities variable
             activities = Activity.find(params[:log]["state#{i}"][:activities])
             activities.each do |a|  # loop through each activity
-              # assign each to adventure.adventurestateactivities.create with state activitiy and adventure
+              # assign each to adventure.adventure_state_activites with all three ids
               adventure.adventure_state_activities.create(state_id: state.id, activity_id: a.id) # creates instance of adventure_state_activity if only a state is selected
             end
-            i += 1
+            i += 1  # increment up by 1
           else
             # create with just state and adventure
             adventure.adventure_state_activities.create(state_id: state.id) # create instance of adventure_state_activity w/ adv_id and state_id
