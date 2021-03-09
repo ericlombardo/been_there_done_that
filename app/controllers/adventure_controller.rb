@@ -23,7 +23,6 @@ class AdventureController < ApplicationController
   get '/adventures/:slug' do  # Show adventure data based on id
     block_if_logged_out
     find_adventure
-
     gen_adv_log 
     erb :"adventures/show"
   end
