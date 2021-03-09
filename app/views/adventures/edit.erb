@@ -99,7 +99,7 @@
     </select><br>
   </from>
 
-    <label for="activity_list">Select Activities: <%= '*' if i == 1%></label><br>
+    <label for="activity_list">Select Activities:</label><br>
     <% y = 0 %>
     <% 3.times do %>  <!-- Display three activities for each state and fill if uniq value given-->
       <select class="form-control" name="log[state<%=i%>][activities][]" id="activity_list">
