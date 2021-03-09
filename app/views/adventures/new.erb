@@ -97,7 +97,7 @@
     <% x = 0 %> <!--tracker for the 3 iterations-->
     <% 3.times do %>
       <!--creates select tag for 3 activity inputs, sets required if first state and first activity-->
-      <select class="form-control" name="log[state<%=i%>][activities][]" id="activity_list" <%= 'required' if i == 1 && x == 0 %>>
+      <select class="form-control" name="log[state<%=i%>][activities][]" id="activity_list">
         <!--create initial blank option-->
         <option selected hidden disabled style="display:none"></option>
         <!--loops through each activity and makes it an option-->

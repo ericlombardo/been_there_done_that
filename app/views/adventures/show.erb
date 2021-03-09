@@ -11,7 +11,7 @@
         <% @adventure_log.each do |adventure| %>  <!--loops through adventure log-->
           <h2><%= adventure[:state].name %></h2>  <!--posts state name-->
           <% adventure[:activities].each do |activity| %> <!--loops through activities-->
-            <h5><%= activity.name %></h5> <!--posts activity name-->
+            <h5><%= activity.name || activity %></h5> <!--posts activity name-->
           <% end %>
         <% end %>
       </div>
