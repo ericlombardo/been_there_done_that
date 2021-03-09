@@ -82,7 +82,7 @@
   <% i = 1 %>  <!--label for state input-->
   <% 3.times do %>
     <!--Sets label for state, puts * if first one to show required-->
-    <label for="state_<%= i %>">Select State: <%= '* (select state to track activities)' if i == 1 %></label>
+    <label for="state_<%= i %>">Select State: <%= '*' if i == 1 %></label>
     <!--create selection with states, required if i = 1 (first state)-->
     <select class="form-control" name="log[state<%=i%>][id]" id="state_<%=i%>" <%= 'required' if i == 1 %>>
       <!--create initial blank option-->

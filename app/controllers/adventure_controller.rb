@@ -1,11 +1,10 @@
 class AdventureController < ApplicationController
 
-  
   get "/adventures" do  # get adventures, states, and activities, show view
     block_if_logged_out
     get_adventures  
     if @adventures.empty?
-      flash[:info] = "No Adventures Yet! Be the first to track an adventures"
+      flash[:info] = "No Trips Yet! Be the first to track a trip"
       redirect to "/users/#{current_user.slug}"
     end
     get_states
@@ -32,7 +31,7 @@ class AdventureController < ApplicationController
     if valid(adventure)
       link_user_and_save(adventure)   # link user to adventure and saves adventure
       assign_states_and_activities_to_adventure(params, adventure)
-      flash[:success] = "New Adventure Created"
+      flash[:success] = "New Trip Created"
       redirect to "/adventures/#{adventure.slug}"
     else
       flash[:danger] = adventure.errors.full_messages
@@ -44,7 +43,7 @@ class AdventureController < ApplicationController
     block_if_logged_out
     find_adventure
     if !adventure_creator?(@adventure)
-      flash[:danger] = "This is not the adventure you are looking for. Must be creator to edit"
+      flash[:danger] = "This is not the trip you are looking for. Must be creator to edit"
       redirect to "/adventures/#{@adventure.slug}"
     end
     get_activities
@@ -62,7 +61,7 @@ class AdventureController < ApplicationController
     AdventureStateActivity.where(adventure_id: @adventure.id).destroy_all # destroy all adventure_state_activities for that adventure
     
     assign_states_and_activities_to_adventure(params, @adventure) # link new adventure_state_activities for updated adventure
-    flash[:success] = "Successfully updated adventure"
+    flash[:success] = "Successfully updated trip"
     redirect to "/adventures/#{@adventure.slug}"  # redirects to adventure/slug view
   end
 
