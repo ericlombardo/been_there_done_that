@@ -1,9 +1,9 @@
-<% content_for :title do %>
+<% content_for :title do %> <!--collects title for banner-->
   <h1>Discover</h1>
 <% end %>
 <div class="padded_sides large_form text-center">
-  <form method="POST" class="main_form" action="/adventures/filtered">
-    <div class="row">
+  <form method="POST" class="main_form" action="/adventures/filtered">  <!--form for filter-->
+    <div class="row"> <!--filter inputs-->
       <div class="col">
         <div class="form-group">
           <select class="form-control"name="state_id" id="state_filter"> 
@@ -31,8 +31,8 @@
       </div>
     </div>
   </form>
-  <% if @filtered.nil? %>
-    <% @adventures.reverse.each do |a| %>
+  <% if @filtered.nil? %>   <!--checks if filtered or not-->
+    <% @adventures.reverse.each do |a| %> <!--displays all adventures with title, activites, and states-->
     <div class="row" style="padding-top: 20px;">
       <h2><a href="/adventures/<%=a.slug%>"><%=a.title%></a></h2>
     </div>
@@ -42,8 +42,8 @@
     </div>
     <% end %>
   <% else %>
-    <% @filtered.reverse.each do |a| %>
-      <h2><a href="<%=a.id%>"><%=a.title%></a></h2>
+    <% @filtered.reverse.each do |a| %> <!--displays only filtered adventures with title, activities, and states-->
+      <h2><a href="<%=a.slug%>"><%=a.title%></a></h2>
       <div class="row">
         <h4>States: <%=a.states.uniq.pluck(:name).join(", ")%></h4>
       </div>

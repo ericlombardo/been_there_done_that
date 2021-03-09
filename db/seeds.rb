@@ -62,27 +62,28 @@ admin = User.create(username: "eric", email: "eric@wander.com", password: "codin
 	adventure.transportation = Faker::Vehicle.make
 	adventure.food = foods.sample(rand(3..6)).join(', ')
 	adventure.private_notes = notes.sample
-	adventure.user_id = admin.id
-	
 
-	# saves adventures with all associations
-	adventure.save
-	# Create states and activities and link in AdventureStateActivity join table
-	states = State.all.sample(rand(1..3))
-	states.each.with_index(1) do |s, i| # loops through each one with index
-		activities = Activity.all.sample(rand(0..3))
-		activities.each do |a| # loops through each activity for that state
-			adventure.adventure_state_activities.create(state_id: s.id, activity_id: a.id) # creates instance for each using activity and adventure ids
+  if adventure.valid?
+		adventure.user_id = admin.id
+		adventure.save
+
+		states = State.all.sample(rand(1..3))
+		activities = Activity.all.sample(rand(1..3))
+		i = 0
+		states.count.times do
+			state = State.find_by(id: states[i].id) # assign it to state variable
+			activities = Activity.find(activities.pluck(:id))
+			activities.each do |a|  # loop through each activity
+				# assign each to adventure.adventure_state_activites with all three ids
+				adventure.adventure_state_activities.create(state_id: state.id, activity_id: a.id) # creates instance of adventure_state_activity if only a state is selected
+			end	
+			i += 1
 		end
 	end
 end	
 
 
-
-
-
-
-# Create User
+# Create Fake Users
 10.times do
 	user = User.new
   user.username = Faker::Name.unique.name
@@ -93,29 +94,35 @@ end
   # Create Adventures
   rand(1..4).times do
     adventure = Adventure.new
-    adventure.title = titles.sample
-    adventure.rating = Faker::Number.within(range: 1..10)
-    adventure.recommend = Faker::Boolean.boolean
-    adventure.start_date = Faker::Date.backward(days: 4000)
-    adventure.end_date = Faker::Date.between(from: adventure.start_date, to: Faker::Date.forward(days: 30))
-    adventure.miles_covered = Faker::Number.within(range: 50..3000)
+		adventure.title = titles.sample
+		adventure.rating = Faker::Number.within(range: 1..10)
+		adventure.recommend = Faker::Boolean.boolean
+		adventure.start_date = Faker::Date.backward(days: 4000)
+		adventure.end_date = Faker::Date.between(from: adventure.start_date, to: Faker::Date.forward(days: 30))
+		adventure.miles_covered = Faker::Number.within(range: 50..3000)
 		adventure.companions = companions.sample(rand(0..4)).join(', ')
-    adventure.highlight = memories.sample
-    adventure.weather = weather.sample
-    adventure.summary = summaries.sample
-    adventure.transportation = Faker::Vehicle.make
-    adventure.food = foods.sample(rand(3..6)).join(', ')
-    adventure.private_notes = notes.sample
-		adventure.user_id = user.id
+		adventure.highlight = memories.sample
+		adventure.weather = weather.sample
+		adventure.summary = summaries.sample
+		adventure.transportation = Faker::Vehicle.make
+		adventure.food = foods.sample(rand(3..6)).join(', ')
+		adventure.private_notes = notes.sample
 
-		# saves adventures with all associations
-		adventure.save
-		# Create states and activities and link in AdventureStateActivity join table
-		states = State.all.sample(rand(1..3))
-		states.each.with_index(1) do |s, i| # loops through each one with index
-			activities = Activity.all.sample(rand(0..3))
-			activities.each do |a| # loops through each activity for that state
-				adventure.adventure_state_activities.create(state_id: s.id, activity_id: a.id) # creates instance for each using activity and adventure ids
+		if adventure.valid?
+			adventure.user_id = user.id
+			adventure.save
+
+			states = State.all.sample(rand(1..3))
+			activities = Activity.all.sample(rand(1..3))
+			i = 0
+			states.count.times do
+				state = State.find_by(id: states[i].id) # assign it to state variable
+				activities = Activity.find(activities.pluck(:id))
+				activities.each do |a|  # loop through each activity
+					# assign each to adventure.adventure_state_activites with all three ids
+					adventure.adventure_state_activities.create(state_id: state.id, activity_id: a.id) # creates instance of adventure_state_activity if only a state is selected
+				end	
+				i += 1
 			end
 		end
   end
