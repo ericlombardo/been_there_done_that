@@ -11,7 +11,7 @@
         <% @adventure_log.each do |adventure| %>  <!--loops through adventure log-->
           <h2><%= adventure[:state].name %></h2>  <!--posts state name-->
           <% adventure[:activities].each do |activity| %> <!--loops through activities-->
-            <h5><%= activity.name || activity %></h5> <!--posts activity name-->
+            <h5><%= activity.name %></h5> <!--posts activity name-->
           <% end %>
         <% end %>
       </div>
@@ -24,7 +24,7 @@
   </div>
 
   <% if adventure_creator?(@adventure)  %>
-    <div class="row main_form padding_sides">   <!--shows edit and delete button if user's adventure-->
+    <div class="row main_form padding_sides">   <!--shows edit and delete button if user's adventures-->
       <div class="col">
         <a href="/adventures/<%=@adventure.slug %>/edit"><button class="btn button_colors">Edit Adventure</button></a>
       </div>

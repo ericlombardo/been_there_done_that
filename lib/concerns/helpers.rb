@@ -89,7 +89,7 @@ module Helpers
         # find activities that belong to both that adventure and state, collect array of each activity_id
         activity_ids = AdventureStateActivity.where(adventure_id: @adventure.id, state_id: state.id).pluck(:activity_id)
         if activity_ids.any? {|a| a.nil?}  # check if returned array includes nil (no activities)
-          @adventure_log[i] = {state: state, activities: ["no activities tracked"]}
+          @adventure_log[i] = {state: state, activities: []}
         else
           activity_array = Activity.find(activity_ids)  # get array of activity instances
           @adventure_log[i] = {state: state, activities: activity_array} # create hash item in log with state and activities
